@@ -1,0 +1,40 @@
+<div class="list-wrapper">
+  <div class="search-container">
+    <h1 class="title">Vitality Member</h1>
+
+    <div class="actions">
+      <div class="action-item" (click)="add()">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Promo
+      </div>
+      <div class="action-item" (click)="resetFilters(dt)">
+        <i class="fa fa-filter" aria-hidden="true"></i> Reset Filter
+      </div>
+      <div class="action-item" (click)="refresh(dt)">
+        <i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+      </div>
+    </div>
+  </div>
+
+  <div class="data-container">
+    <p-dataTable [value]="(members$ | async)" #dt
+      [rows]="45" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[25,45,90]" 
+      [resizableColumns]="true" [rowHover]="true" [responsive]="true"
+      (onRowClick)="gotoDetail($event.data)"
+    >
+      <p-column field="id" header="ID" sortable="true" [filter]="true" filterMaxlength="8" [style]="{'width':'8%'}"></p-column>
+      <p-column field="customerRole" header="Role" sortable="true" [filter]="true" [style]="{'width':'10%'}"></p-column>
+      <p-column field="lastName" header="Last Name" sortable="true" [filter]="true"></p-column>
+      <p-column field="firstName" header="First/Middle" sortable="true" [filter]="true"></p-column>
+      <p-column field="gender" header="Gender" sortable="true" [filter]="true" [style]="{'width':'8%'}"></p-column>
+      <p-column field="dob" header="Date of Birth" sortable="true" [filter]="true" [style]="{'width':'10%'}"></p-column>
+      <p-column field="email" header="Email" sortable="true">
+        <ng-template let-col let-member="rowData" pTemplate="body">
+          <div [ngSwitch]="member.email">
+            <span *ngSwitchCase="''" class="email-required">** required **</span>
+            <span *ngSwitchDefault >{{member[col.field]}}</span>
+          </div>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </div>
+</div>

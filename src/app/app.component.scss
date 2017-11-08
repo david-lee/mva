@@ -1,0 +1,32 @@
+.backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1041;
+  background-color: #000;  
+  opacity: 0.2;
+
+  &.on {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  i {
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    color: white;
+  }
+
+  &.spinner {
+    i {
+      display: block;
+    }
+  }
+}

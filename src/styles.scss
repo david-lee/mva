@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'robotoregular';
+  src: url('assets/fonts/roboto/roboto_regular/Roboto-Regular-webfont.eot');
+  src: url('assets/fonts/roboto/roboto_regular/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/roboto/roboto_regular/Roboto-Regular-webfont.woff') format('woff'),
+    url('assets/fonts/roboto/roboto_regular/Roboto-Regular-webfont.ttf') format('truetype'),
+    url('assets/fonts/roboto/roboto_regular/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* { margin:0; padding:0;}
+
+html, body { 
+  height: 100%; 
+}
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ui-datatable {
+  height: 100vh;
+
+  .ui-datatable-thead th {
+    color: white;
+    background-color: #08755c;
+  }  
+
+  tbody > tr.ui-widget-content.ui-datatable-odd {
+    background-color: #f6fbf3;
+  }
+
+  th.ui-sortable-column:not(.ui-state-active):hover {
+    background-color: #0c5a49;
+    color: white;
+  }
+}

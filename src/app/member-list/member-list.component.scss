@@ -1,0 +1,38 @@
+.list-wrapper {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.search-container {
+  position: relative;
+  display: table;
+  margin: 20px 0;
+  width: 100%;
+
+  .title {
+    float: left;
+  }
+
+  .actions {
+    position: relative;
+    top: 10px;
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+    
+    .action-item {
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
+}
+
+.data-container {
+  display: table;
+
+  .email-required {
+    color: red;
+  }
+}
+
+
