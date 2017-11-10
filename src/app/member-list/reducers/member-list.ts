@@ -1,15 +1,17 @@
 import * as MemberListAction from '../actions/member-list';
 import { Member } from '../models/member';
 import * as _ from 'lodash';
+import * as moment from 'moment';
+import { environment } from '../../../environments/environment';
 
 export interface State {
   memberList: Member[];
-  selectedMemberId: number;
+  selectedMember: Member | null;
 }
 
 const initialState: State = {
   memberList: [],
-  selectedMemberId: 0,
+  selectedMember: null,
 };
 
 export function reducer(state = initialState, action: MemberListAction.Actions): State {
@@ -22,17 +24,16 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
     }
 
     case MemberListAction.LOAD_SUCCESS: {
-      let members = action.payload;
-      // TODO if api returns with null or undefined then change to empty string
-      // _.map(action.payload, (member) => {
-      //   !member.email && (member.email = "");
-
-      //   return member;
-      // });
+      // TODO data should be formatted on the server side
+      _.forEach(action.payload, (member) => {
+        !member.email && (member.email = environment.emptyEmailString);
+        member.gender = member.gender == 'M' ? 'Male' : 'Female';
+        member.dob = moment(member.dob, 'MM/DD/YYYY').format('DD/MMM/YYYY');
+      });
 
       return {
         ...state,
-        memberList: [...members]
+        memberList: [...action.payload],
       };
     }
 

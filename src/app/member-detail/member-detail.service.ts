@@ -12,14 +12,15 @@ export class MemberDetailService {
 
   api = environment.endPoints;
 
-  member = {
+  memberDetail = {
     id: "10000001",
     customerRole: "24-Insured",
-    lastName: "Lee",
-    firstName: "David",
-    gender: "Male",
-    dob: "6/12/1971",
-    email: "david_f_lee@manulife.com",
+    lastName: 'Kunkel',
+    firstName: 'James',
+    middleName: 'Pau.',
+    gender: "M",
+    dob: "3/12/1985",
+    email: "JamesKunkel@gmail.com",
     lastUpdateDate: '',
     lastUpdateUser: 'Admin',
     membershipStatus: '1-Active',
@@ -42,11 +43,24 @@ export class MemberDetailService {
     accountStrategy: '',
     altMemberId: '1234567001',
     sourceSystem: 'TestLocal',
+    accountList: [{
+      accountNumber: '1666100001',
+      product: '208',
+      plan: '208',
+      amount: '555000',
+      effective: '1/Jan/2016',
+      terminated: '15/Jan/2016'
+    }],
+    biometricsList: [{
+      assessed: '15/Dec/2015',
+      sent: '3/Mar/2016'
+    }]
   };
   constructor(public http: HttpClient) { }
 
-  loadMember(): Observable<{data: MemberDetail}> {
-    return of({data: this.member});
+  loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
+    console.log('member detail for ', memberId);
+    return of({data: this.memberDetail});
     // return this.http.get<Member[]>(this.api.memberList);
   }
 }

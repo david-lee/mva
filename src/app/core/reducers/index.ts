@@ -5,10 +5,12 @@ import { environment } from '../../../environments/environment';
 import { RouterStateUrl } from '../custom-router-state-serializer';
 import * as fromBackdrop from './backdrop';
 import * as fromMember from '../../member-list/reducers/member-list';
+import * as fromMemberDetail from '../../member-detail/reducers/member-detail';
 
 // Root level state
 export interface State {
   members: fromMember.State;
+  memberDetail: fromMemberDetail.State;
   backdrop: fromBackdrop.State;
   // navbar: fromNavbar.State;
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
@@ -16,6 +18,7 @@ export interface State {
 
 export const reducers: ActionReducerMap<State> = {
   members: fromMember.reducer,
+  memberDetail: fromMemberDetail.reducer,
   backdrop: fromBackdrop.reducer,
   routerReducer: fromRouter.routerReducer
 };
@@ -39,6 +42,7 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
 // export const getUserState = createFeatureSelector<fromAuth.State>('user');
 export const getBackdropState = createFeatureSelector<fromBackdrop.State>('backdrop');
 export const getMemberState = createFeatureSelector<fromMember.State>('members');
+export const getMemberDetailState = createFeatureSelector<fromMemberDetail.State>('memberDetail');
 
 export const getShowBackdrop = createSelector(
   getBackdropState,
@@ -53,4 +57,9 @@ export const getShowSpinner = createSelector(
 export const getMemberList = createSelector(
   getMemberState,
   fromMember.getMemberList
+);
+
+export const getMemberDetail = createSelector(
+  getMemberDetailState,
+  fromMemberDetail.getMemberDetail
 );

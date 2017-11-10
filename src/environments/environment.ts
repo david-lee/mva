@@ -7,7 +7,7 @@ const apiBase = 'http://localhost:3000';
 
 export const environment = {
   production: false,
-  
+  emptyEmailString: '** required **',
   endPoints: {
     memberList: `${apiBase}/member/list`
   }

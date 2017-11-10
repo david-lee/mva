@@ -1,6 +1,6 @@
 .list-wrapper {
   margin: 0 auto;
-  width: 90%;
+  width: 85%;
 }
 
 .search-container {
@@ -30,8 +30,13 @@
 .data-container {
   display: table;
 
-  .email-required {
+  .email-filter {
+    cursor: pointer;
+  }
+
+  .email-required, .invalid-email {
     color: red;
+    width: 100%;
   }
 }
 

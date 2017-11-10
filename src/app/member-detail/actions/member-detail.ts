@@ -3,17 +3,22 @@ import { MemberDetail } from '../models/member-detail';
 
 export const LOAD = '[MemberDetail] Load';
 export const LOAD_SUCCESS = '[MemberDetail] Load Success';
+export const LOAD_AUDIT_LOG = '[MemberDetail] Load Audit Log';
+export const LOAD_AUDIT_LOG_SUCCESS = '[MemberDetail] Load Audit Log Success';
+
 export const UPDATE = '[MemberDetail] Update';
 export const UPDATE_SUCCESS = '[MemberDetail] Update Success';
 
 export class Load implements Action {
   readonly type = LOAD;
+
+  constructor(public memberId: string) {}
 }
 
 export class LoadSuccess implements Action {
   readonly type = LOAD_SUCCESS;
 
-  constructor(public payload: MemberDetail[]) {}
+  constructor(public payload: MemberDetail) {}
 }
 
 export class Update implements Action {

@@ -14,23 +14,24 @@ import { MemberDetailService } from '../member-detail.service';
 import * as MemberDetailAction from '../actions/member-detail';
 
 @Injectable()
-export class MemberListEffects {
+export class MemberDetailEffects {
 
   @Effect()
   load$ = this.actions$
     .ofType(MemberDetailAction.LOAD)
-    .switchMap(() =>
-      this.memberService
-        .loadMember()
-        .map((member: any) => {
-          return new MemberDetailAction.LoadSuccess(member.data);
+    .map((action: any) => action.payload)
+    .switchMap((memberId) =>
+      this.memberDetailService
+        .loadMemberDetail(memberId)
+        .map((memberDetail: any) => {
+          return new MemberDetailAction.LoadSuccess(memberDetail.data);
         })
         .catch(error => { throw error; })
     ); 
 
   constructor(
     private actions$: Actions,
-    private memberService: MemberDetailService,
+    private memberDetailService: MemberDetailService,
     private router: Router
   ) {}
 }

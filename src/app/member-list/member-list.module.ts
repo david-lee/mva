@@ -19,9 +19,7 @@ import { MemberListService } from './member-list.service';
 
     EffectsModule.forFeature([MemberListEffects])
   ],
-  declarations: [MemberListComponent],
-  providers: [
-    MemberListService
-  ]
+  declarations: [ MemberListComponent ],
+  providers: [ MemberListService ]
 })
 export class MemberListModule { }

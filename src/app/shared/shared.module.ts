@@ -5,7 +5,8 @@ import {
   DataTableModule, SharedModule, 
   ButtonModule, EditorModule,
   RadioButtonModule, Message,
-  CalendarModule
+  CalendarModule, CheckboxModule,
+  GrowlModule
 } from 'primeng/primeng';
 
 @NgModule({
@@ -19,7 +20,9 @@ import {
     EditorModule,
     SharedModule,
     RadioButtonModule,
-    CalendarModule    
+    CheckboxModule,
+    CalendarModule,
+    GrowlModule
   ],
   declarations: []
 })

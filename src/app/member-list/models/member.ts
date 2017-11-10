@@ -7,4 +7,5 @@ export interface Member {
   gender: string;
   dob: string;
   customerRole: string;
+  invalidEmail?: boolean;
 }
