@@ -12,7 +12,7 @@ export const UPDATE_SUCCESS = '[MemberDetail] Update Success';
 export class Load implements Action {
   readonly type = LOAD;
 
-  constructor(public memberId: string) {}
+  constructor(public payload: string) {}
 }
 
 export class LoadSuccess implements Action {
