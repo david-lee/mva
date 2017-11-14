@@ -9,6 +9,8 @@ import { MVASharedModule } from '../shared/shared.module';
 import { MemberDetailRoutingModule } from './member-detail-routing.module';
 import { MemberDetailComponent } from './member-detail.component';
 import { MemberDetailService } from './member-detail.service';
+import { AccountComponent } from './account/account.component';
+import { BiometricsComponent } from './biometrics/biometrics.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,7 @@ import { MemberDetailService } from './member-detail.service';
     
     EffectsModule.forFeature([MemberDetailEffects])    
   ],
-  declarations: [ MemberDetailComponent ],
+  declarations: [ MemberDetailComponent, AccountComponent, BiometricsComponent ],
   providers: [ MemberDetailService ]
 })
 export class MemberDetailModule { }

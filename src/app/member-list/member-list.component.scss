@@ -1,9 +1,10 @@
-.list-wrapper {
+:host {
+  display: block;
   margin: 0 auto;
   width: 85%;
 }
 
-.search-container {
+.title-container {
   position: relative;
   display: table;
   margin: 20px 0;

@@ -26,11 +26,13 @@ body {
 }
 
 .ui-datatable {
-  height: 100vh;
+  &.member-list {
+    height: 100vh;
+  }
 
   .ui-datatable-thead th {
-    color: white;
-    background-color: #08755c;
+    // color: white;
+    // background-color: #08755c;
   }  
 
   tbody > tr.ui-widget-content.ui-datatable-odd {
@@ -38,8 +40,8 @@ body {
   }
 
   th.ui-sortable-column:not(.ui-state-active):hover {
-    background-color: #0c5a49;
-    color: white;
+    // background-color: #0c5a49;
+    // color: white;
   }
 
   .email-filter {
@@ -48,8 +50,24 @@ body {
     }  
   }
 
-  // .ui-datatable-data>tr>td.ui-editable-column.email-col
-  //  {
-  //   padding: 0 !important;
-  // }
+  .ui-datatable-data > tr > td {
+    padding: 10px 10px;
+    // border-style: none;
+    word-wrap: break-word;
+  } 
 }
+
+.ui-panel {
+  margin-bottom: 10px;
+  
+  .ui-panel-content {
+    padding: 1.5em 1em;
+  }
+}
+
+.ui-fieldset {
+  .ui-fieldset-legend {
+    background-color: green;
+    color: white;
+  }
+} 

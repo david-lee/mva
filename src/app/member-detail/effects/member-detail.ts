@@ -1,6 +1,4 @@
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { Injectable } from '@angular/core';
@@ -23,7 +21,7 @@ export class MemberDetailEffects {
       this.memberDetailService
         .loadMemberDetail(memberId)
         .map((memberDetail: any) => {
-          memberDetail.data.id = memberId;
+          memberDetail.data.memberInfo.id = memberId;
           return new MemberDetailAction.LoadSuccess(memberDetail.data);
         })
         .catch(error => { throw error; })

@@ -6,7 +6,7 @@ import {
   ButtonModule, EditorModule,
   RadioButtonModule, Message,
   CalendarModule, CheckboxModule,
-  GrowlModule
+  GrowlModule, PanelModule, FieldsetModule
 } from 'primeng/primeng';
 
 @NgModule({
@@ -22,7 +22,9 @@ import {
     RadioButtonModule,
     CheckboxModule,
     CalendarModule,
-    GrowlModule
+    GrowlModule,
+    PanelModule,
+    FieldsetModule
   ],
   declarations: []
 })

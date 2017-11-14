@@ -1,168 +1,137 @@
-<h1>{{firstName}}</h1>
+<div class="title-container">
+  <h1 class="title">{{member[0].firstName}}</h1>
+    
+  <div class="actions">
+    <div class="action-item" (click)="viewAuditLog()">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> View Audit Log
+    </div>
+    <div class="action-item" (click)="gotoMemberList()">
+      <i class="fa fa-refresh" aria-hidden="true"></i> Back
+    </div>
+  </div>
+</div>
 
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">Member Id</div>
-    <div class="field-value">{{memberId}}</div>
+<p-panel [toggleable]="true">
+  <p-header>
+    <div class="ui-helper-clearfix section-header">
+      <span class="ui-panel-title">Member Info</span> 
+    </div>
+  </p-header>   
+  <div class="ui-g">
+    <div class="ui-g-6">
+      <p-dataTable [value]="member" [editable]="true">
+        <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
+        <p-column field="lastName" header="Last Name" [editable]="true"></p-column>    
+        <p-column field="firstName" header="First Name" [editable]="true"></p-column>
+        <p-column field="middleName" header="Middle Name" [editable]="true"></p-column>
+        <p-column field="dob" header="Date of Birth" [style]="{'width':'15%'}" [editable]="true"></p-column>
+      </p-dataTable>
+    </div>
+    <div class="ui-g-6">
+      <p-dataTable [value]="member" [editable]="true">
+        <p-column field="lastUpdateDate" header="Last Updated On"></p-column>
+        <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
+        <p-column field="membershipStatus" header="Membership Status" [editable]="true"></p-column>
+        <p-column field="membershipEffdate" header="As of Date"></p-column>
+      </p-dataTable>  
+    </div>
   </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">Source</div>
-    <div class="field-value">{{source}}</div>
+
+  <div class="ui-g">
+    <div class="ui-g-6">
+      <p-dataTable [value]="member" [editable]="true">
+        <p-column field="gender" header="Gender" [editable]="true" [style]="{'width':'10%'}" ></p-column>
+        <p-column field="sin" header="SIN" [editable]="true"></p-column>
+        <p-column field="language" header="Language" [editable]="true"></p-column>
+        <p-column field="email" header="Email" [editable]="true" [style]="{'width':'50%'}"></p-column>            
+      </p-dataTable>
+    </div>
+    <div class="ui-g-6">
+      <p-dataTable [value]="member">
+        <p-column field="employerBranchId" header="Reward Level"></p-column>
+        <p-column field="vitalityEffdate" header="Coverage Effective"></p-column>
+        <p-column field="vitalityTermdate" header="Terminated On"></p-column>
+        <p-column field="role" header="Customer Role" [style]="{'width':'18%'}"></p-column>
+        <p-column field="establishedOnC360" header="On C360" [style]="{'width':'15%'}"></p-column>
+      </p-dataTable>  
+    </div>
+  </div>  
+
+  <div class="ui-g">
+    <div class="ui-g-6 address">
+      <p-dataTable [value]="member" [editable]="true">
+        <p-column header="Address">
+          <ng-template pTemplate="body" let-member="rowData">
+            <span>{{member.address1}} {{member.address2}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="city" header="City" [editable]="true" [style]="{'width':'20%'}"></p-column>
+        <p-column field="province" header="Province" [editable]="true" [style]="{'width':'10%'}"></p-column>
+        <p-column field="country" header="Country" [editable]="true" [style]="{'width':'10%'}"></p-column>
+        <p-column field="postalCode" header="Postal Code" [editable]="true" [style]="{'width':'15%'}"></p-column>
+      </p-dataTable> 
+    </div>
+    <div class="ui-g-6">
+      <p-fieldset legend="Vitality Settings">
+        <p-dataTable [value]="member">
+          <p-column field="employerExternalId" header="Employer External Id"></p-column>
+          <p-column field="relationshipCode" header="Relationship Code"></p-column>    
+          <p-column field="vitalityProdcode" header="Vitality Product Code"></p-column>
+          <p-column field="vitalityProdcodeEffdate" header="Effective Date"></p-column>
+        </p-dataTable>
+      </p-fieldset>
+    </div>
   </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">And Alt. ID</div>
-    <div class="field-value">{{alternativeId}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Last Updated On</div>
-    <div class="field-value">{{lastUpdateDate}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Updated by</div>
-    <div class="field-value">{{lastUpdateUser}}</div>
-  </div> 
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">Last Name</div>
-    <div class="field-value">{{lastName}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">First Name</div>
-    <div class="field-value">{{firstName}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">Middle Name</div>
-    <div class="field-value">{{middleName}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Member Status</div>
-    <div class="field-value">{{membershipStatus}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">As of Date</div>
-    <div class="field-value">{{membershipEffDate}}</div>
-  </div>
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">Birth Date</div>
-    <div class="field-value">{{dob}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">Gender</div>
-    <div class="field-value">{{gender}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">SIN</div>
-    <div class="field-value">{{SIN}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Reward Level</div>
-    <div class="field-value">???</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name"></div>
-  </div>
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">Address</div>
-    <div class="field-value">{{address1}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Coverage Effective</div>
-    <div class="field-value">???</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Terminated On</div>
-    <div class="field-value">???</div>
-  </div>
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-    <div class="field-value">{{address2}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Customer Role</div>
-    <div class="field-value">{{role}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">on C360</div>
-    <div class="field-value">???</div>
-  </div>
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">City</div>
-    <div class="field-value">{{city}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">Province</div>
-    <div class="field-value">{{province}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Vitality Settings</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name"> </div>
-  </div>
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">Country</div>
-    <div class="field-value">{{country}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">Postal Code</div>
-    <div class="field-value">{{postalCode}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Employer External Id</div>
-    <div class="field-value">{{employerExternalId}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Relationship Code</div>
-    <div class="field-value">{{relationshipCode}}</div>
-  </div>
-</div>
-<div class="ui-g">
-  <div class="ui-g-2 item">
-    <div class="field-name">Language</div>
-    <div class="field-value">{{language}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name">Email</div>
-    <div class="field-value">{{email}}</div>
-  </div>
-  <div class="ui-g-2 item">
-    <div class="field-name"></div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Vitality Product Code</div>
-    <div class="field-value">{{vitalityProdcode}}</div>
-  </div>
-  <div class="ui-g-3 item">
-    <div class="field-name">Effective Date</div>
-    <div class="field-value">{{vitalityProdcodeEffDate}}</div>
-  </div>
-</div>
+</p-panel>
+
+<p-panel [toggleable]="true">
+  <p-header>
+    <div class="ui-helper-clearfix section-header">
+      <span class="ui-panel-title">Accounts</span> 
+    </div>
+  </p-header>  
+  <p-dataTable [value]="accounts">
+    <p-column field="accountNumber" header="Account #" [style]="{'width':'10%'}"></p-column>
+    <p-column field="product" header="Product"></p-column>
+    <p-column field="plan" header="Plan"></p-column>
+    <p-column field="status" header="Status" [style]="{'width':'5%'}"></p-column>
+    <p-column field="amount" header="Amount"></p-column>
+    <p-column field="effectiveDate" header="Effective" ></p-column>
+    <p-column field="terminationDate" header="Terminated" [style]="{'width':'15%'}"></p-column>
+    <p-column field="lastUpdateDate" header="Last Updated On" [style]="{'width':'15%'}"></p-column>
+    <p-column field="lastUpdateUser" header="Last Updated By" [style]="{'width':'15%'}"></p-column>
+  </p-dataTable>
+</p-panel>
+
+<p-panel [toggleable]="true">
+  <p-header>
+    <div class="ui-helper-clearfix section-header">
+      <span class="ui-panel-title">Biometrics</span>        
+      <button pButton type="button" icon="fa-plus" label="Add"></button>
+    </div>
+  </p-header>  
+  <p-dataTable [value]="biometrics" expandableRows="true" #bioDT
+    (onRowClick)="expandBio($event.data)"
+  >
+    <p-column expander="true" styleClass="col-icon" [style]="{'width':'3%'}"></p-column>
+    <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
+    <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}"></p-column>
+    <p-column field="sentToTvg" header="Sent To TVG On"></p-column>
+    <p-column field="lastUpdateUser" header="Last Update By"></p-column>
+    <p-column field="lastUpdateDate" header="Last Update On"></p-column>
+    <p-column field="tc" header="Total Cholesterol"></p-column>
+    <p-column field="glu" header="Glucose"></p-column>
+    <p-column field="ht" header="Height"></p-column>
+    <p-column field="wght" header="Weight"></p-column>
+    <ng-template let-bio pTemplate="rowexpansion">
+      <p-dataTable [value]="[bio]" class="expand-table">
+        <p-column field="hdl" header="HDL Cholesterol"></p-column>
+        <p-column field="ldl" header="LDL Cholesterol"></p-column>
+        <p-column field="tcHdlRatio" header="TC/HDL Ratio"></p-column>
+        <p-column field="bps" header="Systolic BP"></p-column>
+        <p-column field="bpd" header="Diastolic BP"></p-column>
+        <p-column field="continineResult" header="Continine Result"></p-column>
+      </p-dataTable>
+    </ng-template>
+  </p-dataTable>
+</p-panel>

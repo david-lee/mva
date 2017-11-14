@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { Member } from './models/member';
 import * as MemberListAction from './actions/member-list';
@@ -19,22 +20,28 @@ export class MemberListComponent implements OnInit {
 
   @ViewChild('dt') dataTable;
 
-  members$: Observable<Member[]>;
+  members: Member[];
   emailFilterChecked = true;
-
   emailClicked = false;
-
   emailErrorMessage: Message[] = [];
+  subscription: ISubscription;
 
   constructor(public store: Store<fromRoot.State>, public router: Router) { }
 
   ngOnInit() {
-    this.members$ = this.store.select(fromRoot.getMemberList);
+    this.subscription = this.store.select(fromRoot.getMemberList)
+      .subscribe((members) => {
+        this.members = members;
+        // by default filter members who have an empty email
+        this.emailFilterChecked = true;
+        setTimeout(() => this.filterEmail(), 0);
+      });
+
     this.store.dispatch(new MemberListAction.Load());
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => this.filterEmail(), 0);
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   add() {
@@ -52,6 +59,7 @@ export class MemberListComponent implements OnInit {
   }
 
   gotoDetail(event) {
+    // because rowClick event is triggered on email column
     if (!this.emailClicked) {
       let member: Member = event.data;
 
