@@ -50,10 +50,12 @@ body {
     }  
   }
 
-  .ui-datatable-data > tr > td {
-    padding: 10px 10px;
-    // border-style: none;
-    word-wrap: break-word;
+  .ui-datatable-data > tr {
+    > td, > td.ui-editable-column {
+      padding: 10px 5px;
+      // border-style: none;
+      word-wrap: break-word;
+    }
   } 
 }
 
@@ -71,3 +73,7 @@ body {
     color: white;
   }
 } 
+
+.ui-datepicker {
+  width: 20%;
+}

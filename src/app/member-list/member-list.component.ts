@@ -101,7 +101,7 @@ export class MemberListComponent implements OnInit {
       });
     } else {
       // TODO dispatch update action
-      member.invalidEmail = false;   
+      member.invalidEmail = false;
     }
   }
 

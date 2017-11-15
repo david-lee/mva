@@ -7,3 +7,7 @@ export interface MemberDetail {
   accounts: Account[];
   biometrics: Biometrics[];
 }
+
+export { Account } from './accounts';
+export { Biometrics } from './biometrics';
+export { MemberInfo } from './member-info';

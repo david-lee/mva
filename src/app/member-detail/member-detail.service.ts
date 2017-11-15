@@ -15,12 +15,12 @@ export class MemberDetailService {
   memberDetail = {
     memberInfo: {
       id: "10000001",
-      customerRole: "24-Insured",
+      customerRole: "24-Promo",
       lastName: 'Kunkel',
       firstName: 'James',
       middleName: 'Paul',
       gender: "Male",
-      dob: "3/12/1985",
+      dob: "3/Dec/1985",
       email: "JamesKunkel@gmail.com",
       role: '24-Insred',
       lastUpdateDate: '',

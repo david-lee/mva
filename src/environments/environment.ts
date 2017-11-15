@@ -10,5 +10,11 @@ export const environment = {
   emptyEmailString: '** required **',
   endPoints: {
     memberList: `${apiBase}/member/list`
+  },
+  lookups: {
+    genders: [
+      {label: 'Male', value: 'Male'},
+      {label: 'Female', value: 'Female'}
+    ]
   }
 };

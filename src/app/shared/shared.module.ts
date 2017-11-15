@@ -5,7 +5,7 @@ import {
   DataTableModule, SharedModule, 
   ButtonModule, EditorModule,
   RadioButtonModule, Message,
-  CalendarModule, CheckboxModule,
+  CalendarModule, CheckboxModule, DropdownModule,
   GrowlModule, PanelModule, FieldsetModule
 } from 'primeng/primeng';
 
@@ -24,7 +24,8 @@ import {
     CalendarModule,
     GrowlModule,
     PanelModule,
-    FieldsetModule
+    FieldsetModule,
+    DropdownModule
   ],
   declarations: []
 })

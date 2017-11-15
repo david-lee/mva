@@ -1,8 +1,16 @@
 :host {
   display: block;
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
   height: 100vh;
+
+  .no-padding-left {
+    padding-left: 0;
+  }
+
+  .no-padding-right {
+    padding-right: 0;
+  }
 
   .title-container {
     position: relative;

@@ -3,10 +3,10 @@
     
   <div class="actions">
     <div class="action-item" (click)="viewAuditLog()">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i> View Audit Log
+      <i class="fa fa-history" aria-hidden="true"></i> View Audit Log
     </div>
     <div class="action-item" (click)="gotoMemberList()">
-      <i class="fa fa-refresh" aria-hidden="true"></i> Back
+      <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back to Member List
     </div>
   </div>
 </div>
@@ -18,16 +18,26 @@
     </div>
   </p-header>   
   <div class="ui-g">
-    <div class="ui-g-6">
-      <p-dataTable [value]="member" [editable]="true">
+    <div class="ui-g-6 no-padding-left">
+      <p-dataTable [value]="member" [editable]="true"
+        (onEditComplete)="updateMember($event)"
+      >
         <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
         <p-column field="lastName" header="Last Name" [editable]="true"></p-column>    
         <p-column field="firstName" header="First Name" [editable]="true"></p-column>
         <p-column field="middleName" header="Middle Name" [editable]="true"></p-column>
-        <p-column field="dob" header="Date of Birth" [style]="{'width':'15%'}" [editable]="true"></p-column>
+        <p-column field="dob" header="Date of Birth" [style]="{'width':'25%'}" [editable]="true">
+          <ng-template let-col let-member="rowData" pTemplate="editor">
+            <p-calendar [(ngModel)]="member.dob" 
+              (onSelect)="selectDOB($event)"
+              [monthNavigator]="true" [yearNavigator]="true" 
+              yearRange="1930:2030" dateFormat="dd/M/yy" appendTo="body">
+            </p-calendar>
+          </ng-template> 
+        </p-column>
       </p-dataTable>
     </div>
-    <div class="ui-g-6">
+    <div class="ui-g-6 no-padding-right">
       <p-dataTable [value]="member" [editable]="true">
         <p-column field="lastUpdateDate" header="Last Updated On"></p-column>
         <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
@@ -38,15 +48,24 @@
   </div>
 
   <div class="ui-g">
-    <div class="ui-g-6">
-      <p-dataTable [value]="member" [editable]="true">
-        <p-column field="gender" header="Gender" [editable]="true" [style]="{'width':'10%'}" ></p-column>
+    <div class="ui-g-6 no-padding-left">
+      <p-dataTable [value]="member" [editable]="true"
+        (onEditComplete)="updateMember($event)"
+      >
+        <p-column field="gender" header="Gender" [editable]="true" [style]="{'width':'15%'}" >
+          <ng-template let-col let-member="rowData" pTemplate="editor">
+            <p-dropdown [(ngModel)]="member[col.field]" 
+              (onChange)="updateMember($event, col)"
+              [options]="genders" [style]="{'width':'100%'}">
+            </p-dropdown>
+          </ng-template>          
+        </p-column>
         <p-column field="sin" header="SIN" [editable]="true"></p-column>
         <p-column field="language" header="Language" [editable]="true"></p-column>
         <p-column field="email" header="Email" [editable]="true" [style]="{'width':'50%'}"></p-column>            
       </p-dataTable>
     </div>
-    <div class="ui-g-6">
+    <div class="ui-g-6 no-padding-right">
       <p-dataTable [value]="member">
         <p-column field="employerBranchId" header="Reward Level"></p-column>
         <p-column field="vitalityEffdate" header="Coverage Effective"></p-column>
@@ -58,26 +77,25 @@
   </div>  
 
   <div class="ui-g">
-    <div class="ui-g-6 address">
-      <p-dataTable [value]="member" [editable]="true">
-        <p-column header="Address">
-          <ng-template pTemplate="body" let-member="rowData">
-            <span>{{member.address1}} {{member.address2}}</span>
-          </ng-template>
-        </p-column>
+    <div class="ui-g-6 address no-padding-left">
+      <p-dataTable [value]="member" [editable]="true"
+        (onEditComplete)="updateMember($event)"
+      >
+        <p-column field="address1" header="Address 1" [editable]="true"></p-column>
+        <p-column field="address2" header="Address 2" [editable]="true" [style]="{'width':'15%'}"></p-column>
         <p-column field="city" header="City" [editable]="true" [style]="{'width':'20%'}"></p-column>
         <p-column field="province" header="Province" [editable]="true" [style]="{'width':'10%'}"></p-column>
-        <p-column field="country" header="Country" [editable]="true" [style]="{'width':'10%'}"></p-column>
+        <p-column field="country" header="Country" [style]="{'width':'10%'}"></p-column>
         <p-column field="postalCode" header="Postal Code" [editable]="true" [style]="{'width':'15%'}"></p-column>
       </p-dataTable> 
     </div>
-    <div class="ui-g-6">
+    <div class="ui-g-6 no-padding-right">
       <p-fieldset legend="Vitality Settings">
         <p-dataTable [value]="member">
           <p-column field="employerExternalId" header="Employer External Id"></p-column>
-          <p-column field="relationshipCode" header="Relationship Code"></p-column>    
-          <p-column field="vitalityProdcode" header="Vitality Product Code"></p-column>
-          <p-column field="vitalityProdcodeEffdate" header="Effective Date"></p-column>
+          <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
+          <p-column field="vitalityProdcode" header="Vitality Product Code" [style]="{'width':'23%'}"></p-column>
+          <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'15%'}"></p-column>
         </p-dataTable>
       </p-fieldset>
     </div>
@@ -107,12 +125,10 @@
   <p-header>
     <div class="ui-helper-clearfix section-header">
       <span class="ui-panel-title">Biometrics</span>        
-      <button pButton type="button" icon="fa-plus" label="Add"></button>
+      <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add"></button>
     </div>
   </p-header>  
-  <p-dataTable [value]="biometrics" expandableRows="true" #bioDT
-    (onRowClick)="expandBio($event.data)"
-  >
+  <p-dataTable [value]="biometrics" expandableRows="true" #bioDT>
     <p-column expander="true" styleClass="col-icon" [style]="{'width':'3%'}"></p-column>
     <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
     <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}"></p-column>
