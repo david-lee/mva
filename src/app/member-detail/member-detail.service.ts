@@ -15,18 +15,17 @@ export class MemberDetailService {
   memberDetail = {
     memberInfo: {
       id: "10000001",
-      customerRole: "24-Promo",
+      customerRole: "98-Promo", 
       lastName: 'Kunkel',
       firstName: 'James',
       middleName: 'Paul',
       gender: "Male",
       dob: "3/Dec/1985",
       email: "JamesKunkel@gmail.com",
-      role: '24-Insred',
       lastUpdateDate: '',
       lastUpdateUser: 'Admin',
       membershipStatus: '1-Active',
-      membershipEffdate: '',
+      membershipEffdate: '10/Dec/2015',
       address1: '4 Woolenscote Circle',
       address2: 'PO Box 12345',
       city: 'Etobicoke',
@@ -39,7 +38,7 @@ export class MemberDetailService {
       employerBranchId: '',
       relationshipCode: 'PP',
       sin: '123 456 789',
-      vitalityEffdate: '',
+      vitalityEffdate: '11/Dec/2015',
       vitalityTermdate: '',
       language: 'English',
       accountStrategy: '',
@@ -91,7 +90,6 @@ export class MemberDetailService {
   constructor(public http: HttpClient) { }
 
   loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
-    console.log('member detail for ', memberId);
     return of({data: this.memberDetail});
     // return this.http.get<Member[]>(this.api.memberList);
   }

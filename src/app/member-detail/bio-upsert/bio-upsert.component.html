@@ -1,0 +1,68 @@
+<p-dialog [header]="bio.id ? 'Edit Biometrics' : 'Add Biometrics'" 
+  modal="true" [(visible)]="bio" width="400" height="450"
+>
+  <form #bioForm="ngForm">
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Assessment Date</label>
+        <p-calendar [(ngModel)]="bio.assessmentDate" name="assessDate" dateFormat="dd/M/yy" [showIcon]="true" [style]="{'width':'100%'}"></p-calendar>
+      </div>
+      <div class="ui-g-6"></div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Total Cholesterol</label>
+        <input [(ngModel)]="bio.tc" name="tc" type="text" pInputText> 
+      </div>
+      <div class="ui-g-6">
+        <label>Cotinine Result</label>
+        <p-dropdown [(ngModel)]="bio.cotinineResult" name="cot" [options]="cotinines" [style]="{'width':'100%'}"></p-dropdown>
+      </div>      
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Systolic BP</label>
+        <input [(ngModel)]="bio.bps" name="bps" type="text" pInputText> 
+      </div>          
+      <div class="ui-g-6">
+        <label>Diastolic BP</label>
+        <input [(ngModel)]="bio.bpd" name="bpd" type="text" pInputText>      
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>HDL Cholesterol</label>
+        <input [(ngModel)]="bio.hdl" name="hdl" type="text" pInputText>
+      </div>          
+      <div class="ui-g-6">
+        <label>LDL Cholesterol</label>
+        <input [(ngModel)]="bio.ldl" name="ldl" type="text" pInputText>      
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Height (Inches)</label>
+        <input [(ngModel)]="bio.ht" name="ht" type="text" pInputText>      
+      </div>      
+      <div class="ui-g-6">
+        <label>Weight (lbs)</label>
+        <input [(ngModel)]="bio.wght" name="wght" type="text" pInputText>      
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>TC / HDL Ratio</label>
+        <input [(ngModel)]="bio.tcHdlRatio" name="ratio" type="text" pInputText>
+      </div>          
+      <div class="ui-g-6">
+        <label>Glucose</label>
+        <input [(ngModel)]="bio.glu" name="glu" type="text" pInputText>      
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <button *ngIf="bio.id" type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+    <button *ngIf="!bio.id" type="button" pButton icon="fa-check" (click)="add()" label="Add"></button>    
+    <button type="button" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+  </p-footer>
+</p-dialog>

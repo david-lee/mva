@@ -5,10 +5,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { MemberDetail, MemberInfo, Account, Biometrics } from './models/member-detail';
+import { MemberDetail, MemberInfo, Account, Biometrics, AuditLog } from './models/member-detail';
 import * as MemberDetailAction from './actions/member-detail';
 import * as fromRoot from '../core/reducers';
-import { environment } from '../../environments/environment';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { SelectItem } from 'primeng/primeng';
@@ -22,14 +21,14 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   @ViewChild('bioDT') bioDT;
 
-  accounts: Account[];
+  accounts$: Observable<any>;
   biometrics: Biometrics[];
   member: MemberInfo[]; // dataTable component requires an array of value
-  subscription: ISubscription;
+  auditLogs: AuditLog[];
+  subscriptions: ISubscription[] = [];
 
-  get genders() {
-    return environment.lookups.genders;
-  }
+  upsertMember: MemberInfo;
+  upsertBiometrics: Biometrics;
   
   get isPromoMember() {
     return this.member[0].customerRole.toLowerCase().indexOf('promo') >= 0;
@@ -41,40 +40,69 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let memberId = this.route.snapshot.paramMap.get('memberId');
 
-    this.subscription = this.store.select(fromRoot.getMemberDetail)
-      .subscribe((memberDetail: MemberDetail) => {
-        if (memberDetail) {
-          this.member = [memberDetail.memberInfo];
-          this.accounts = memberDetail.accounts;
-          this.biometrics = memberDetail.biometrics;
-        }
-      });
+    this.subscriptions.push(
+      this.store.select(fromRoot.getMemberDetailInfo)
+        .subscribe(memberInfo => {
+          this.member = [memberInfo];
+        })
+    );
+
+    this.accounts$ = this.store.select(fromRoot.getAccounts)
+    
+    this.subscriptions.push(
+      this.store.select(fromRoot.getBiometrics)
+        .subscribe(biometrics => {
+          this.biometrics = biometrics;
+        })
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getUpsertMember)
+        .subscribe((member: MemberInfo) => {
+          this.upsertMember = member;
+        })
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getUpsertBiometrics)
+        .subscribe((bio: Biometrics) => {
+          this.upsertBiometrics = bio;
+        })
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getAuditLogs)
+        .subscribe((auditLogs: AuditLog[]) => {
+          this.auditLogs = auditLogs;
+        })
+    );
 
     this.store.dispatch(new MemberDetailAction.Load(memberId));
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    _.forEach(this.subscriptions, (subscription: ISubscription) => {
+      subscription.unsubscribe();
+    });
   }
 
-  // expandBio(data) {
-  //   this.bioDT.toggleRow(data);
-  // }
+  editMember() {
+    this.store.dispatch(new MemberDetailAction.UpdateMember());
+  }
 
   viewAuditLog() {
-    
+    this.store.dispatch(new MemberDetailAction.LoadAuditLog());
   }
 
   gotoMemberList() {
     this.location.back();
   }
 
-  selectDOB(value) {
-    this.member[0].dob = moment(value, 'DD/MMM/YYYY').format('DD/MMM/YYYY');
-  }
+  // selectDOB(value) {
+  //   this.member[0].dob = moment(value, 'DD/MMM/YYYY').format('DD/MMM/YYYY');
+  // }
 
-  updateMember(data, col?) {
-    console.log('updated: ', data, ': ', col);
+  doUpsertBiometrics(bio: Biometrics = <any>{}) {
+    this.store.dispatch(new MemberDetailAction.UpdateBio(bio));
   }
-
 }

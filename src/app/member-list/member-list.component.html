@@ -2,7 +2,11 @@
   <h1 class="title">Vitality Member</h1>
 
   <div class="actions">
-    <div class="action-item" (click)="add()">
+    <button pButton class="action-item" type="button" icon="fa-plus-circle" label="Add Promo" (click)="add()"></button>
+    <button pButton class="action-item" type="button" icon="fa-filter" label="Reset Filter" (click)="resetFilters()"></button>
+    <button pButton class="action-item" type="button" icon="fa-refresh" label="Refresh" (click)="refresh()"></button>    
+
+    <!-- <div class="action-item" (click)="add()">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Promo
     </div>
     <div class="action-item" (click)="resetFilters()">
@@ -10,7 +14,7 @@
     </div>
     <div class="action-item" (click)="refresh()">
       <i class="fa fa-refresh" aria-hidden="true"></i> Refresh
-    </div>
+    </div> -->
   </div>
 </div>
 

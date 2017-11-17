@@ -3,7 +3,7 @@ export interface Biometrics {
   lastUpdateDate?: string;
   lastUpdateUser?: string;
   sentToTvg: string;
-  assessmentDate: string;
+  assessmentDate: string | Date;
   tc?: string;
   hdl?: string;
   ldl?: string;

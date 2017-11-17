@@ -59,7 +59,32 @@ export const getMemberList = createSelector(
   fromMember.getMemberList
 );
 
-export const getMemberDetail = createSelector(
+export const getMemberDetailInfo = createSelector(
   getMemberDetailState,
-  fromMemberDetail.getMemberDetail
+  fromMemberDetail.getMemberInfo
+);
+
+export const getAccounts = createSelector(
+  getMemberDetailState,
+  fromMemberDetail.getAccounts
+);
+
+export const getBiometrics = createSelector(
+  getMemberDetailState,
+  fromMemberDetail.getBiometrics
+);
+
+export const getUpsertMember = createSelector(
+  getMemberDetailState,
+  fromMemberDetail.getUpsertMember  
+);
+
+export const getUpsertBiometrics = createSelector(
+  getMemberDetailState,
+  fromMemberDetail.getUpsertBio
+);
+
+export const getAuditLogs = createSelector(
+  getMemberDetailState,
+  fromMemberDetail.getAuditLogs
 );

@@ -25,7 +25,7 @@ export class MemberListService {
     },
     {
       id: "10000002",
-      customerRole: "24-Insured",
+      customerRole: "98-Promo",
       lastName: "Cobblepot",
       firstName: "Oswald",
       middleName: "Paul",

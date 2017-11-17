@@ -1,13 +1,21 @@
+<ng-container *ngIf="!upsertMember">
 <div class="title-container">
   <h1 class="title">{{member[0].firstName}}</h1>
     
   <div class="actions">
+    <button pButton class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
+    <button pButton class="action-item" type="button" icon="fa-history" label="View Audit Log" (click)="viewAuditLog()"></button>
+    <button pButton class="action-item" type="button" icon="fa-arrow-circle-o-left" label="Back to Member List" (click)="gotoMemberList()"></button>    
+  
+    <!-- <div class="action-item" (click)="editMember()">
+      <i class="fa fa-pencil" aria-hidden="true"></i> Edit Member
+    </div>    
     <div class="action-item" (click)="viewAuditLog()">
       <i class="fa fa-history" aria-hidden="true"></i> View Audit Log
     </div>
     <div class="action-item" (click)="gotoMemberList()">
       <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back to Member List
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -19,29 +27,19 @@
   </p-header>   
   <div class="ui-g">
     <div class="ui-g-6 no-padding-left">
-      <p-dataTable [value]="member" [editable]="true"
-        (onEditComplete)="updateMember($event)"
-      >
+      <p-dataTable [value]="member">
         <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
-        <p-column field="lastName" header="Last Name" [editable]="true"></p-column>    
-        <p-column field="firstName" header="First Name" [editable]="true"></p-column>
-        <p-column field="middleName" header="Middle Name" [editable]="true"></p-column>
-        <p-column field="dob" header="Date of Birth" [style]="{'width':'25%'}" [editable]="true">
-          <ng-template let-col let-member="rowData" pTemplate="editor">
-            <p-calendar [(ngModel)]="member.dob" 
-              (onSelect)="selectDOB($event)"
-              [monthNavigator]="true" [yearNavigator]="true" 
-              yearRange="1930:2030" dateFormat="dd/M/yy" appendTo="body">
-            </p-calendar>
-          </ng-template> 
-        </p-column>
+        <p-column field="lastName" header="Last Name"></p-column>    
+        <p-column field="firstName" header="First Name"></p-column>
+        <p-column field="middleName" header="Middle Name"></p-column>
+        <p-column field="dob" header="Date of Birth" [style]="{'width':'25%'}"></p-column>
       </p-dataTable>
     </div>
     <div class="ui-g-6 no-padding-right">
-      <p-dataTable [value]="member" [editable]="true">
+      <p-dataTable [value]="member">
         <p-column field="lastUpdateDate" header="Last Updated On"></p-column>
         <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
-        <p-column field="membershipStatus" header="Membership Status" [editable]="true"></p-column>
+        <p-column field="membershipStatus" header="Membership Status"></p-column>
         <p-column field="membershipEffdate" header="As of Date"></p-column>
       </p-dataTable>  
     </div>
@@ -49,20 +47,11 @@
 
   <div class="ui-g">
     <div class="ui-g-6 no-padding-left">
-      <p-dataTable [value]="member" [editable]="true"
-        (onEditComplete)="updateMember($event)"
-      >
-        <p-column field="gender" header="Gender" [editable]="true" [style]="{'width':'15%'}" >
-          <ng-template let-col let-member="rowData" pTemplate="editor">
-            <p-dropdown [(ngModel)]="member[col.field]" 
-              (onChange)="updateMember($event, col)"
-              [options]="genders" [style]="{'width':'100%'}">
-            </p-dropdown>
-          </ng-template>          
-        </p-column>
-        <p-column field="sin" header="SIN" [editable]="true"></p-column>
-        <p-column field="language" header="Language" [editable]="true"></p-column>
-        <p-column field="email" header="Email" [editable]="true" [style]="{'width':'50%'}"></p-column>            
+      <p-dataTable [value]="member">
+        <p-column field="gender" header="Gender" [style]="{'width':'15%'}" ></p-column>
+        <p-column field="sin" header="SIN"></p-column>
+        <p-column field="language" header="Language"></p-column>
+        <p-column field="email" header="Email" [style]="{'width':'50%'}"></p-column>            
       </p-dataTable>
     </div>
     <div class="ui-g-6 no-padding-right">
@@ -70,7 +59,7 @@
         <p-column field="employerBranchId" header="Reward Level"></p-column>
         <p-column field="vitalityEffdate" header="Coverage Effective"></p-column>
         <p-column field="vitalityTermdate" header="Terminated On"></p-column>
-        <p-column field="role" header="Customer Role" [style]="{'width':'18%'}"></p-column>
+        <p-column field="customerRole" header="Customer Role" [style]="{'width':'18%'}"></p-column>
         <p-column field="establishedOnC360" header="On C360" [style]="{'width':'15%'}"></p-column>
       </p-dataTable>  
     </div>
@@ -78,15 +67,13 @@
 
   <div class="ui-g">
     <div class="ui-g-6 address no-padding-left">
-      <p-dataTable [value]="member" [editable]="true"
-        (onEditComplete)="updateMember($event)"
-      >
-        <p-column field="address1" header="Address 1" [editable]="true"></p-column>
-        <p-column field="address2" header="Address 2" [editable]="true" [style]="{'width':'15%'}"></p-column>
-        <p-column field="city" header="City" [editable]="true" [style]="{'width':'20%'}"></p-column>
-        <p-column field="province" header="Province" [editable]="true" [style]="{'width':'10%'}"></p-column>
+      <p-dataTable [value]="member">
+        <p-column field="address1" header="Address 1"></p-column>
+        <p-column field="address2" header="Address 2" [style]="{'width':'15%'}"></p-column>
+        <p-column field="city" header="City" [style]="{'width':'20%'}"></p-column>
+        <p-column field="province" header="Province" [style]="{'width':'10%'}"></p-column>
         <p-column field="country" header="Country" [style]="{'width':'10%'}"></p-column>
-        <p-column field="postalCode" header="Postal Code" [editable]="true" [style]="{'width':'15%'}"></p-column>
+        <p-column field="postalCode" header="Postal Code" [style]="{'width':'15%'}"></p-column>
       </p-dataTable> 
     </div>
     <div class="ui-g-6 no-padding-right">
@@ -108,7 +95,7 @@
       <span class="ui-panel-title">Accounts</span> 
     </div>
   </p-header>  
-  <p-dataTable [value]="accounts">
+  <p-dataTable [value]="accounts$ | async">
     <p-column field="accountNumber" header="Account #" [style]="{'width':'10%'}"></p-column>
     <p-column field="product" header="Product"></p-column>
     <p-column field="plan" header="Plan"></p-column>
@@ -125,10 +112,14 @@
   <p-header>
     <div class="ui-helper-clearfix section-header">
       <span class="ui-panel-title">Biometrics</span>        
-      <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add"></button>
+      <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add"
+        (click)="doUpsertBiometrics()">
+      </button>
     </div>
   </p-header>  
-  <p-dataTable [value]="biometrics" expandableRows="true" #bioDT>
+  <p-dataTable [value]="biometrics" expandableRows="true" #bioDT
+    (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
+  >
     <p-column expander="true" styleClass="col-icon" [style]="{'width':'3%'}"></p-column>
     <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
     <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}"></p-column>
@@ -151,3 +142,12 @@
     </ng-template>
   </p-dataTable>
 </p-panel>
+</ng-container>
+
+<member-upsert *ngIf="upsertMember" 
+  [member]="upsertMember" [isPromoMember]="isPromoMember">
+</member-upsert>
+
+<bio-upsert *ngIf="upsertBiometrics" [bio]="upsertBiometrics"></bio-upsert>
+
+<audit-log *ngIf="auditLogs" [memberId]="member[0].id" [auditLogs]="auditLogs"></audit-log>

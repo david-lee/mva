@@ -4,7 +4,7 @@ export interface MemberInfo extends Member {
   lastUpdateDate: string;
   lastUpdateUser: string;
   membershipStatus: string;
-  membershipEffdate: string;
+  membershipEffdate: string | Date;
   address1: string;
   address2?: string;
   city: string;
@@ -17,7 +17,7 @@ export interface MemberInfo extends Member {
   employerBranchId: string;
   relationshipCode: string;
   sin: string;
-  vitalityEffdate: string;
+  vitalityEffdate: string | Date;
   vitalityTermdate: string;
   language: string;
   accountStrategy: string;
