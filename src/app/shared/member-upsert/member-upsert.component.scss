@@ -10,6 +10,7 @@
 form {
   label {
     display: block;
+    color: #737373;;
   }
 
   input {
@@ -23,6 +24,12 @@ form {
   //   padding-left: .2em;
   //   padding-right: .2em;
   // }
+
+  .validation-error {
+    padding-top: 3px;
+    font-size: 12px;
+    color: red;
+  }
 }
 
 .title-container {

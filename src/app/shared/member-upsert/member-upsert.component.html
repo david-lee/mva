@@ -13,7 +13,9 @@
     <div class="ui-g">
       <span class="ui-g-3">
         <label>First Name</label>
-        <input [(ngModel)]="member.firstName" name="fname" type="text" required maxlength="25" pInputText> 
+        <input [(ngModel)]="member.firstName" pInputText name="fname" type="text" 
+          required maxlength="25" #fname="ngModel">
+        <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="validation-error">First name is required</div>
       </span>
       <span class="ui-g-2">
         <label>Middle Name</label>
@@ -21,22 +23,33 @@
       </span>
       <span class="ui-g-3">
         <label>Last Name</label>
-        <input [(ngModel)]="member.lastName" name="mname" type="text" required maxlength="50" pInputText> 
+        <input [(ngModel)]="member.lastName" name="mname" type="text" pInputText
+          required maxlength="50" #lname="ngModel">
+        <div *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="validation-error">Last name is required</div>
       </span>
       <span class="ui-g-2">
         <label>Date of Birth</label>
-        <p-calendar [(ngModel)]="member.dob" name="dob-cal" required [showIcon]="true" dateFormat="dd/M/yy"></p-calendar>
+        <p-calendar [(ngModel)]="member.dob" name="dob-cal" [showIcon]="true" dateFormat="dd/M/yy"
+          [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+          readonlyInput="true" required #dob="ngModel">
+        </p-calendar>
+        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="validation-error">Date of Birth is required</div>
       </span> 
       <span class="ui-g-2">
         <label>Gender</label>
-        <p-dropdown [(ngModel)]="member.gender" name="gender" [options]="genders" [style]="{'width':'100%'}"></p-dropdown>
+        <p-dropdown [(ngModel)]="member.gender" name="gender" required [options]="genders" [style]="{'width':'100%'}" #gender="ngModel"></p-dropdown>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="validation-error">Gender is required</div>
       </span>
     </div>
 
     <div class="ui-g">
       <span class="ui-g-1">
         <label>SIN</label>
-        <input [(ngModel)]="member.sin" name="sin" type="text" minlength="9" maxlength="9" pInputText>
+        <input [(ngModel)]="member.sin" pInputText name="sin" type="text" minlength="9" maxlength="9" #sin="ngModel">
+        <div *ngIf="sin.invalid && (sin.dirty || sin.touched)" class="validation-error">
+          <div *ngIf="sin.errors.minlength">9 digits are required</div>
+          <div *ngIf="sin.errors.required">SIN is required</div>
+        </div>
       </span>
       <span class="ui-g-3">
         <label>Email</label>
