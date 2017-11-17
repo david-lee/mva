@@ -1,0 +1,106 @@
+<div class="wrapper">
+  <form #memberForm="ngForm">
+    <div class="title-container">
+      <h1 *ngIf="!member" class="title">Add Member</h1>
+      <h1 *ngIf="member" class="title">Edit Member {{member.id}}</h1>
+
+      <div class="actions">
+        <button pButton class="action-item" type="button" icon="fa-check" label="Save" (click)="save()" [disabled]="memberForm.invalid"></button>
+        <button pButton class="action-item" type="button" icon="fa-ban" label="Cancel" (click)="cancel()"></button>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <span class="ui-g-3">
+        <label>First Name</label>
+        <input [(ngModel)]="member.firstName" pInputText name="fname" type="text" 
+          required maxlength="25" #fname="ngModel">
+        <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="validation-error">First name is required</div>
+      </span>
+      <span class="ui-g-2">
+        <label>Middle Name</label>
+        <input [(ngModel)]="member.middleName" name="lname" type="text" maxlength="25" pInputText>
+      </span>
+      <span class="ui-g-3">
+        <label>Last Name</label>
+        <input [(ngModel)]="member.lastName" name="mname" type="text" pInputText
+          required maxlength="50" #lname="ngModel">
+        <div *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="validation-error">Last name is required</div>
+      </span>
+      <span class="ui-g-2">
+        <label>Date of Birth</label>
+        <p-calendar [(ngModel)]="member.dob" name="dob-cal" [showIcon]="true" dateFormat="dd/M/yy"
+          [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+          readonlyInput="true" required #dob="ngModel">
+        </p-calendar>
+        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="validation-error">Date of Birth is required</div>
+      </span> 
+      <span class="ui-g-2">
+        <label>Gender</label>
+        <p-dropdown [(ngModel)]="member.gender" name="gender" required [options]="genders" [style]="{'width':'100%'}" #gender="ngModel"></p-dropdown>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="validation-error">Gender is required</div>
+      </span>
+    </div>
+
+    <div class="ui-g">
+      <span class="ui-g-1">
+        <label>SIN</label>
+        <input [(ngModel)]="member.sin" pInputText name="sin" type="text" minlength="9" maxlength="9" #sin="ngModel">
+        <div *ngIf="sin.invalid && (sin.dirty || sin.touched)" class="validation-error">
+          <div *ngIf="sin.errors.minlength">9 digits are required</div>
+          <div *ngIf="sin.errors.required">SIN is required</div>
+        </div>
+      </span>
+      <span class="ui-g-3">
+        <label>Email</label>
+        <input [(ngModel)]="member.email" name="email" type="text" required maxlength="40" pInputText> 
+      </span>
+      <span class="ui-g-2">
+        <label>Language</label>
+        <p-dropdown [(ngModel)]="member.language" name="lang" required [options]="languages" [style]="{'width':'100%'}"></p-dropdown>
+      </span>
+      <span class="ui-g-2">
+        <label>Status</label>
+        <p-dropdown *ngIf="isPromo" [(ngModel)]="member.membershipStatus" name="status" required [options]="memberStatus" [style]="{'width':'100%'}"></p-dropdown>
+        <p-dropdown *ngIf="!isPromo" [(ngModel)]="member.membershipStatus" name="status" [options]="memberStatus" disabled [style]="{'width':'100%'}"></p-dropdown>        
+      </span> 
+      <span class="ui-g-2">
+        <label>Created On</label>
+        <p-calendar *ngIf="isPromo" [(ngModel)]="member.membershipEffdate" name="created-on" required [showIcon]="true" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>
+        <p-calendar *ngIf="!isPromo" disabled [(ngModel)]="member.membershipEffdate" name="created-on" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>
+      </span>
+      <span class="ui-g-2">
+        <label>Coverage Effective</label>
+        <p-calendar *ngIf="isPromo" [(ngModel)]="member.vitalityEffdate" name="cov-effective" [showIcon]="true" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>
+        <p-calendar *ngIf="!isPromo" disabled [(ngModel)]="member.vitalityEffdate" name="cov-effective" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>
+      </span>      
+    </div>
+
+    <div class="ui-g">
+      <span class="ui-g-2">
+        <label>Address1</label>
+        <input [(ngModel)]="member.address1" name="address1" type="text" required maxlength="50" pInputText> 
+      </span>
+      <span class="ui-g-2">
+        <label>Address2</label>
+        <input [(ngModel)]="member.address2" name="address2" type="text" maxlength="50" pInputText>
+      </span>
+      <span class="ui-g-2">
+        <label>City</label>
+        <input [(ngModel)]="member.city" name="city" type="text" required maxlength="50" pInputText>
+      </span>
+      <span class="ui-g-2">
+        <label>Province</label>
+        <p-dropdown [(ngModel)]="member.province" name="prov" required [options]="provinces" [style]="{'width':'100%'}"></p-dropdown>
+      </span>
+      <span class="ui-g-2">
+        <label>Country</label>
+        <input [(ngModel)]="member.country" name="country" type="text" required maxlength="2" pInputText disabled>        
+      </span>
+      <span class="ui-g-2">
+        <label>Postal Code</label>
+        <input [(ngModel)]="member.postalCode" name="postal" type="text" required pInputText>
+      </span>
+    </div>    
+  </form>      
+</div>

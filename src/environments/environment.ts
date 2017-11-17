@@ -8,7 +8,36 @@ const apiBase = 'http://localhost:3000';
 export const environment = {
   production: false,
   emptyEmailString: '** required **',
+  dateFormat: 'DD/MMM/YYYY',
   endPoints: {
     memberList: `${apiBase}/member/list`
+  },
+  lookups: {
+    genders: [
+      {label: 'Male', value: 'Male', code: 'M'},
+      {label: 'Female', value: 'Female', code: 'F'}
+    ],
+    language: [
+      {label: 'English', value: 'English', code: 'English'},
+      {label: 'French', value: 'French', code: 'French'}
+    ],
+    memberStatus: [
+      {label: '1-Active', value: '1-Active', code: '1'},
+      {label: '2-Terminated', value: '2-Terminated', code: '2'},
+      {label: '3-Duplicate', value: '3-Duplicate', code: '3'}
+    ],
+    provinces: [
+      {label: 'Alberta', value: 'Alberta', code: 'AB'},
+      {label: 'Britsh columbia', value: 'Britsh columbia', code: 'BC'},
+      {label: 'Manitoba', value: 'Manitoba', code: 'MB'},
+      {label: 'New Brunswick', value: 'New Brunswick', code: 'NB'},
+      {label: 'Newfoundland & Labrador', value: 'Newfoundland & Labrador', code: 'NL'},
+      {label: 'Northwest Territories', value: 'Northwest Territories', code: 'NT'},
+      {label: 'Ontario', value: 'Ontario', code: 'ON'},
+    ],
+    cotinines: [
+      {label: '1-Somker', value: '1-Smoker', code: '1'},
+      {label: '2-Non-Somker', value: '2-Non-Smoker', code: '2'}
+    ]
   }
 };

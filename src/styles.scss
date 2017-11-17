@@ -26,11 +26,13 @@ body {
 }
 
 .ui-datatable {
-  height: 100vh;
+  &.member-list {
+    height: 100vh;
+  }
 
   .ui-datatable-thead th {
-    color: white;
-    background-color: #08755c;
+    // color: white;
+    // background-color: #08755c;
   }  
 
   tbody > tr.ui-widget-content.ui-datatable-odd {
@@ -38,8 +40,8 @@ body {
   }
 
   th.ui-sortable-column:not(.ui-state-active):hover {
-    background-color: #0c5a49;
-    color: white;
+    // background-color: #0c5a49;
+    // color: white;
   }
 
   .email-filter {
@@ -48,8 +50,40 @@ body {
     }  
   }
 
-  // .ui-datatable-data>tr>td.ui-editable-column.email-col
-  //  {
-  //   padding: 0 !important;
-  // }
+  .ui-datatable-data > tr {
+    > td, > td.ui-editable-column {
+      padding: 10px 5px;
+      // border-style: none;
+      word-wrap: break-word;
+    }
+  } 
 }
+
+.ui-panel {
+  margin-bottom: 10px;
+  
+  .ui-panel-content {
+    padding: 1.5em 1em;
+  }
+}
+
+.ui-fieldset {
+  .ui-fieldset-legend {
+    background-color: #00693c;
+    color: white;
+  }
+} 
+
+.ui-datepicker {
+  width: 20em;
+}
+
+.ui-button {
+  border: 1px solid #00693c !important;
+  background-color: #4e803b !important;
+
+  &:hover {
+    background-color: #00693c !important;
+  }
+}
+  

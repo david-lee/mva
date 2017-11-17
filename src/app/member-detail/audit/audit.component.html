@@ -1,0 +1,27 @@
+<p-dialog modal="true" [(visible)]="auditLogs" width="900"
+  [draggable]="false" [blockScroll]=true>
+  <p-header>Audit Log for Member {{memberId}}</p-header>
+
+  <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+  </div> 
+  <p-dataTable [value]="auditLogs" [globalFilter]="gb" #dt
+    [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,30]" 
+  >
+    <p-column field="auditTs" header="Timestamp" [style]="{'width':'20%'}">
+      <ng-template let-log="rowData" pTemplate="body">
+        <span>{{log.auditTs | date:'dd/MMM/yyyy h:mm:ss a'}}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="username" header="Updater"></p-column>    
+    <p-column field="tableName" header="Table"></p-column>
+    <p-column field="fieldName" header="Column Name" [style]="{'width':'25%'}"></p-column>
+    <p-column field="newValue" header="New Value"></p-column>  
+    <p-column field="oldValue" header="Old Value"></p-column>      
+  </p-dataTable>
+
+  <p-footer>
+    <button type="button" pButton icon="fa-times" (click)="close()" label="Close"></button>
+  </p-footer>  
+</p-dialog>

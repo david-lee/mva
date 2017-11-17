@@ -1,55 +1,57 @@
-<div class="list-wrapper">
-  <div class="search-container">
-    <h1 class="title">Vitality Member</h1>
+<div class="title-container">
+  <h1 class="title">Vitality Member</h1>
 
-    <div class="actions">
-      <div class="action-item" (click)="add()">
-        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Promo
-      </div>
-      <div class="action-item" (click)="resetFilters()">
-        <i class="fa fa-filter" aria-hidden="true"></i> Reset Filter
-      </div>
-      <div class="action-item" (click)="refresh()">
-        <i class="fa fa-refresh" aria-hidden="true"></i> Refresh
-      </div>
+  <div class="actions">
+    <button pButton class="action-item" type="button" icon="fa-plus-circle" label="Add Promo" (click)="add()"></button>
+    <button pButton class="action-item" type="button" icon="fa-filter" label="Reset Filter" (click)="resetFilters()"></button>
+    <button pButton class="action-item" type="button" icon="fa-refresh" label="Refresh" (click)="refresh()"></button>    
+
+    <!-- <div class="action-item" (click)="add()">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Promo
     </div>
+    <div class="action-item" (click)="resetFilters()">
+      <i class="fa fa-filter" aria-hidden="true"></i> Reset Filter
+    </div>
+    <div class="action-item" (click)="refresh()">
+      <i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+    </div> -->
   </div>
+</div>
 
-  <p-growl [(value)]="emailErrorMessage" [life]="3000" [sticky]="false"></p-growl>
+<p-growl [(value)]="emailErrorMessage" [life]="3000" [sticky]="false"></p-growl>
 
-  <div class="data-container">
-    <p-dataTable [value]="(members$ | async)" #dt
-      [rows]="45" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[25,45,90]" 
-      [rowHover]="true" [responsive]="true" [editable]="true"
-      (onEditInit)="initEmailUpdate($event.data)" (onEditComplete)="updateEmail($event.data)"
-      (onEditCancel)="cancelUpdateEmail($event.data)"
-      (onRowClick)="gotoDetail($event)"
-    >
-      <p-column field="id" header="ID" sortable="true" [filter]="true" filterMaxlength="8" [style]="{'width':'8%'}"></p-column>
-      <p-column field="customerRole" header="Role" sortable="true" [filter]="true" [style]="{'width':'10%'}"></p-column>
-      <p-column field="firstName" header="First/Middle" sortable="true" [filter]="true"></p-column>
-      <p-column field="lastName" header="Last Name" sortable="true" [filter]="true">
-        <ng-template pTemplate="body" let-member="rowData">
-          <span>{{member.firstName}} {{member.middleName}}</span>
-        </ng-template>
-      </p-column>
-      <p-column field="gender" header="Gender" sortable="true" [filter]="true" [style]="{'width':'8%'}"></p-column>
-      <p-column field="dob" header="Date of Birth" sortable="true" filterMatchMode="contains" [filter]="true" [style]="{'width':'10%'}"></p-column>
-      <p-column field="email" header="Email" [filter]="true" [editable]="true" styleClass="email-col">
-        <ng-template pTemplate="filter" let-col>
-          <div class="email-filter">
-            <p-checkbox [(ngModel)]="emailFilterChecked" label="Empty email" inputId="ee" binary="true" 
-              (onChange)="filterEmail()">
-            </p-checkbox>
-          </div>
-        </ng-template>
-        <ng-template let-col let-member="rowData" pTemplate="body">
-          <div class="email-col-edit" 
-            [class.invalid-email]="member.invalidEmail"
-            [class.email-required]="isEmailEmpty(member)">{{member[col.field]}}
-          </div>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
-  </div>
+<div class="data-container">
+  <p-dataTable [value]="members" styleClass="'member-list'" #dt
+    [rows]="45" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[25,45,90]" 
+    [rowHover]="true" [responsive]="true" [editable]="true"
+    (onEditInit)="initEmailUpdate($event.data)" (onEditComplete)="updateEmail($event.data)"
+    (onEditCancel)="cancelUpdateEmail($event.data)"
+    (onRowClick)="gotoDetail($event)"
+  >
+    <p-column field="id" header="ID" sortable="true" [filter]="true" filterMaxlength="8" [style]="{'width':'8%'}"></p-column>
+    <p-column field="customerRole" header="Role" sortable="true" [filter]="true" [style]="{'width':'10%'}"></p-column>
+    <p-column header="First/Middle Name" sortable="true" [filter]="true">
+      <ng-template pTemplate="body" let-member="rowData">
+        <span>{{member.firstName}} {{member.middleName}}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="lastName" header="Last Name" sortable="true" [filter]="true"></p-column>
+    <p-column field="gender" header="Gender" sortable="true" [filter]="true" [style]="{'width':'8%'}"></p-column>
+    <p-column field="dob" header="Date of Birth" sortable="true" filterMatchMode="contains" [filter]="true" [style]="{'width':'10%'}"></p-column>
+    <p-column field="email" header="Email" [filter]="true" [editable]="true" styleClass="email-col">
+      <ng-template pTemplate="filter" let-col>
+        <div class="email-filter">
+          <p-checkbox [(ngModel)]="emailFilterChecked" label="Empty email" inputId="ee" binary="true" 
+            (onChange)="filterEmail()">
+          </p-checkbox>
+        </div>
+      </ng-template>
+      <ng-template let-col let-member="rowData" pTemplate="body">
+        <div class="email-col-edit" 
+          [class.invalid-email]="member.invalidEmail"
+          [class.email-required]="isEmailEmpty(member)">{{member[col.field]}}
+        </div>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
 </div>

@@ -1,7 +1,35 @@
 :host {
   display: block;
+}
+
+.wrapper {
   margin: 0 auto;
-  width: 85%;
+  width: 80%;
+}
+
+form {
+  label {
+    display: block;
+    color: #737373;;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .ui-g {
+    height: 65px;
+  }
+  // .ui-g-1, .ui-g-2, .ui-g-3, .ui-g-4 {
+  //   padding-left: .2em;
+  //   padding-right: .2em;
+  // }
+
+  .validation-error {
+    padding-top: 3px;
+    font-size: 12px;
+    color: red;
+  }
 }
 
 .title-container {
@@ -25,20 +53,5 @@
       display: inline-block;
       margin-left: 20px;
     }
-  }
+  }  
 }
-
-.data-container {
-  display: table;
-
-  .email-filter {
-    cursor: pointer;
-  }
-
-  .email-required, .invalid-email {
-    color: red;
-    width: 100%;
-  }
-}
-
-

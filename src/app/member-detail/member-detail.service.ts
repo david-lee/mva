@@ -13,53 +13,83 @@ export class MemberDetailService {
   api = environment.endPoints;
 
   memberDetail = {
-    id: "10000001",
-    customerRole: "24-Insured",
-    lastName: 'Kunkel',
-    firstName: 'James',
-    middleName: 'Pau.',
-    gender: "M",
-    dob: "3/12/1985",
-    email: "JamesKunkel@gmail.com",
-    lastUpdateDate: '',
-    lastUpdateUser: 'Admin',
-    membershipStatus: '1-Active',
-    membershipEffdate: '',
-    address1: '4 Woolenscote Circle',
-    address2: 'M9V4R7',
-    city: 'Etobicoke',
-    province: 'ON',
-    country: 'CA',
-    postalCode: 'M9V4R7',
-    vitalityProdcode: '12',
-    vitalityProdcodeEffdate: '1/Mar/2016',
-    employerExternalId: 'MANULIFE',
-    employerBranchId: '',
-    relationshipCode: 'PP',
-    sin: '123 456 789',
-    vitalityEffdate: '',
-    vitalityTermdate: '',
-    language: 'EN',
-    accountStrategy: '',
-    altMemberId: '1234567001',
-    sourceSystem: 'TestLocal',
-    accountList: [{
+    memberInfo: {
+      id: "10000001",
+      customerRole: "98-Promo", 
+      lastName: 'Kunkel',
+      firstName: 'James',
+      middleName: 'Paul',
+      gender: "Male",
+      dob: "3/Dec/1985",
+      email: "JamesKunkel@gmail.com",
+      lastUpdateDate: '',
+      lastUpdateUser: 'Admin',
+      membershipStatus: '1-Active',
+      membershipEffdate: '10/Dec/2015',
+      address1: '4 Woolenscote Circle',
+      address2: 'PO Box 12345',
+      city: 'Etobicoke',
+      province: 'ON',
+      country: 'CA',
+      postalCode: 'M9V4R7',
+      vitalityProdcode: '12',
+      vitalityProdcodeEffdate: '1/Mar/2016',
+      employerExternalId: 'MANULIFE',
+      employerBranchId: '',
+      relationshipCode: 'PP',
+      sin: '123 456 789',
+      vitalityEffdate: '11/Dec/2015',
+      vitalityTermdate: '',
+      language: 'English',
+      accountStrategy: '',
+      altMemberId: '1234567001',
+      sourceSystem: 'TestLocal',
+      establishedOnC360: true
+    },
+    accounts: [{
+      id: '111111',
       accountNumber: '1666100001',
       product: '208',
       plan: '208',
       amount: '555000',
-      effective: '1/Jan/2016',
-      terminated: '15/Jan/2016'
+      effectiveDate: '1/Jan/2016',
+      terminationDate: '15/Jan/2016',
+      status: '00',
+      lastUpdateDate: '',
+      lastUpdateUser: 'Admin'
+    },
+    {
+      id: '222222',
+      accountNumber: '1666100022',
+      product: '208',
+      plan: '208',
+      amount: '333000',
+      effectiveDate: '1/Jan/2016',
+      terminationDate: '15/Jan/2016',
+      status: '00',
+      lastUpdateDate: '',
+      lastUpdateUser: 'Admin'
     }],
-    biometricsList: [{
-      assessed: '15/Dec/2015',
-      sent: '3/Mar/2016'
+    biometrics: [{
+      id: '11111',
+      assessmentDate: '15/Dec/2015',
+      sentToTvg: '13/Feb/2016',
+      glu: "123,450",
+      ht: "71.500",
+      wght: "90"
+    },
+    {
+      id: '22222',
+      assessmentDate: '1/Jun/2015',
+      sentToTvg: '3/Mar/2016',
+      glu: "333,450",
+      ht: "91.500",
+      wght: "50"
     }]
   };
   constructor(public http: HttpClient) { }
 
   loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
-    console.log('member detail for ', memberId);
     return of({data: this.memberDetail});
     // return this.http.get<Member[]>(this.api.memberList);
   }

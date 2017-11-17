@@ -2,28 +2,40 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
-  DataTableModule, SharedModule, 
-  ButtonModule, EditorModule,
-  RadioButtonModule, Message,
-  CalendarModule, CheckboxModule,
-  GrowlModule
+  InputTextModule, DataTableModule, SharedModule, 
+  ButtonModule, EditorModule, RadioButtonModule, Message,
+  CalendarModule, CheckboxModule, DropdownModule,
+  GrowlModule, PanelModule, FieldsetModule, DialogModule
 } from 'primeng/primeng';
+import { MemberUpsertComponent } from './member-upsert/member-upsert.component';
 
+export const PRIMENG_MODULES = [
+  ButtonModule,
+  InputTextModule,
+  DataTableModule,
+  EditorModule,
+  SharedModule,
+  RadioButtonModule,
+  CheckboxModule,
+  CalendarModule,
+  GrowlModule,
+  PanelModule,
+  FieldsetModule,
+  DropdownModule,
+  DialogModule
+];
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    PRIMENG_MODULES
   ],
   exports: [
     FormsModule,
-    ButtonModule,
-    DataTableModule,
-    EditorModule,
-    SharedModule,
-    RadioButtonModule,
-    CheckboxModule,
-    CalendarModule,
-    GrowlModule
+    PRIMENG_MODULES,
+
+    MemberUpsertComponent
   ],
-  declarations: []
+  declarations: [MemberUpsertComponent]
 })
 export class MVASharedModule { }
