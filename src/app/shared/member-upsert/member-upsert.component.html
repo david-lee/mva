@@ -45,7 +45,7 @@
     <div class="ui-g">
       <span class="ui-g-1">
         <label>SIN</label>
-        <input [(ngModel)]="member.sin" pInputText name="sin" type="text" minlength="9" maxlength="9" #sin="ngModel">
+        <input [(ngModel)]="member.sin" pInputText name="sin" type="text" required minlength="9" maxlength="9" #sin="ngModel">
         <div *ngIf="sin.invalid && (sin.dirty || sin.touched)" class="validation-error">
           <div *ngIf="sin.errors.minlength">9 digits are required</div>
           <div *ngIf="sin.errors.required">SIN is required</div>
