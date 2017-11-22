@@ -51,10 +51,14 @@ body {
   }
 
   .ui-datatable-data > tr {
-    > td, > td.ui-editable-column {
-      padding: 10px 5px;
+    > td {
+      padding: 5px;
       // border-style: none;
       word-wrap: break-word;
+
+      &.number-data {
+        text-align: right;
+      }
     }
   } 
 }

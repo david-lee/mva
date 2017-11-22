@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -14,14 +14,14 @@ export class MemberDetailService {
 
   memberDetail = {
     memberInfo: {
-      id: "10000001",
-      customerRole: "98-Promo", 
+      id: '10000001',
+      customerRole: '98-Promo',
       lastName: 'Kunkel',
       firstName: 'James',
       middleName: 'Paul',
-      gender: "Male",
-      dob: "3/Dec/1985",
-      email: "JamesKunkel@gmail.com",
+      gender: 'Male',
+      dob: '3/Dec/1985',
+      email: 'JamesKunkel@gmail.com',
       lastUpdateDate: '',
       lastUpdateUser: 'Admin',
       membershipStatus: '1-Active',
@@ -37,7 +37,7 @@ export class MemberDetailService {
       employerExternalId: 'MANULIFE',
       employerBranchId: '',
       relationshipCode: 'PP',
-      sin: '123 456 789',
+      sin: '123456789',
       vitalityEffdate: '11/Dec/2015',
       vitalityTermdate: '',
       language: 'English',
@@ -74,17 +74,17 @@ export class MemberDetailService {
       id: '11111',
       assessmentDate: '15/Dec/2015',
       sentToTvg: '13/Feb/2016',
-      glu: "123,450",
-      ht: "71.500",
-      wght: "90"
+      glu: '123450',
+      ht: '71.500',
+      wght: '90'
     },
     {
       id: '22222',
       assessmentDate: '1/Jun/2015',
       sentToTvg: '3/Mar/2016',
-      glu: "333,450",
-      ht: "91.500",
-      wght: "50"
+      glu: '333450',
+      ht: '91.500',
+      wght: '50'
     }]
   };
   constructor(public http: HttpClient) { }

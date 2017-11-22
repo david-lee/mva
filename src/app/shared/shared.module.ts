@@ -8,6 +8,7 @@ import {
   GrowlModule, PanelModule, FieldsetModule, DialogModule
 } from 'primeng/primeng';
 import { MemberUpsertComponent } from './member-upsert/member-upsert.component';
+import { ForbiddenDobDirective } from './forbidden-dob.directive';
 
 export const PRIMENG_MODULES = [
   ButtonModule,
@@ -34,8 +35,9 @@ export const PRIMENG_MODULES = [
     FormsModule,
     PRIMENG_MODULES,
 
-    MemberUpsertComponent
+    MemberUpsertComponent,
+    ForbiddenDobDirective
   ],
-  declarations: [MemberUpsertComponent]
+  declarations: [MemberUpsertComponent, ForbiddenDobDirective]
 })
 export class MVASharedModule { }

@@ -51,12 +51,17 @@ export const getShowBackdrop = createSelector(
 
 export const getShowSpinner = createSelector(
   getBackdropState,
-  fromBackdrop.getShowSpinner 
+  fromBackdrop.getShowSpinner
 );
 
 export const getMemberList = createSelector(
   getMemberState,
   fromMember.getMemberList
+);
+
+export const getNewMember = createSelector(
+  getMemberState,
+  fromMember.getNewMember
 );
 
 export const getMemberDetailInfo = createSelector(
@@ -76,7 +81,7 @@ export const getBiometrics = createSelector(
 
 export const getUpsertMember = createSelector(
   getMemberDetailState,
-  fromMemberDetail.getUpsertMember  
+  fromMemberDetail.getUpsertMember
 );
 
 export const getUpsertBiometrics = createSelector(

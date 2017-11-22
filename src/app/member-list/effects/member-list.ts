@@ -7,6 +7,7 @@ import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 
 import { Member } from '../models/member';
+import { MemberInfo } from '../../member-detail/models/member-info';
 import { MemberListService } from '../member-list.service';
 import * as MemberListAction from '../actions/member-list';
 
@@ -22,7 +23,7 @@ export class MemberListEffects {
           return new MemberListAction.LoadSuccess(members.data);
         })
         .catch(error => { throw error; })
-    ); 
+    );
 
   @Effect({dispatch: false})
   loadDetail$ = this.actions$
@@ -31,6 +32,19 @@ export class MemberListEffects {
     .do((memberId) => {
       this.router.navigate(['/member', memberId]);
     });
+
+  @Effect()
+  saveMember$ = this.actions$
+    .ofType(MemberListAction.SAVE_MEMBER)
+    .map((action: MemberListAction.SaveMember) => action.payload)
+    .switchMap((member: MemberInfo) =>
+      this.memberService
+        .saveMember(member)
+        .map(savedMember => {
+          return new MemberListAction.AddSuccess(savedMember.data);
+        })
+        .catch(error => { throw error; })
+    );
 
   constructor(
     private actions$: Actions,

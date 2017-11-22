@@ -1,4 +1,5 @@
 <p-dialog modal="true" [(visible)]="auditLogs" width="900"
+  (onHide)="close()"
   [draggable]="false" [blockScroll]=true>
   <p-header>Audit Log for Member {{memberId}}</p-header>
 

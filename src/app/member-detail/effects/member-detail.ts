@@ -26,7 +26,7 @@ export class MemberDetailEffects {
           return new MemberDetailAction.LoadSuccess(memberDetail.data);
         })
         .catch(error => { throw error; })
-    ); 
+    );
 
   @Effect()
   loadAudit$ = this.actions$
@@ -39,7 +39,7 @@ export class MemberDetailEffects {
           return new MemberDetailAction.LoadAuditLogSuccess(auditLog.data);
         })
         .catch(error => { throw error; })
-    );     
+    );
 
   constructor(
     private actions$: Actions,

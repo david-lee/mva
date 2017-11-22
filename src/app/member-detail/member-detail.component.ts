@@ -26,19 +26,18 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   member: MemberInfo[]; // dataTable component requires an array of value
   auditLogs: AuditLog[];
   subscriptions: ISubscription[] = [];
-
   upsertMember: MemberInfo;
   upsertBiometrics: Biometrics;
-  
+
   get isPromoMember() {
     return this.member[0].customerRole.toLowerCase().indexOf('promo') >= 0;
   }
-  
+
   constructor(public store: Store<fromRoot.State>, public route: ActivatedRoute, public location: Location) {
   }
 
   ngOnInit() {
-    let memberId = this.route.snapshot.paramMap.get('memberId');
+    const memberId = this.route.snapshot.paramMap.get('memberId');
 
     this.subscriptions.push(
       this.store.select(fromRoot.getMemberDetailInfo)
@@ -47,8 +46,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
         })
     );
 
-    this.accounts$ = this.store.select(fromRoot.getAccounts)
-    
+    this.accounts$ = this.store.select(fromRoot.getAccounts);
+
     this.subscriptions.push(
       this.store.select(fromRoot.getBiometrics)
         .subscribe(biometrics => {
@@ -97,10 +96,6 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   gotoMemberList() {
     this.location.back();
   }
-
-  // selectDOB(value) {
-  //   this.member[0].dob = moment(value, 'DD/MMM/YYYY').format('DD/MMM/YYYY');
-  // }
 
   doUpsertBiometrics(bio: Biometrics = <any>{}) {
     this.store.dispatch(new MemberDetailAction.UpdateBio(bio));

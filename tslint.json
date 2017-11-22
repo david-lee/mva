@@ -116,13 +116,13 @@
       "check-type"
     ],
     "directive-selector": [
-      true,
+      false,
       "attribute",
       "mva",
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
       "mva",
       "kebab-case"

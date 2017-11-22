@@ -1,4 +1,5 @@
 <p-dialog [header]="bio.id ? 'Edit Biometrics' : 'Add Biometrics'" 
+  (onHide)="cancel()"
   modal="true" [(visible)]="bio" width="400" height="450"
 >
   <form #bioForm="ngForm">
