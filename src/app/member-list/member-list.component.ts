@@ -77,7 +77,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
     if (!this.emailClicked) {
       const member: Member = event.data;
 
-      console.log('selected row: ', event);
+      // console.log('selected row: ', event);
       this.store.dispatch(new MemberListAction.LoadDetail(member.id));
     }
 

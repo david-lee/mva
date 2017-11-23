@@ -33,7 +33,13 @@ export const environment = {
       {label: 'New Brunswick', value: 'New Brunswick', code: 'NB'},
       {label: 'Newfoundland & Labrador', value: 'Newfoundland & Labrador', code: 'NL'},
       {label: 'Northwest Territories', value: 'Northwest Territories', code: 'NT'},
+      {label: 'Nova Scotia', value: 'Nova Scotia', code: 'NS'},
+      {label: 'Nunavut', value: 'Nunavut', code: 'NU'},
       {label: 'Ontario', value: 'Ontario', code: 'ON'},
+      {label: 'Prince Edward Island', value: 'Prince Edward Island', code: 'PE'},
+      {label: 'Quebec', value: 'Quebec', code: 'QC'},
+      {label: 'Saskatchewan', value: 'Sakkatchewan', code: 'SK'},
+      {label: 'Yukon', value: 'Yukon', code: 'YT'},
     ],
     cotinines: [
       {label: '1-Somker', value: '1-Smoker', code: '1'},

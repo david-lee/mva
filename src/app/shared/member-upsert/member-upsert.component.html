@@ -1,11 +1,10 @@
-<p-dialog [(visible)]="!!member" modal="true" width="500" height="470" 
-  (onHide)="cancel()" [closable]="false">
+<p-dialog [(visible)]="!!member" modal="true" width="500" height="470" (onHide)="cancel()" [closable]="false">
   <p-header>
     <h3 *ngIf="!member.id" class="title">Add Member</h3>
     <h3 *ngIf="member.id" class="title">Edit Member {{member.id}}</h3>
     <div class="title-container">
         <div class="actions">
-          <button pButton class="action-item" type="button" icon="fa-check" label="Save" (click)="save()" [disabled]="false && memberForm.invalid"></button>
+          <button pButton class="action-item" type="button" icon="fa-check" label="Save" (click)="save()" [disabled]="dobError || memberForm.invalid"></button>
           <button pButton class="action-item" type="button" icon="fa-ban" label="Cancel" (click)="cancel()"></button>
         </div>
       </div>    
@@ -16,8 +15,7 @@
       <div class="ui-g">
         <span class="ui-g-4">
           <label>First Name</label>
-          <input [(ngModel)]="member.firstName" pInputText name="fname" type="text" 
-            required maxlength="25" #fname="ngModel">
+          <input [(ngModel)]="member.firstName" pInputText name="fname" type="text" required maxlength="25" #fname="ngModel">
           <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="validation-error">First name is required</div>
         </span>
         <span class="ui-g-3">
@@ -37,26 +35,28 @@
           <label>Date of Birth</label>
           <p-calendar [(ngModel)]="member.dob" name="dob-cal" [showIcon]="true" dateFormat="dd/M/yy"
             [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2020" #dob="ngModel"
-            readonlyInput="true" required 
-            (onSelect)="selectDOB($event)">
+            readonlyInput="true" required forbiddenDob>
           </p-calendar>
-          <div *ngIf="dobError || (dob.invalid && (dob.dirty || dob.touched))" class="validation-error">
+          <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="validation-error">
             <div *ngIf="dob.errors && dob.errors.required">Date of Birth is required</div>
-            <!-- <div *ngIf="dob.errors.forbiddenDob">DOB can't be future</div>               -->
-            <div *ngIf="dobError">DOB can't be future</div>
+            <div *ngIf="dob.errors.forbiddenDob">DOB can't be future</div>
+            <!-- <div *ngIf="dobError">DOB must not be future</div> -->
           </div>          
         </span> 
         <span class="ui-g-3">
           <label>Gender</label>
-          <p-dropdown [(ngModel)]="member.gender" name="gender" required [options]="genders" [style]="{'width':'100%'}" placeholder="Select a Gender" #gender="ngModel"></p-dropdown>
-          <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="validation-error">Gender is required</div>
+          <p-dropdown [(ngModel)]="member.gender" name="gender" [options]="genders" [style]="{'width':'100%'}" #gender="ngModel"></p-dropdown>
+          <!-- <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="validation-error">Gender is required</div> -->
         </span>
         <span class="ui-g-4">
           <label>SIN</label>
-          <input [(ngModel)]="member.sin" pInputText name="sin" type="text" required minlength="9" maxlength="9" #sin="ngModel">
+          <input [(ngModel)]="member.sin"  name="sin" type="text" #sin="ngModel" pInputText
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            required minlength="9" maxlength="9" invalidSin>
           <div *ngIf="sin.invalid && (sin.dirty || sin.touched)" class="validation-error">
             <div *ngIf="sin.errors.minlength">9 digits are required</div>
             <div *ngIf="sin.errors.required">SIN is required</div>
+            <div *ngIf="sin.errors.invalidSin">Invalid SIN number</div>
           </div>
         </span>        
       </div>
@@ -64,23 +64,31 @@
       <div class="ui-g">
         <span class="ui-g-5">
           <label>Email</label>
-          <input [(ngModel)]="member.email" name="email" type="text" required maxlength="40" pInputText> 
+          <input [(ngModel)]="member.email" name="email" type="text" required maxlength="40" #email="ngModel" pInputText
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'>
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="validation-error">
+            <div *ngIf="email.errors.required">Email is required</div>
+            <div *ngIf="email.errors.pattern">Invalid email address</div>
+          </div>
         </span>
         <span class="ui-g-3">
           <label>Language</label>
-          <p-dropdown [(ngModel)]="member.language" name="lang" required [options]="languages" [style]="{'width':'100%'}"></p-dropdown>
+          <p-dropdown [(ngModel)]="member.language" name="lang" [options]="languages" #lang="ngModel" [style]="{'width':'100%'}"></p-dropdown>
+          <!-- <div *ngIf="lang.invalid && (lang.dirty || lang.touched)" class="validation-error">Language is required</div> -->
         </span>
         <span class="ui-g-4">
           <label>Status</label>
-          <p-dropdown *ngIf="isPromo" [(ngModel)]="member.membershipStatus" name="status" required [options]="memberStatus" placeholder="Select a status" [style]="{'width':'100%'}"></p-dropdown>
-          <p-dropdown *ngIf="!isPromo" [(ngModel)]="member.membershipStatus" name="status" [options]="memberStatus" disabled [style]="{'width':'100%'}"></p-dropdown>        
+          <p-dropdown *ngIf="isPromo" [(ngModel)]="member.membershipStatus" name="status" required [options]="memberStatus" [style]="{'width':'100%'}"></p-dropdown>
+          <p-dropdown *ngIf="!isPromo" [(ngModel)]="member.membershipStatus" name="status" [options]="memberStatus" disabled [style]="{'width':'100%'}"></p-dropdown>
         </span> 
       </div>
 
       <div class="ui-g">
         <span class="ui-g-5">
           <label>Address1</label>
-          <input [(ngModel)]="member.address1" name="address1" type="text" required maxlength="50" pInputText> 
+          <input [(ngModel)]="member.address1" name="address1" type="text" required maxlength="50" #address1="ngModel" pInputText>
+          <div *ngIf="address1.invalid && (address1.dirty || address1.touched)" class="validation-error">Address1 is required</div>          
         </span>
         <span class="ui-g-4">
           <label>Address2</label>
@@ -88,14 +96,16 @@
         </span>
         <span class="ui-g-3">
           <label>City</label>
-          <input [(ngModel)]="member.city" name="city" type="text" required maxlength="50" pInputText>
+          <input [(ngModel)]="member.city" name="city" type="text" required maxlength="50" #city="ngModel" pInputText>
+          <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">City is required</div>          
         </span>    
       </div>
 
       <div class="ui-g">
         <span class="ui-g-4">
           <label>Province</label>
-          <p-dropdown [(ngModel)]="member.province" name="prov" required [options]="provinces" placeholder="Select a Province" [style]="{'width':'100%'}"></p-dropdown>
+          <p-dropdown [(ngModel)]="member.province" name="prov" [options]="provinces" #prov="ngModel" [style]="{'width':'100%'}"></p-dropdown>
+          <!-- <div *ngIf="prov.invalid && (prov.dirty || prov.touched)" class="validation-error">Province is required</div> -->
         </span>
         <span class="ui-g-4">
           <label>Country</label>
@@ -103,7 +113,12 @@
         </span>
         <span class="ui-g-4">
           <label>Postal Code</label>
-          <input [(ngModel)]="member.postalCode" name="postal" type="text" required pInputText>
+          <input [(ngModel)]="member.postalCode" name="postal" type="text" required #postal="ngModel" 
+            [ngModelOptions]="{ updateOn: 'blur' }" pattern="^[A-Za-z][0-9][A-Za-z][\s]*[0-9][A-Za-z][0-9]$" pInputText>
+          <div *ngIf="postal.invalid && (postal.dirty || postal.touched)" class="validation-error">
+            <div *ngIf="postal.errors.required">Postal Code is required</div>
+            <div *ngIf="postal.errors.pattern">Invalid postal code</div>
+          </div>
         </span>
       </div> 
       
@@ -114,7 +129,10 @@
         </span>
         <span class="ui-g-4">
           <label>Coverage Effective</label>
-          <p-calendar *ngIf="isPromo" [(ngModel)]="member.vitalityEffdate" name="cov-effective" [showIcon]="true" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>
+          <p-calendar *ngIf="isPromo" readonlyInput="true" [(ngModel)]="member.vitalityEffdate" name="cov-effective" 
+            (onSelect)="selectEffDate($event)"
+            [showIcon]="true" dateFormat="dd/M/yy" [style]="{'width':'100%'}">
+          </p-calendar>
           <p-calendar *ngIf="!isPromo" disabled [(ngModel)]="member.vitalityEffdate" name="cov-effective" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>
         </span>          
       </div>      

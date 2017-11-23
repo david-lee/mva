@@ -51,9 +51,9 @@ export class MemberUpsertComponent implements OnInit {
     return environment.lookups.provinces;
   }
 
-  get dob() {
-    return this._member.dob;
-  }
+  // get dob() {
+  //   return this._member.dob;
+  // }
 
   constructor(public store: Store<fromRoot.State>) { }
 
@@ -81,6 +81,11 @@ export class MemberUpsertComponent implements OnInit {
   selectDOB(dob) {
     const fmt = environment.dateFormat;
     this.dobError = moment(moment(dob, fmt).format(environment.dateFormat), fmt).isAfter(new Date());
+  }
+
+  selectEffDate(eff) {
+    const fmt = environment.dateFormat;
+    this._member.vitalityEffdate = moment(eff, fmt).format(environment.dateFormat);
   }
 
 }

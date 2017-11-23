@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
 export function forbiddenDobValidator(dob: string): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => {
     const forbidden = moment(moment(dob).format(environment.dateFormat)).isAfter(new Date());
-console.log('forbidden dob: ', forbidden);
     return forbidden ? {'forbiddenDob': {value: control.value}} : null;
   };
 }
@@ -17,10 +16,8 @@ console.log('forbidden dob: ', forbidden);
 })
 export class ForbiddenDobDirective implements Validator {
 
-  @Input() forbiddenDob: string;
-
   validate(control: AbstractControl): {[key: string]: any} {
-    return this.forbiddenDob ? forbiddenDobValidator(this.forbiddenDob)(control) : null;
+    return forbiddenDobValidator(control.value)(control);
   }
 
 }

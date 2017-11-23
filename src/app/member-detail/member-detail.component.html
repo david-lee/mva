@@ -93,20 +93,24 @@
       </div>
     </p-header>  
     <p-dataTable [value]="accounts$ | async" expandableRows="true">
-      <p-column expander="true" styleClass="col-icon" [style]="{'width':'3%'}"></p-column>    
-      <p-column field="accountNumber" header="Account #" [style]="{'width':'10%'}"></p-column>
-      <p-column field="product" header="Product"></p-column>
+      <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
+      <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
+      <p-column field="product" header="Product">
+        <ng-template pTemplate="body" let-account="rowData">
+          {{account.product | ellipsis:'55'}}
+        </ng-template>
+      </p-column>
       <p-column field="plan" header="Plan"></p-column>
       <p-column field="status" header="Status" [style]="{'width':'6%'}"></p-column>
-      <p-column header="Amount" [style]="{'width':'12%'}" styleClass="number-data">
+      <p-column header="Amount" [style]="{'width':'8%'}" styleClass="number-data">
         <ng-template let-account="rowData" pTemplate="body">${{account.amount | number:'1.0-2'}}</ng-template>
       </p-column>
-      <p-column field="effectiveDate" header="Effective" [style]="{'width':'10%'}"></p-column>
-      <p-column field="terminationDate" header="Terminated" [style]="{'width':'10%'}"></p-column>
+      <p-column field="effectiveDate" header="Effective" [style]="{'width':'8%'}"></p-column>
+      <p-column field="terminationDate" header="Terminated" [style]="{'width':'8%'}"></p-column>
       <ng-template let-account pTemplate="rowexpansion">
         <p-dataTable [value]="[account]" class="expand-table">
           <p-column field="lastUpdateDate" header="Last Updated On" [style]="{'width':'20%'}"></p-column>
-          <p-column field="lastUpdateUser" header="Last Updated By" [style]="{'width':'20%'}"></p-column>      
+          <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'20%'}"></p-column>      
         </p-dataTable>
       </ng-template>
     </p-dataTable>
@@ -122,11 +126,11 @@
     <p-dataTable [value]="biometrics" expandableRows="true" #bioDT 
       (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
     >
-      <p-column expander="true" styleClass="col-icon" [style]="{'width':'3%'}"></p-column>
+      <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>
       <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
       <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}"></p-column>
       <p-column field="sentToTvg" header="Sent To TVG On"></p-column>
-      <p-column field="lastUpdateUser" header="Last Update By"></p-column>
+      <p-column field="lastUpdateUser" header="Updated By"></p-column>
       <p-column field="lastUpdateDate" header="Last Update On"></p-column>
       <p-column field="tc" header="Total Cholesterol" styleClass="number-data">
         <ng-template let-bio="rowData" pTemplate="body">{{bio.tc | number:'1.0-2'}}</ng-template>
@@ -135,11 +139,11 @@
         <ng-template let-bio="rowData" pTemplate="body">{{bio.glu | number:'1.0-2'}}</ng-template> 
       </p-column>
       <p-column field="ht" styleClass="number-data">
-        <ng-template pTemplate="header">Height(inches)</ng-template>
+        <ng-template pTemplate="header">Height(in)</ng-template>
         <ng-template let-bio="rowData" pTemplate="body">{{bio.ht | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="wght" styleClass="number-data">
-        <ng-template pTemplate="header">Weight(lbs)</ng-template>
+        <ng-template pTemplate="header">Weight(lb)</ng-template>
       </p-column>
       <ng-template let-bio pTemplate="rowexpansion">
         <p-dataTable [value]="[bio]" class="expand-table">

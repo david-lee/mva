@@ -48,8 +48,10 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
           country: 'CA',
           languge: 'English',
           gender: 'Male',
+          province: 'Alberta',
           membershipStatus: '1-Active',
-          membershipEffdate: moment(new Date()).format(environment.dateFormat)
+          membershipEffdate: moment(new Date()).format(environment.dateFormat),
+          vitalityEffdate: moment(new Date()).format(environment.dateFormat)
         }
       };
     }
@@ -58,7 +60,7 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
       // returned from the server after saving
       // all other data should be the same as what user entered
       state.newMember.id = action.payload.id;
-      state.newMember.vitalityEffdate = moment(state.newMember.vitalityEffdate, 'MM/DD/YYYY').format('DD/MMM/YYYY');
+      // state.newMember.vitalityEffdate = moment(state.newMember.vitalityEffdate, 'MM/DD/YYYY').format('DD/MMM/YYYY');
 
       return {
         ...state,

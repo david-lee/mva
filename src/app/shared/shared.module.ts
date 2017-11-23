@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { 
-  InputTextModule, DataTableModule, SharedModule, 
-  ButtonModule, EditorModule, RadioButtonModule, Message,
-  CalendarModule, CheckboxModule, DropdownModule,
+import { InputTextModule, DataTableModule, SharedModule, ButtonModule, EditorModule,
+  RadioButtonModule, Message, CalendarModule, CheckboxModule, DropdownModule,
   GrowlModule, PanelModule, FieldsetModule, DialogModule
 } from 'primeng/primeng';
 import { MemberUpsertComponent } from './member-upsert/member-upsert.component';
 import { ForbiddenDobDirective } from './forbidden-dob.directive';
+import { EllipsisPipe } from './ellipsis.pipe';
+import { InvalidSinDirective } from './invalid-sin.directive';
 
 export const PRIMENG_MODULES = [
   ButtonModule,
@@ -36,8 +36,15 @@ export const PRIMENG_MODULES = [
     PRIMENG_MODULES,
 
     MemberUpsertComponent,
-    ForbiddenDobDirective
+    ForbiddenDobDirective,
+    InvalidSinDirective,
+    EllipsisPipe
   ],
-  declarations: [MemberUpsertComponent, ForbiddenDobDirective]
+  declarations: [
+    MemberUpsertComponent,
+    ForbiddenDobDirective,
+    EllipsisPipe,
+    InvalidSinDirective
+  ]
 })
 export class MVASharedModule { }
