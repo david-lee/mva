@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { MemberDetail, MemberInfo, Account, Biometrics, AuditLog } from './models/member-detail';
+import { MemberDetail, MemberInfo, Account, Biometrics, AuditLog } from '../models/member-detail';
 import * as MemberDetailAction from './actions/member-detail';
 import * as fromRoot from '../core/reducers';
 import * as _ from 'lodash';

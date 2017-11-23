@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { MemberDetail, MemberInfo, Biometrics, AuditLog } from '../models/member-detail';
+import { MemberDetail, MemberInfo, Biometrics, AuditLog } from '../../models/member-detail';
 
 export const LOAD = '[MemberDetail] Load';
 export const LOAD_SUCCESS = '[MemberDetail] Load Success';

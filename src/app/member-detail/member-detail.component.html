@@ -97,11 +97,15 @@
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
       <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
       <p-column field="product" header="Product">
-        <ng-template pTemplate="body" let-account="rowData">
-          {{account.product | ellipsis:'55'}}
+        <ng-template pTemplate="body" let-col let-account="rowData">
+          {{account[col.field] | ellipsis:'55'}}
         </ng-template>
       </p-column>
-      <p-column field="plan" header="Plan"></p-column>
+      <p-column field="plan" header="Plan">
+        <ng-template pTemplate="body" let-col let-account="rowData">
+          {{account[col.field] | ellipsis:'55'}}
+        </ng-template>        
+      </p-column>
       <p-column field="status" header="Status" [style]="{'width':'6%'}"></p-column>
       <p-column header="Amount" [style]="{'width':'8%'}" styleClass="number-data">
         <ng-template let-account="rowData" pTemplate="body">${{account.amount | number:'1.0-2'}}</ng-template>

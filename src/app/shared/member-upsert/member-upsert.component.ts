@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
-import { MemberInfo } from '../../member-detail/models/member-info';
+import { MemberInfo } from '../../models/member-info';
 import * as moment from 'moment';
 import * as MemberDetailAction from '../../member-detail/actions/member-detail';
 import * as MemberListAction from '../../member-list/actions/member-list';
@@ -20,6 +20,7 @@ export class MemberUpsertComponent implements OnInit {
   _member: MemberInfo;
   _isPromo: boolean;
   dobError = false;
+
   @Input() set member(member: MemberInfo) {
     this._member = member;
   }
@@ -51,10 +52,6 @@ export class MemberUpsertComponent implements OnInit {
     return environment.lookups.provinces;
   }
 
-  // get dob() {
-  //   return this._member.dob;
-  // }
-
   constructor(public store: Store<fromRoot.State>) { }
 
   ngOnInit() {
@@ -83,5 +80,4 @@ export class MemberUpsertComponent implements OnInit {
     const fmt = environment.dateFormat;
     this._member.vitalityEffdate = moment(eff, fmt).format(environment.dateFormat);
   }
-
 }

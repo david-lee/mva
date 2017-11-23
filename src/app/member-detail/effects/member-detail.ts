@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 
-import { MemberDetail } from '../models/member-detail';
+import { MemberDetail } from '../../models/member-detail';
 import { MemberDetailService } from '../member-detail.service';
 import { AuditService } from '../audit/audit.service';
 import * as MemberDetailAction from '../actions/member-detail';

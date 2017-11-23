@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 
-import { Member } from '../models/member';
-import { MemberInfo } from '../../member-detail/models/member-info';
+import { Member } from '../../models/member';
+import { MemberInfo } from '../../models/member-info';
 import { MemberListService } from '../member-list.service';
 import * as MemberListAction from '../actions/member-list';
 

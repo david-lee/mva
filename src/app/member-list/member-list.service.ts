@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { Member } from './models/member';
-import { MemberInfo } from '../member-detail/models/member-info';
+import { Member } from '../models/member';
+import { MemberInfo } from '../models/member-info';
 import { of } from 'rxjs/observable/of';
 import * as _ from 'lodash';
 

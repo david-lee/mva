@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Member } from '../models/member';
-import { MemberInfo } from '../../member-detail/models/member-info';
+import { Member } from '../../models/member';
+import { MemberInfo } from '../../models/member-info';
 
 export const LOAD = '[Member] Load';
 export const LOAD_SUCCESS = '[Member] Load Success';
