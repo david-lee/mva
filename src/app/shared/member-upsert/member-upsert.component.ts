@@ -78,11 +78,7 @@ export class MemberUpsertComponent implements OnInit {
     }
   }
 
-  selectDOB(dob) {
-    const fmt = environment.dateFormat;
-    this.dobError = moment(moment(dob, fmt).format(environment.dateFormat), fmt).isAfter(new Date());
-  }
-
+  // convert to mva date format from primeng date format
   selectEffDate(eff) {
     const fmt = environment.dateFormat;
     this._member.vitalityEffdate = moment(eff, fmt).format(environment.dateFormat);

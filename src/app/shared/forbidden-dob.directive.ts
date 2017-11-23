@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 export function forbiddenDobValidator(dob: string): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => {
-    const forbidden = moment(moment(dob).format(environment.dateFormat)).isAfter(new Date());
+    const forbidden = moment(dob, environment.dateFormat).isAfter(new Date());
     return forbidden ? {'forbiddenDob': {value: control.value}} : null;
   };
 }

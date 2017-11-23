@@ -53,7 +53,7 @@
           <input [(ngModel)]="member.sin"  name="sin" type="text" #sin="ngModel" pInputText
             [ngModelOptions]="{ updateOn: 'blur' }"
             required minlength="9" maxlength="9" invalidSin>
-          <div *ngIf="sin.invalid && (sin.dirty || sin.touched)" class="validation-error">
+          <div *ngIf="(!member.id && sin.invalid && (sin.dirty || sin.touched)) || (member.id && sin.invalid)" class="validation-error">
             <div *ngIf="sin.errors.minlength">9 digits are required</div>
             <div *ngIf="sin.errors.required">SIN is required</div>
             <div *ngIf="sin.errors.invalidSin">Invalid SIN number</div>
