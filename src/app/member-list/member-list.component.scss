@@ -7,7 +7,7 @@
 .title-container {
   position: relative;
   display: table;
-  margin: 20px 0;
+  margin: 20px 0 5px 0;
   width: 100%;
 
   .title {
@@ -17,13 +17,13 @@
   .actions {
     position: relative;
     top: 10px;
-    font-size: 14px;
+    font-size: 13px;
     float: right;
     cursor: pointer;
     
     .action-item {
       display: inline-block;
-      margin-left: 20px;
+      margin-left: 5px;
     }
   }
 }

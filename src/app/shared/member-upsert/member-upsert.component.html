@@ -3,11 +3,11 @@
     <h3 *ngIf="!member.id" class="title">Add Member</h3>
     <h3 *ngIf="member.id" class="title">Edit Member {{member.id}}</h3>
     <div class="title-container">
-        <div class="actions">
-          <button pButton class="action-item" type="button" icon="fa-check" label="Save" (click)="save()" [disabled]="dobError || memberForm.invalid"></button>
-          <button pButton class="action-item" type="button" icon="fa-ban" label="Cancel" (click)="cancel()"></button>
-        </div>
-      </div>    
+      <div class="actions">
+        <button pButton class="action-item" type="button" icon="fa-check" label="Save" (click)="save()" [disabled]="dobError || memberForm.invalid"></button>
+        <button pButton class="action-item" type="button" icon="fa-ban" label="Cancel" (click)="cancel()"></button>
+      </div>
+    </div>    
   </p-header>
 
   <div class="wrapper">

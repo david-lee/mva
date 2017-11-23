@@ -1,7 +1,13 @@
-<p-dialog modal="true" [(visible)]="auditLogs" width="900"
-  (onHide)="close()"
-  [draggable]="false" [blockScroll]=true>
-  <p-header>Audit Log for Member {{memberId}}</p-header>
+<p-dialog modal="true" [(visible)]="auditLogs" width="900" [closable]="false" [draggable]="false" [blockScroll]="true"
+  (onHide)="close()">
+  <p-header>
+    <h3>Audit Log for Member {{memberId}}</h3>
+    <div class="title-container">
+      <div class="actions">
+        <button pButton class="action-item" type="button" icon="fa-times" (click)="close()" label="Close"></button>
+      </div>
+    </div>      
+  </p-header>
 
   <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -21,8 +27,4 @@
     <p-column field="newValue" header="New Value"></p-column>  
     <p-column field="oldValue" header="Old Value"></p-column>      
   </p-dataTable>
-
-  <p-footer>
-    <button type="button" pButton icon="fa-times" (click)="close()" label="Close"></button>
-  </p-footer>  
 </p-dialog>

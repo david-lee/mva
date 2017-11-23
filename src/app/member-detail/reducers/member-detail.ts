@@ -98,7 +98,8 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
     }
 
     case MemberDetailAction.ADD_BIO_SUCCESS: {
-      action.payload.assessmentDate = moment(action.payload.assessmentDate).format('DD/MMM/YYYY');
+      action.payload.id = '999999';
+      action.payload.assessmentDate = moment(action.payload.assessmentDate).format(environment.dateFormat);
 
       return {
         ...state,

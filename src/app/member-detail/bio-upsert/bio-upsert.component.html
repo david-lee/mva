@@ -1,12 +1,22 @@
-<p-dialog [header]="bio.id ? 'Edit Biometrics' : 'Add Biometrics'" 
-  (onHide)="cancel()"
-  modal="true" [(visible)]="bio" width="400" height="450"
->
+<p-dialog modal="true" [(visible)]="bio" width="400" height="450" [closable]="false" (onHide)="cancel()">
+  <p-header>
+    <h3 class="title">{{bio.id ? 'Edit Biometrics' : 'Add Biometrics'}}</h3>
+    <div class="title-container">
+      <div class="actions">
+        <button *ngIf="bio.id" class="action-item" type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+        <button *ngIf="!bio.id" class="action-item" type="button" pButton icon="fa-check" (click)="add()" label="Add"></button>    
+        <button class="action-item" type="button" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+      </div>
+    </div>
+  </p-header>
+
   <form #bioForm="ngForm">
     <div class="ui-g">
       <div class="ui-g-6">
         <label>Assessment Date</label>
-        <p-calendar [(ngModel)]="bio.assessmentDate" name="assessDate" dateFormat="dd/M/yy" [showIcon]="true" [style]="{'width':'100%'}"></p-calendar>
+        <p-calendar [(ngModel)]="bio.assessmentDate" name="assessDate" dateFormat="dd/M/yy" required 
+          [showIcon]="true" [style]="{'width':'100%'}" #assessDt="ngModel"></p-calendar>
+        <div *ngIf="assessDt.invalid && (assessDt.dirty || assessDt.touched)" class="validation-error">Assessment date is required</div>
       </div>
       <div class="ui-g-6"></div>
     </div>
@@ -61,9 +71,4 @@
       </div>
     </div>
   </form>
-  <p-footer>
-    <button *ngIf="bio.id" type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
-    <button *ngIf="!bio.id" type="button" pButton icon="fa-check" (click)="add()" label="Add"></button>    
-    <button type="button" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
-  </p-footer>
 </p-dialog>

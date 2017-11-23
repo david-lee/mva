@@ -1,6 +1,7 @@
 <ng-container>
   <div class="title-container">
-    <h1 class="title">{{member[0].firstName}}</h1>
+    <!-- <h1 class="title">{{member[0].firstName}}</h1> -->
+    <img src="assets/manulife-vitality.svg" style="width: 280px;">
     
     <div class="actions">
       <button pButton class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
@@ -12,7 +13,7 @@
   <p-panel [toggleable]="true">
     <p-header>
       <div class="ui-helper-clearfix section-header">
-        <span class="ui-panel-title">Member Info</span> 
+        <span class="ui-panel-title">Member Details</span> 
       </div>
     </p-header>   
     <div class="ui-g">
@@ -123,7 +124,7 @@
         <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add" (click)="doUpsertBiometrics()"></button>
       </div>
     </p-header>  
-    <p-dataTable [value]="biometrics" expandableRows="true" #bioDT 
+    <p-dataTable [value]="biometrics" expandableRows="true" [rowHover]="true" #bioDT 
       (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
     >
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>
@@ -133,25 +134,36 @@
       <p-column field="lastUpdateUser" header="Updated By"></p-column>
       <p-column field="lastUpdateDate" header="Last Update On"></p-column>
       <p-column field="tc" header="Total Cholesterol" styleClass="number-data">
-        <ng-template let-bio="rowData" pTemplate="body">{{bio.tc | number:'1.0-2'}}</ng-template>
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="glu" header="Glucose" styleClass="number-data">
-        <ng-template let-bio="rowData" pTemplate="body">{{bio.glu | number:'1.0-2'}}</ng-template> 
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="ht" styleClass="number-data">
         <ng-template pTemplate="header">Height(in)</ng-template>
-        <ng-template let-bio="rowData" pTemplate="body">{{bio.ht | number:'1.0-2'}}</ng-template>
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="wght" styleClass="number-data">
         <ng-template pTemplate="header">Weight(lb)</ng-template>
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
       </p-column>
       <ng-template let-bio pTemplate="rowexpansion">
         <p-dataTable [value]="[bio]" class="expand-table">
-          <p-column field="hdl" header="HDL Cholesterol" styleClass="number-data"></p-column>
-          <p-column field="ldl" header="LDL Cholesterol" styleClass="number-data"></p-column>
-          <p-column field="tcHdlRatio" header="TC/HDL Ratio" styleClass="number-data"></p-column>
-          <p-column field="bps" header="Systolic BP" styleClass="number-data"></p-column>
-          <p-column field="bpd" header="Diastolic BP" styleClass="number-data"></p-column>
+          <p-column field="hdl" header="HDL Cholesterol" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+          </p-column>
+          <p-column field="ldl" header="LDL Cholesterol" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+          </p-column>
+          <p-column field="tcHdlRatio" header="TC/HDL Ratio" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+          </p-column>
+          <p-column field="bps" header="Systolic BP" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>            
+          </p-column>
+          <p-column field="bpd" header="Diastolic BP" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>            
+          </p-column>
           <p-column field="continineResult" header="Continine Result"></p-column>
         </p-dataTable>
       </ng-template>

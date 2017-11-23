@@ -49,8 +49,8 @@ export class MemberDetailService {
     accounts: [{
       id: '111111',
       accountNumber: '1666100001',
-      product: 'Very very long product name in manulife vitality products Why should it be such a long name',
-      plan: 'Very very long plan name in manulife vitality plans Why should it be such a long name',
+      product: 'Very very long product name in manulife vitality products Family Term with Vitality Family Term with Vitality',
+      plan: 'Very very long plan name in manulife vitality plans Family Term with Vitality Family Term with Vitality',
       amount: '555000',
       effectiveDate: '1/Jan/2016',
       terminationDate: '15/Jan/2016',
@@ -61,8 +61,8 @@ export class MemberDetailService {
     {
       id: '222222',
       accountNumber: '1666100022',
-      product: 'Very very long product name in manulife vitality products Why should it be such a long name',
-      plan: 'Very very long plan name in manulife vitality plans Why should it be such a long name',
+      product: 'Very very long product name in manulife vitality products Family Term with Vitality Family Term with Vitality',
+      plan: 'Very very long plan name in manulife vitality plans Family Term with Vitality Family Term with Vitality',
       amount: '333000',
       effectiveDate: '1/Jan/2016',
       terminationDate: '15/Jan/2016',
