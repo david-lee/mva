@@ -2,9 +2,14 @@
   display: block;
 }
 
+h3 {
+  display: block;
+  float: left;
+}
+
 .wrapper {
   margin: 0 auto;
-  width: 80%;
+  // width: 80%;
 }
 
 form {
@@ -20,10 +25,6 @@ form {
   .ui-g {
     height: 65px;
   }
-  // .ui-g-1, .ui-g-2, .ui-g-3, .ui-g-4 {
-  //   padding-left: .2em;
-  //   padding-right: .2em;
-  // }
 
   .validation-error {
     padding-top: 3px;
@@ -34,8 +35,6 @@ form {
 
 .title-container {
   position: relative;
-  display: table;
-  margin: 20px 0;
   width: 100%;
 
   .title {
@@ -43,15 +42,19 @@ form {
   }
 
   .actions {
-    position: relative;
-    top: 10px;
-    font-size: 14px;
+    // position: relative;
+    // top: 10px;
+    font-size: 13px;
     float: right;
     cursor: pointer;
     
     .action-item {
       display: inline-block;
-      margin-left: 20px;
+      margin-left: 10px;
     }
   }  
+}
+
+.ui-calendar {
+  width: 90%;
 }

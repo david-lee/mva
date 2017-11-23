@@ -20,8 +20,8 @@ import { AuditComponent } from './audit/audit.component';
     CommonModule,
     MemberDetailRoutingModule,
     MVASharedModule,
-    
-    EffectsModule.forFeature([MemberDetailEffects])    
+
+    EffectsModule.forFeature([MemberDetailEffects])
   ],
   declarations: [ MemberDetailComponent, AccountComponent, BiometricsComponent, BioUpsertComponent, AuditComponent ],
   providers: [ MemberDetailService, AuditService ]

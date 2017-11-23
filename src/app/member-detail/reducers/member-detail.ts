@@ -16,7 +16,7 @@ export interface State {
 const initialState: State = {
   memberInfo: null,
   accounts: [],
-  biometrics: [],  
+  biometrics: [],
   upsertMember: null,
   upsertBio: null,
   auditLogs: null
@@ -26,22 +26,24 @@ const dateFormat: string = environment.dateFormat;
 
 export function reducer(state = initialState, action: MemberDetailAction.Actions): State {
   switch (action.type) {
-    case MemberDetailAction.LOAD: {
+    case MemberDetailAction.LOAD:
+    case MemberDetailAction.LOAD_AUDIT_LOG: {
       return {
         ...state
       };
     }
 
     case MemberDetailAction.LOAD_SUCCESS: {
-      let memberDetail: MemberDetail = action.payload;
+      const memberDetail: MemberDetail = action.payload;
 
       return {
         ...state,
         memberInfo: memberDetail.memberInfo,
-        accounts: memberDetail.accounts,
+        accounts: <any>memberDetail.accounts,
         biometrics: memberDetail.biometrics,
         upsertBio: null,
-        upsertMember: null
+        upsertMember: null,
+        auditLogs: null
       };
     }
 
@@ -49,18 +51,18 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       return {
         ...state,
         auditLogs: action.payload
-      }
+      };
     }
 
     case MemberDetailAction.CLOSE_AUDIT_LOG: {
       return {
         ...state,
         auditLogs: null
-      }
-    }    
+      };
+    }
 
     case MemberDetailAction.UPDATE_MEMBER: {
-      let upsertMember: MemberInfo = { ...state.memberInfo };
+      const upsertMember: MemberInfo = { ...state.memberInfo };
 
       // calender componenet requires date type for value
       upsertMember.dob = new Date(<string>upsertMember.dob);
@@ -70,66 +72,67 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       return {
         ...state,
         upsertMember: upsertMember
-      }
+      };
     }
 
     case MemberDetailAction.UPDATE_MEMBER_SUCCESS: {
-      let member = action.payload;
+      const member = action.payload;
 
       // convert date type to string with format
-      member.dob = moment(member.dob).format(dateFormat);
-      member.vitalityEffdate = moment(member.vitalityEffdate).format(dateFormat);
-      member.membershipEffdate = moment(member.membershipEffdate).format(dateFormat);
+      // member.dob = moment(member.dob).format(dateFormat);
+      // member.vitalityEffdate = moment(member.vitalityEffdate).format(dateFormat);
+      // member.membershipEffdate = moment(member.membershipEffdate).format(dateFormat);
 
       return {
         ...state,
         memberInfo: { ...member },
         upsertMember: null
-      }
+      };
     }
 
     case MemberDetailAction.UPDATE_MEMBER_CANCEL: {
       return {
         ...state,
         upsertMember: null
-      }
+      };
     }
 
     case MemberDetailAction.ADD_BIO_SUCCESS: {
-      action.payload.assessmentDate = moment(action.payload.assessmentDate).format('DD/MMM/YYYY');
+      action.payload.id = '999999';
+      action.payload.assessmentDate = moment(action.payload.assessmentDate).format(environment.dateFormat);
 
       return {
         ...state,
         biometrics: [ ...state.biometrics, action.payload ],
         upsertBio: null
-      }
+      };
     }
 
     case MemberDetailAction.UPDATE_BIO: {
-      let upsertBio: Biometrics = action.payload;
+      const upsertBio: Biometrics = action.payload;
 
       return {
         ...state,
         upsertBio: { ...upsertBio }
-      }
+      };
     }
 
     case MemberDetailAction.UPDATE_BIO_SUCCESS: {
-      let idx = _.findIndex(state.biometrics, { id: action.payload.id });
+      const idx = _.findIndex(state.biometrics, { id: action.payload.id });
       state.biometrics[idx] = action.payload;
 
       return {
         ...state,
         biometrics: [ ...state.biometrics ],
         upsertBio: null
-      }
+      };
     }
 
     case MemberDetailAction.UPDATE_BIO_CANCEL: {
       return {
         ...state,
         upsertBio: null
-      }
+      };
     }
 
     default: {

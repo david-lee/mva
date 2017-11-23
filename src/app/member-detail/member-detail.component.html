@@ -1,152 +1,177 @@
-<ng-container *ngIf="!upsertMember">
-<div class="title-container">
-  <h1 class="title">{{member[0].firstName}}</h1>
+<ng-container>
+  <div class="title-container">
+    <!-- <h1 class="title">{{member[0].firstName}}</h1> -->
+    <img src="assets/manulife-vitality.svg" style="width: 280px;">
     
-  <div class="actions">
-    <button pButton class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
-    <button pButton class="action-item" type="button" icon="fa-history" label="View Audit Log" (click)="viewAuditLog()"></button>
-    <button pButton class="action-item" type="button" icon="fa-arrow-circle-o-left" label="Back to Member List" (click)="gotoMemberList()"></button>    
-  
-    <!-- <div class="action-item" (click)="editMember()">
-      <i class="fa fa-pencil" aria-hidden="true"></i> Edit Member
-    </div>    
-    <div class="action-item" (click)="viewAuditLog()">
-      <i class="fa fa-history" aria-hidden="true"></i> View Audit Log
-    </div>
-    <div class="action-item" (click)="gotoMemberList()">
-      <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Back to Member List
-    </div> -->
-  </div>
-</div>
-
-<p-panel [toggleable]="true">
-  <p-header>
-    <div class="ui-helper-clearfix section-header">
-      <span class="ui-panel-title">Member Info</span> 
-    </div>
-  </p-header>   
-  <div class="ui-g">
-    <div class="ui-g-6 no-padding-left">
-      <p-dataTable [value]="member">
-        <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
-        <p-column field="lastName" header="Last Name"></p-column>    
-        <p-column field="firstName" header="First Name"></p-column>
-        <p-column field="middleName" header="Middle Name"></p-column>
-        <p-column field="dob" header="Date of Birth" [style]="{'width':'25%'}"></p-column>
-      </p-dataTable>
-    </div>
-    <div class="ui-g-6 no-padding-right">
-      <p-dataTable [value]="member">
-        <p-column field="lastUpdateDate" header="Last Updated On"></p-column>
-        <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
-        <p-column field="membershipStatus" header="Membership Status"></p-column>
-        <p-column field="membershipEffdate" header="As of Date"></p-column>
-      </p-dataTable>  
+    <div class="actions">
+      <button pButton class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
+      <button pButton class="action-item" type="button" icon="fa-history" label="View Audit Log" (click)="viewAuditLog()"></button>
+      <button pButton class="action-item" type="button" icon="fa-arrow-circle-o-left" label="Back to Member List" (click)="gotoMemberList()"></button>
     </div>
   </div>
 
-  <div class="ui-g">
-    <div class="ui-g-6 no-padding-left">
-      <p-dataTable [value]="member">
-        <p-column field="gender" header="Gender" [style]="{'width':'15%'}" ></p-column>
-        <p-column field="sin" header="SIN"></p-column>
-        <p-column field="language" header="Language"></p-column>
-        <p-column field="email" header="Email" [style]="{'width':'50%'}"></p-column>            
-      </p-dataTable>
-    </div>
-    <div class="ui-g-6 no-padding-right">
-      <p-dataTable [value]="member">
-        <p-column field="employerBranchId" header="Reward Level"></p-column>
-        <p-column field="vitalityEffdate" header="Coverage Effective"></p-column>
-        <p-column field="vitalityTermdate" header="Terminated On"></p-column>
-        <p-column field="customerRole" header="Customer Role" [style]="{'width':'18%'}"></p-column>
-        <p-column field="establishedOnC360" header="On C360" [style]="{'width':'15%'}"></p-column>
-      </p-dataTable>  
-    </div>
-  </div>  
-
-  <div class="ui-g">
-    <div class="ui-g-6 address no-padding-left">
-      <p-dataTable [value]="member">
-        <p-column field="address1" header="Address 1"></p-column>
-        <p-column field="address2" header="Address 2" [style]="{'width':'15%'}"></p-column>
-        <p-column field="city" header="City" [style]="{'width':'20%'}"></p-column>
-        <p-column field="province" header="Province" [style]="{'width':'10%'}"></p-column>
-        <p-column field="country" header="Country" [style]="{'width':'10%'}"></p-column>
-        <p-column field="postalCode" header="Postal Code" [style]="{'width':'15%'}"></p-column>
-      </p-dataTable> 
-    </div>
-    <div class="ui-g-6 no-padding-right">
-      <p-fieldset legend="Vitality Settings">
+  <p-panel [toggleable]="true">
+    <p-header>
+      <div class="ui-helper-clearfix section-header">
+        <span class="ui-panel-title">Member Details</span> 
+      </div>
+    </p-header>   
+    <div class="ui-g">
+      <div class="ui-g-6 no-padding-left">
         <p-dataTable [value]="member">
-          <p-column field="employerExternalId" header="Employer External Id"></p-column>
-          <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
-          <p-column field="vitalityProdcode" header="Vitality Product Code" [style]="{'width':'23%'}"></p-column>
-          <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'15%'}"></p-column>
+          <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
+          <p-column field="lastName" header="Last Name"></p-column>    
+          <p-column field="firstName" header="First Name"></p-column>
+          <p-column field="middleName" header="Middle Name" [style]="{'width':'18%'}"></p-column>
+          <p-column field="dob" header="Date of Birth" [style]="{'width':'18%'}">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
+          </p-column>
         </p-dataTable>
-      </p-fieldset>
+      </div>
+      <div class="ui-g-6 no-padding-right">
+        <p-dataTable [value]="member">
+          <p-column field="lastUpdateDate" header="Last Updated On"></p-column>
+          <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
+          <p-column field="membershipStatus" header="Membership Status"></p-column>
+          <p-column field="membershipEffdate" header="As of Date">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template> 
+          </p-column>
+        </p-dataTable>  
+      </div>
     </div>
-  </div>
-</p-panel>
 
-<p-panel [toggleable]="true">
-  <p-header>
-    <div class="ui-helper-clearfix section-header">
-      <span class="ui-panel-title">Accounts</span> 
-    </div>
-  </p-header>  
-  <p-dataTable [value]="accounts$ | async">
-    <p-column field="accountNumber" header="Account #" [style]="{'width':'10%'}"></p-column>
-    <p-column field="product" header="Product"></p-column>
-    <p-column field="plan" header="Plan"></p-column>
-    <p-column field="status" header="Status" [style]="{'width':'5%'}"></p-column>
-    <p-column field="amount" header="Amount"></p-column>
-    <p-column field="effectiveDate" header="Effective" ></p-column>
-    <p-column field="terminationDate" header="Terminated" [style]="{'width':'15%'}"></p-column>
-    <p-column field="lastUpdateDate" header="Last Updated On" [style]="{'width':'15%'}"></p-column>
-    <p-column field="lastUpdateUser" header="Last Updated By" [style]="{'width':'15%'}"></p-column>
-  </p-dataTable>
-</p-panel>
+    <div class="ui-g">
+      <div class="ui-g-6 no-padding-left">
+        <p-dataTable [value]="member">
+          <p-column field="gender" header="Gender" [style]="{'width':'15%'}" ></p-column>
+          <p-column field="sin" header="SIN"></p-column>
+          <p-column field="language" header="Language"></p-column>
+          <p-column field="email" header="Email" [style]="{'width':'55%'}"></p-column>            
+        </p-dataTable>
+      </div>
+      <div class="ui-g-6 no-padding-right">
+        <p-dataTable [value]="member">
+          <p-column field="employerBranchId" header="Reward Level"></p-column>
+          <p-column field="vitalityEffdate" header="Coverage Effective">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
+          </p-column>
+          <p-column field="vitalityTermdate" header="Terminated On"></p-column>
+          <p-column field="customerRole" header="Customer Role" [style]="{'width':'18%'}"></p-column>
+          <p-column field="establishedOnC360" header="On C360" [style]="{'width':'15%'}"></p-column>
+        </p-dataTable>  
+      </div>
+    </div>  
 
-<p-panel [toggleable]="true">
-  <p-header>
-    <div class="ui-helper-clearfix section-header">
-      <span class="ui-panel-title">Biometrics</span>        
-      <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add"
-        (click)="doUpsertBiometrics()">
-      </button>
+    <div class="ui-g">
+      <div class="ui-g-6 address no-padding-left">
+        <p-dataTable [value]="member">
+          <p-column header="Address">
+            <ng-template let-member="rowData" pTemplate="body">{{member.address1}} {{member.address2}}</ng-template>
+          </p-column>
+          <p-column field="city" header="City" [style]="{'width':'18%'}"></p-column>
+          <p-column field="province" header="Province" [style]="{'width':'11%'}"></p-column>
+          <p-column field="country" header="Country" [style]="{'width':'11%'}"></p-column>
+          <p-column field="postalCode" header="Postal Code" [style]="{'width':'15%'}"></p-column>
+        </p-dataTable> 
+      </div>
+      <div class="ui-g-6 no-padding-right">
+        <p-fieldset legend="Vitality Settings">
+          <p-dataTable [value]="member">
+            <p-column field="employerExternalId" header="Employer External Id"></p-column>
+            <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
+            <p-column field="vitalityProdcode" header="Product Code" [style]="{'width':'23%'}"></p-column>
+            <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'18%'}"></p-column>
+          </p-dataTable>
+        </p-fieldset>
+      </div>
     </div>
-  </p-header>  
-  <p-dataTable [value]="biometrics" expandableRows="true" #bioDT
-    (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
-  >
-    <p-column expander="true" styleClass="col-icon" [style]="{'width':'3%'}"></p-column>
-    <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
-    <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}"></p-column>
-    <p-column field="sentToTvg" header="Sent To TVG On"></p-column>
-    <p-column field="lastUpdateUser" header="Last Update By"></p-column>
-    <p-column field="lastUpdateDate" header="Last Update On"></p-column>
-    <p-column field="tc" header="Total Cholesterol"></p-column>
-    <p-column field="glu" header="Glucose"></p-column>
-    <p-column field="ht" header="Height"></p-column>
-    <p-column field="wght" header="Weight"></p-column>
-    <ng-template let-bio pTemplate="rowexpansion">
-      <p-dataTable [value]="[bio]" class="expand-table">
-        <p-column field="hdl" header="HDL Cholesterol"></p-column>
-        <p-column field="ldl" header="LDL Cholesterol"></p-column>
-        <p-column field="tcHdlRatio" header="TC/HDL Ratio"></p-column>
-        <p-column field="bps" header="Systolic BP"></p-column>
-        <p-column field="bpd" header="Diastolic BP"></p-column>
-        <p-column field="continineResult" header="Continine Result"></p-column>
-      </p-dataTable>
-    </ng-template>
-  </p-dataTable>
-</p-panel>
+  </p-panel>
+
+  <p-panel [toggleable]="true">
+    <p-header>
+      <div class="ui-helper-clearfix section-header">
+        <span class="ui-panel-title">Accounts</span> 
+      </div>
+    </p-header>  
+    <p-dataTable [value]="accounts$ | async" expandableRows="true">
+      <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
+      <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
+      <p-column field="product" header="Product">
+        <ng-template pTemplate="body" let-account="rowData">
+          {{account.product | ellipsis:'55'}}
+        </ng-template>
+      </p-column>
+      <p-column field="plan" header="Plan"></p-column>
+      <p-column field="status" header="Status" [style]="{'width':'6%'}"></p-column>
+      <p-column header="Amount" [style]="{'width':'8%'}" styleClass="number-data">
+        <ng-template let-account="rowData" pTemplate="body">${{account.amount | number:'1.0-2'}}</ng-template>
+      </p-column>
+      <p-column field="effectiveDate" header="Effective" [style]="{'width':'8%'}"></p-column>
+      <p-column field="terminationDate" header="Terminated" [style]="{'width':'8%'}"></p-column>
+      <ng-template let-account pTemplate="rowexpansion">
+        <p-dataTable [value]="[account]" class="expand-table">
+          <p-column field="lastUpdateDate" header="Last Updated On" [style]="{'width':'20%'}"></p-column>
+          <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'20%'}"></p-column>      
+        </p-dataTable>
+      </ng-template>
+    </p-dataTable>
+  </p-panel>
+
+  <p-panel [toggleable]="true">
+    <p-header>
+      <div class="ui-helper-clearfix section-header">
+        <span class="ui-panel-title">Biometrics</span>        
+        <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add" (click)="doUpsertBiometrics()"></button>
+      </div>
+    </p-header>  
+    <p-dataTable [value]="biometrics" expandableRows="true" [rowHover]="true" #bioDT 
+      (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
+    >
+      <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>
+      <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
+      <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}"></p-column>
+      <p-column field="sentToTvg" header="Sent To TVG On"></p-column>
+      <p-column field="lastUpdateUser" header="Updated By"></p-column>
+      <p-column field="lastUpdateDate" header="Last Update On"></p-column>
+      <p-column field="tc" header="Total Cholesterol" styleClass="number-data">
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+      </p-column>
+      <p-column field="glu" header="Glucose" styleClass="number-data">
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+      </p-column>
+      <p-column field="ht" styleClass="number-data">
+        <ng-template pTemplate="header">Height(in)</ng-template>
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+      </p-column>
+      <p-column field="wght" styleClass="number-data">
+        <ng-template pTemplate="header">Weight(lb)</ng-template>
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+      </p-column>
+      <ng-template let-bio pTemplate="rowexpansion">
+        <p-dataTable [value]="[bio]" class="expand-table">
+          <p-column field="hdl" header="HDL Cholesterol" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+          </p-column>
+          <p-column field="ldl" header="LDL Cholesterol" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+          </p-column>
+          <p-column field="tcHdlRatio" header="TC/HDL Ratio" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
+          </p-column>
+          <p-column field="bps" header="Systolic BP" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>            
+          </p-column>
+          <p-column field="bpd" header="Diastolic BP" styleClass="number-data">
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>            
+          </p-column>
+          <p-column field="continineResult" header="Continine Result"></p-column>
+        </p-dataTable>
+      </ng-template>
+    </p-dataTable>
+  </p-panel>
 </ng-container>
 
-<member-upsert *ngIf="upsertMember" 
-  [member]="upsertMember" [isPromoMember]="isPromoMember">
-</member-upsert>
+<member-upsert *ngIf="upsertMember" [member]="upsertMember" [isPromoMember]="isPromoMember"></member-upsert>
 
 <bio-upsert *ngIf="upsertBiometrics" [bio]="upsertBiometrics"></bio-upsert>
 

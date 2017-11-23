@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { ISubscription } from 'rxjs/Subscription'
+import { ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
 import { AuditLog } from '../../member-detail/models/member-detail';
@@ -23,10 +23,6 @@ export class AuditComponent implements OnInit {
     this._auditLogs = logs;
   }
   @Input() memberId: string;
-  
-  //   console.log('memID: ', memberId);
-  //   this._memberId = memberId;
-  // }
 
   get auditLogs() {
     return this._auditLogs;
@@ -44,5 +40,5 @@ export class AuditComponent implements OnInit {
   close() {
     // TODO confirm dialog
     this.store.dispatch(new MemberDetailAction.CloseAuditLog());
-  }  
+  }
 }
