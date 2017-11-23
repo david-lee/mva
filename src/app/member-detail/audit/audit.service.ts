@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
-import { AuditLog } from '../models/member-detail';
+import { AuditLog } from '../../models/member-detail';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()

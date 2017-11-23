@@ -1,4 +1,4 @@
-import { MemberDetail, MemberInfo, Biometrics, AuditLog } from '../models/member-detail';
+import { MemberDetail, MemberInfo, Biometrics, AuditLog } from '../../models/member-detail';
 import { environment } from '../../../environments/environment';
 import * as MemberDetailAction from '../actions/member-detail';
 import * as _ from 'lodash';

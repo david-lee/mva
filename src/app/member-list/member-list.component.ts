@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { MemberInfo } from '../member-detail/models/member-detail';
-import { Member } from './models/member';
+import { MemberInfo } from '../models/member-detail';
+import { Member } from '../models/member';
 import * as MemberListAction from './actions/member-list';
 import * as fromRoot from '../core/reducers';
 import { DataTable } from 'primeng/primeng';

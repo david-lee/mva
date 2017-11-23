@@ -1,4 +1,4 @@
-import { Member } from '../../member-list/models/member';
+import { Member } from './member';
 
 export interface MemberInfo extends Member {
   lastUpdateDate: string;

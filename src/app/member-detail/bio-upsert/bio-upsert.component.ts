@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { ISubscription } from 'rxjs/Subscription'
+import { ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
-import { Biometrics } from '../../member-detail/models/member-detail';
+import { Biometrics } from '../../models/member-detail';
 import * as moment from 'moment';
 import * as MemberDetailAction from '../../member-detail/actions/member-detail';
 import * as fromRoot from '../../core/reducers';

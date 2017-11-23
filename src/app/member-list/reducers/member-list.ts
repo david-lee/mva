@@ -1,6 +1,6 @@
 import * as MemberListAction from '../actions/member-list';
-import { Member } from '../models/member';
-import { MemberInfo } from '../../member-detail/models/member-info';
+import { Member } from '../../models/member';
+import { MemberInfo } from '../../models/member-info';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { environment } from '../../../environments/environment';
