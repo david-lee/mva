@@ -1,0 +1,177 @@
+---
+groups:
+- name: {{app_name}}
+  jobs:
+  - prepare-cf-dev
+  - code-scan-dev
+  - prepare-cf-test
+  - smoke-test
+  - publish
+
+resources:
+- name: git-develop
+  type: git
+  source:
+    branch: develop
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+- name: git-test
+  type: git
+  source:
+    branch: test
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+- name: git-uat
+  type: git
+  source:
+    branch: uat
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+
+- name: cf-push-dev
+  type: cf
+  source:
+    api: "https://api.sys.cac.preview.pcf.manulife.com"
+    username: {{pcf_dev_user}}
+    password: {{pcf_dev_pass}}
+    organization: {{dev_org}}
+    space:  {{dev_space}}
+    skip_cert_check: true
+
+- name: cf-push-test
+  type: cf
+  source:
+    api: "https://api.sys.cac.preview.pcf.manulife.com"
+    username: {{pcf_dev_user}}
+    password: {{pcf_dev_pass}}
+    organization: {{test_org}}
+    space:  {{test_space}}
+    skip_cert_check: true
+
+jobs:
+
+- name: prepare-cf-dev
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-develop
+      trigger: true
+  - task: unit-test
+    file: gitfolder/concourse/dev_test/unit-test.yml
+    params:
+        TERM: xterm
+        NPM_REGISTRY: {{npm_registry}}
+        NPM_AUTH: {{npm_auth}}
+        NPM_EMAIL: {{npm_email}}
+        NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+  - task: assemble
+    file: gitfolder/concourse/dev_test/assemble.yml
+    params:
+        TERM: xterm
+        NPM_REGISTRY: {{npm_registry}}
+        NPM_AUTH: {{npm_auth}}
+        NPM_EMAIL: {{npm_email}}
+        NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+
+  - task: assemble-services
+    file: gitfolder/concourse/dev_test/assemble-services.yml
+    params:
+      TERM: xterm
+      PCF_API: "https://api.sys.cac.preview.pcf.manulife.com"
+      PCF_USER: {{pcf_dev_user}}
+      PCF_PASSWORD: {{pcf_dev_pass}}
+      PCF_ORG: {{dev_org}}
+      PCF_SPACE: {{dev_space}}
+
+  - put: cf-push-dev
+    params:
+      manifest: target/manifest-dev.yml
+      path: target
+
+  - put: git-test
+    params: {repository: gitfolder}
+
+- name: prepare-cf-test
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-test
+      trigger: false
+  - task: assemble
+    file: gitfolder/concourse/dev_test/assemble.yml
+    params:
+        TERM: xterm
+        NPM_REGISTRY: {{npm_registry}}
+        NPM_AUTH: {{npm_auth}}
+        NPM_EMAIL: {{npm_email}}
+        NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+  - task: assemble-services
+    file: gitfolder/concourse/dev_test/assemble-services.yml
+    params:
+      TERM: xterm
+      PCF_API: "https://api.sys.cac.preview.pcf.manulife.com"
+      PCF_USER: {{pcf_dev_user}}
+      PCF_PASSWORD: {{pcf_dev_pass}}
+      PCF_ORG: {{test_org}}
+      PCF_SPACE: {{test_space}}
+  - put: cf-push-test
+    params:
+      manifest: target/manifest-test.yml
+      path: target
+  - put: git-uat
+    params: {repository: gitfolder}
+
+- name: code-scan-dev
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      trigger: true
+      resource: git-develop
+  - task: code-scan
+    file: gitfolder/concourse/dev_test/code-scan.yml
+    params:
+        TERM: xterm
+
+- name: smoke-test
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-uat
+      trigger: true
+      passed: [prepare-cf-test]
+  - task: smoke-test
+    file: gitfolder/concourse/dev_test/smoke-test.yml
+    params:
+        TERM: xterm
+        NPM_REGISTRY: {{npm_registry}}
+        NPM_AUTH: {{npm_auth}}
+        NPM_EMAIL: {{npm_email}}
+        NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+
+- name: publish
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-uat
+      passed: [smoke-test]
+      trigger: true
+  - task: publish
+    file: gitfolder/concourse/dev_test/publish.yml
+    params:
+      TERM: xterm
