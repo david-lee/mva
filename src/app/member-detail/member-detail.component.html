@@ -75,14 +75,13 @@
         </p-dataTable> 
       </div>
       <div class="ui-g-6 no-padding-right">
-        <p-fieldset legend="Vitality Settings">
-          <p-dataTable [value]="member">
-            <p-column field="employerExternalId" header="Employer External Id"></p-column>
-            <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
-            <p-column field="vitalityProdcode" header="Product Code" [style]="{'width':'23%'}"></p-column>
-            <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'18%'}"></p-column>
-          </p-dataTable>
-        </p-fieldset>
+        <p-dataTable [value]="member" rowGroupMode="rowspan">
+          <p-header>Vitality Settings</p-header>
+          <p-column field="employerExternalId" header="Employer External Id"></p-column>
+          <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
+          <p-column field="vitalityProdcode" header="Product Code" [style]="{'width':'23%'}"></p-column>
+          <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'18%'}"></p-column>
+        </p-dataTable>
       </div>
     </div>
   </p-panel>
