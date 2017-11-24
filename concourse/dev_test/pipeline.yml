@@ -8,13 +8,6 @@ groups:
   - smoke-test
   - publish
 
-resource_types:
-- name: slack-notification
-  type: docker-image
-  source:
-    repository: cfcommunity/slack-notification-resource
-    tag: latest
-
 resources:
 - name: git-develop
   type: git
@@ -61,11 +54,6 @@ resources:
     space:  {{test_space}}
     skip_cert_check: true
 
-- name: slack-alert
-  type: slack-notification
-  source:
-    url: https://hooks.slack.com/services/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
-
 jobs:
 
 - name: prepare-cf-dev
@@ -76,14 +64,6 @@ jobs:
     - get: gitfolder
       resource: git-develop
       trigger: true
-  - put: slack-alert
-    params:
-      channel: 'pipeline_msg'
-      username: concourse
-      icon_emoji: ':simple_smile:'
-      always-notify: true
-      text: |
-        {{app_name}} - $BUILD_JOB_NAME has started.
   - task: unit-test
     file: gitfolder/concourse/dev_test/unit-test.yml
     params:
@@ -92,14 +72,6 @@ jobs:
         NPM_AUTH: {{npm_auth}}
         NPM_EMAIL: {{npm_email}}
         NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
-    on_failure:
-      put: slack-alert
-      params:
-        always-notify: true
-        channel: '#pipeline_msg'
-        icon_emoji: ':disappointed:'
-        text: |
-          {{app_name}} - job $BUILD_JOB_NAME, unit-test has FAILED
   - task: assemble
     file: gitfolder/concourse/dev_test/assemble.yml
     params:
@@ -108,14 +80,6 @@ jobs:
         NPM_AUTH: {{npm_auth}}
         NPM_EMAIL: {{npm_email}}
         NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
-    on_failure:
-      put: slack-alert
-      params:
-        always-notify: true
-        channel: '#pipeline_msg'
-        icon_emoji: ':disappointed:'
-        text: |
-          {{app_name}} - job $BUILD_JOB_NAME, assemble has FAILED
 
   - task: assemble-services
     file: gitfolder/concourse/dev_test/assemble-services.yml
@@ -128,24 +92,6 @@ jobs:
       PCF_SPACE: {{dev_space}}
 
   - put: cf-push-dev
-    on_failure:
-        put: slack-alert
-        params:
-          username: concourse
-          channel: '#pipeline_msg'
-          icon_emoji: ':disappointed:'
-          always-notify: true
-          text: |
-            {{app_name}} - $BUILD_JOB_NAME, cf-push-dev has FAILED.
-    on_success:
-        put: slack-alert
-        params:
-          username: concourse
-          always-notify: true
-          channel: '#pipeline_msg'
-          icon_emoji: ':heavy_check_mark:'
-          text: |
-            {{app_name}} - $BUILD_JOB_NAME, cf-push-dev has succeeded!    
     params:
       manifest: target/manifest-dev.yml
       path: target
@@ -161,12 +107,6 @@ jobs:
     - get: gitfolder
       resource: git-test
       trigger: false
-  - put: slack-alert
-    params:
-      channel: '#pipeline_msg'
-      icon_emoji: ':simple_smile:'      
-      text: |
-        {{app_name}} - $BUILD_JOB_NAME has started. "\n"
   - task: assemble
     file: gitfolder/concourse/dev_test/assemble.yml
     params:
@@ -175,14 +115,6 @@ jobs:
         NPM_AUTH: {{npm_auth}}
         NPM_EMAIL: {{npm_email}}
         NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
-    on_failure:
-      put: slack-alert
-      params:
-        always-notify: true
-        channel: '#pipeline_msg'
-        icon_emoji: ':disappointed:'
-        text: |
-          {{app_name}} - job $BUILD_JOB_NAME, assemble has FAILED
   - task: assemble-services
     file: gitfolder/concourse/dev_test/assemble-services.yml
     params:
@@ -192,26 +124,10 @@ jobs:
       PCF_PASSWORD: {{pcf_dev_pass}}
       PCF_ORG: {{test_org}}
       PCF_SPACE: {{test_space}}
-    on_failure:
-      put: slack-alert
-      params:
-        always-notify: true
-        channel: '#pipeline_msg'
-        icon_emoji: ':disappointed:'
-        text: |
-          {{app_name}} - job $BUILD_JOB_NAME, assemble-services has FAILED
   - put: cf-push-test
     params:
       manifest: target/manifest-test.yml
       path: target
-    on_failure:
-      put: slack-alert
-      params:
-        always-notify: true
-        channel: '#pipeline_msg'
-        icon_emoji: ':disappointed:'
-        text: |
-          {{app_name}} - job $BUILD_JOB_NAME, cf-push-test has FAILED
   - put: git-uat
     params: {repository: gitfolder}
 
