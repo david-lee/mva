@@ -35,7 +35,7 @@ ng build --aot --prod
 
 #cp index.html $TARGET_DIR/
 
-cp -R dist $TARGET_DIR/
+cp -R dist/* $TARGET_DIR/
 cp manifest-dev.yml $TARGET_DIR/
 #cp manifest-test.yml $TARGET_DIR/
 #cp manifest-uat.yml $TARGET_DIR/
