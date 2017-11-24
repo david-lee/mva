@@ -30,6 +30,13 @@ body {
     height: 100vh;
   }
 
+  .ui-datatable-header {
+    background: #00693c;
+    padding: 3px 9px;
+    color: white;
+    border: none;
+  }
+
   .ui-datatable-thead th {
     // color: white;
     // background-color: #08755c;
