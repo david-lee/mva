@@ -1,0 +1,10 @@
+---
+applications:
+- name: vitality
+
+  instances: 1
+  memory: 128M
+  buildpack: staticfile_buildpack
+
+  env:
+    profiles.active: dev
