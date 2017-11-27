@@ -3,14 +3,16 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const apiBase = 'http://localhost:3000';
+// const apiBase = 'http://localhost:3000';
+const apiBase = 'https://vitalitymemberservice.apps.cac.preview.pcf.manulife.com/v1/';
 
 export const environment = {
   production: false,
   emptyEmailString: '** required **',
   dateFormat: 'DD/MMM/YYYY',
   endPoints: {
-    memberList: `${apiBase}/member/list`
+    memberList: `${apiBase}/members`,
+    memberDetail: `${apiBase}/member/:id`
   },
   lookups: {
     genders: [

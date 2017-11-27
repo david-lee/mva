@@ -20,7 +20,7 @@ export class MemberDetailService {
       firstName: 'James',
       middleName: 'Paul',
       gender: 'Male',
-      dob: '3/Dec/1985',
+      birthDate: '3/Dec/1985',
       email: 'JamesKunkel@gmail.com',
       lastUpdateDate: '',
       lastUpdateUser: 'Admin',

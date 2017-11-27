@@ -262,10 +262,13 @@ export class MemberListService {
   ];
   constructor(public http: HttpClient) { }
 
-  loadMembers(): Observable<{data: Member[]}> {
-    return of({data: _.cloneDeep(this.members)});
-    // return this.http.get<Member[]>(this.api.memberList);
+  // loadMembers(): Observable<{data: Member[]}> {
+  loadMembers(): Observable<Member[]> {    
+    // return of({data: _.cloneDeep(this.members)});
+    // return this.http.get<{data: Member[]}>(this.api.memberList);
+    return this.http.get<Member[]>(this.api.memberList);
   }
+
   saveMember(member: MemberInfo): Observable<{data: MemberInfo}> {
     return of({ data: { ...member, id: '99999999' } });
   }

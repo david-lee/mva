@@ -23,7 +23,7 @@
           <p-column field="lastName" header="Last Name"></p-column>    
           <p-column field="firstName" header="First Name"></p-column>
           <p-column field="middleName" header="Middle Name" [style]="{'width':'18%'}"></p-column>
-          <p-column field="dob" header="Date of Birth" [style]="{'width':'18%'}">
+          <p-column field="birthDate" header="Date of Birth" [style]="{'width':'18%'}">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
         </p-dataTable>

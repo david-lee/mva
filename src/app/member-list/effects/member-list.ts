@@ -10,6 +10,7 @@ import { Member } from '../../models/member';
 import { MemberInfo } from '../../models/member-info';
 import { MemberListService } from '../member-list.service';
 import * as MemberListAction from '../actions/member-list';
+import * as _ from 'lodash';
 
 @Injectable()
 export class MemberListEffects {
@@ -19,8 +20,13 @@ export class MemberListEffects {
     .switchMap(() =>
       this.memberService
         .loadMembers()
-        .map((members: any) => {
-          return new MemberListAction.LoadSuccess(members.data);
+        .map((members: Member[]) => {
+          // TODO should be changed once API is fixed
+          let memberData = _.map(members, (member) => {
+            return _.pick(member, ['id', 'firstName', 'lastName', 'middleName', 'email', 'gender', 'birthDate', 'customerRole']);
+          });
+
+          return new MemberListAction.LoadSuccess(memberData);
         })
         .catch(error => { throw error; })
     );
