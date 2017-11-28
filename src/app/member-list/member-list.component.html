@@ -20,15 +20,25 @@
     (onRowClick)="gotoDetail($event)"
   >
     <p-column field="id" header="ID" sortable="true" [filter]="true" filterMaxlength="8" [style]="{'width':'8%'}"></p-column>
-    <p-column field="customerRole" header="Role" sortable="true" [filter]="true" [style]="{'width':'10%'}"></p-column>
-    <p-column header="First/Middle Name" sortable="true" [filter]="true">
+    <p-column field="customerRole" header="Role" sortable="true" [filter]="true" [style]="{'width':'10%'}" filterMatchMode="equals">
+      <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'customerRoles'}}</ng-template>
+      <ng-template pTemplate="filter" let-col>
+        <p-dropdown [options]="customerRoles" placeholder="Roles" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+      </ng-template>
+    </p-column>
+    <p-column field="firstName" header="First/Middle Name" sortable="true" [filter]="true">
       <ng-template pTemplate="body" let-member="rowData">
         <span>{{member.firstName}} {{member.middleName}}</span>
       </ng-template>
     </p-column>
     <p-column field="lastName" header="Last Name" sortable="true" [filter]="true"></p-column>
-    <p-column field="gender" header="Gender" sortable="true" [filter]="true" [style]="{'width':'8%'}"></p-column>
-    <p-column field="birthDate" header="Date of Birth" sortable="true" filterMatchMode="contains" [filter]="true" [style]="{'width':'10%'}">
+    <p-column field="gender" header="Gender" sortable="true" [filter]="true" [style]="{'width':'8%'}" filterMatchMode="equals">
+      <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'genders'}}</ng-template>
+      <ng-template pTemplate="filter" let-col>
+        <p-dropdown [options]="genders" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+      </ng-template>        
+    </p-column>
+    <p-column field="dob" header="Date of Birth" sortable="true" filterMatchMode="contains" [filter]="true" [style]="{'width':'10%'}">
       <ng-template let-col let-member="rowData" pTemplate="body">
         <span>{{member[col.field] | date: 'dd/MMM/yyyy'}}</span>
       </ng-template>

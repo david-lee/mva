@@ -2,7 +2,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 
@@ -23,10 +22,12 @@ export class MemberDetailEffects {
       this.memberDetailService
         .loadMemberDetail(memberId)
         .map((memberDetail: any) => {
-          // TODO should be fixed once API is fixed
-          let newDetail = _.pick(memberDetail, ['accounts', 'biometricses']);
-          newDetail.memberInfo = _.omit(memberDetail, ['accounts', 'biometricses']);
-          
+          // MemberInfo is not grouped in the response
+          let newDetail = _.pick(memberDetail, ['accounts', 'biometrics']);
+          newDetail.memberInfo = _.omit(memberDetail, ['accounts', 'biometrics']);
+          // TODO should be removed once detail API is changed
+          newDetail.memberInfo.dob = newDetail.memberInfo.birthDate;
+
           return new MemberDetailAction.LoadSuccess(newDetail);
         })
         .catch(error => { throw error; })
@@ -35,7 +36,6 @@ export class MemberDetailEffects {
   @Effect()
   loadAudit$ = this.actions$
     .ofType(MemberDetailAction.LOAD_AUDIT_LOG)
-    // .map((action: any) => action.payload)
     .switchMap(() =>
       this.auditService
         .loadAuditLog()
@@ -48,7 +48,6 @@ export class MemberDetailEffects {
   constructor(
     private actions$: Actions,
     private memberDetailService: MemberDetailService,
-    private auditService: AuditService,
-    private router: Router
+    private auditService: AuditService
   ) {}
 }

@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import * as MemberDetailAction from '../../member-detail/actions/member-detail';
 import * as MemberListAction from '../../member-list/actions/member-list';
 import * as fromRoot from '../../core/reducers';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'member-upsert',
@@ -37,7 +38,7 @@ export class MemberUpsertComponent implements OnInit {
   }
 
   get genders() {
-    return environment.lookups.genders;
+    return _.filter(environment.lookups.genders, (g) => g.value);
   }
 
   get languages() {

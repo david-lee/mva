@@ -9,6 +9,7 @@ import { MemberUpsertComponent } from './member-upsert/member-upsert.component';
 import { ForbiddenDobDirective } from './forbidden-dob.directive';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { InvalidSinDirective } from './invalid-sin.directive';
+import { CodeNamePipe } from './code-name.pipe';
 
 export const PRIMENG_MODULES = [
   ButtonModule,
@@ -38,13 +39,15 @@ export const PRIMENG_MODULES = [
     MemberUpsertComponent,
     ForbiddenDobDirective,
     InvalidSinDirective,
-    EllipsisPipe
+    EllipsisPipe,
+    CodeNamePipe
   ],
   declarations: [
     MemberUpsertComponent,
     ForbiddenDobDirective,
     EllipsisPipe,
-    InvalidSinDirective
+    InvalidSinDirective,
+    CodeNamePipe
   ]
 })
 export class MVASharedModule { }

@@ -30,19 +30,17 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
     case MemberDetailAction.LOAD_AUDIT_LOG: {
       return {
         ...state
-      };
+    };
     }
 
     case MemberDetailAction.LOAD_SUCCESS: {
       const memberDetail: MemberDetail = action.payload;
 
-      memberDetail.memberInfo.gender = memberDetail.memberInfo.gender === 'M' ? 'Male' : 'Female';
-
       return {
         ...state,
         memberInfo: memberDetail.memberInfo,
         accounts: <any>memberDetail.accounts,
-        biometrics: memberDetail.biometricses,
+        biometrics: memberDetail.biometrics,
         upsertBio: null,
         upsertMember: null,
         auditLogs: null
@@ -67,7 +65,7 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       const upsertMember: MemberInfo = { ...state.memberInfo };
 
       // calender componenet requires date type for value
-      upsertMember.birthDate = new Date(<string>upsertMember.birthDate);
+      upsertMember.dob = new Date(<string>upsertMember.dob);
       upsertMember.vitalityEffdate = new Date(<string>upsertMember.vitalityEffdate);
       upsertMember.membershipEffdate = new Date(<string>upsertMember.membershipEffdate);
 
@@ -79,11 +77,6 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
 
     case MemberDetailAction.UPDATE_MEMBER_SUCCESS: {
       const member = action.payload;
-
-      // convert date type to string with format
-      // member.birthDate = moment(member.birthDate).format(dateFormat);
-      // member.vitalityEffdate = moment(member.vitalityEffdate).format(dateFormat);
-      // member.membershipEffdate = moment(member.membershipEffdate).format(dateFormat);
 
       return {
         ...state,

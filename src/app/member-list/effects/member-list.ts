@@ -21,12 +21,7 @@ export class MemberListEffects {
       this.memberService
         .loadMembers()
         .map((members: Member[]) => {
-          // TODO should be changed once API is fixed
-          let memberData = _.map(members, (member) => {
-            return _.pick(member, ['id', 'firstName', 'lastName', 'middleName', 'email', 'gender', 'birthDate', 'customerRole']);
-          });
-
-          return new MemberListAction.LoadSuccess(memberData);
+          return new MemberListAction.LoadSuccess(members);
         })
         .catch(error => { throw error; })
     );

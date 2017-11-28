@@ -22,7 +22,7 @@
           <p-column field="lastName" header="Last Name"></p-column>    
           <p-column field="firstName" header="First Name"></p-column>
           <p-column field="middleName" header="Middle Name" [style]="{'width':'18%'}"></p-column>
-          <p-column field="birthDate" header="Date of Birth" [style]="{'width':'18%'}">
+          <p-column field="dob" header="Date of Birth" [style]="{'width':'18%'}">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
         </p-dataTable>
@@ -33,7 +33,9 @@
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
           <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
-          <p-column field="membershipStatus" header="Membership Status"></p-column>
+          <p-column field="membershipStatus" header="Membership Status">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'memberStatus'}}</ng-template>            
+          </p-column>
           <p-column field="membershipEffdate" header="As of Date">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template> 
           </p-column>
@@ -44,7 +46,9 @@
     <div class="ui-g">
       <div class="ui-g-6 no-padding-left">
         <p-dataTable *ngIf="member[0]" [value]="member">
-          <p-column field="gender" header="Gender" [style]="{'width':'15%'}" ></p-column>
+          <p-column field="gender" header="Gender" [style]="{'width':'15%'}">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'genders'}}</ng-template>            
+          </p-column>
           <p-column field="sin" header="SIN"></p-column>
           <p-column field="language" header="Language"></p-column>
           <p-column field="email" header="Email" [style]="{'width':'55%'}"></p-column>            
@@ -59,7 +63,9 @@
           <p-column field="vitalityTermdate" header="Terminated On">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
           </p-column>
-          <p-column field="customerRole" header="Customer Role" [style]="{'width':'18%'}"></p-column>
+          <p-column field="customerRole" header="Customer Role" [style]="{'width':'18%'}">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'customerRoles'}}</ng-template>            
+          </p-column>
           <p-column field="establishedOnC360" header="On C360" [style]="{'width':'15%'}"></p-column>
         </p-dataTable>  
       </div>
@@ -100,14 +106,16 @@
     <p-dataTable *ngIf="accounts" [value]="accounts" expandableRows="true">
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
       <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
-      <p-column field="product" header="Product">
+      <p-column field="productCode" header="Product">
         <ng-template pTemplate="body" let-col let-account="rowData">
-          {{account[col.field] | ellipsis:'55'}}
+          <!-- {{account[col.field] | ellipsis:'55'}} -->
+          {{account[col.field]}}
         </ng-template>
       </p-column>
-      <p-column field="plan" header="Plan">
+      <p-column field="planCode" header="Plan">
         <ng-template pTemplate="body" let-col let-account="rowData">
-          {{account[col.field] | ellipsis:'55'}}
+          <!-- {{account[col.field] | ellipsis:'55'}} -->
+          {{account[col.field]}}
         </ng-template>        
       </p-column>
       <p-column field="status" header="Status" [style]="{'width':'6%'}"></p-column>

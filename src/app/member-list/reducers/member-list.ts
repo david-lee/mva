@@ -27,12 +27,12 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
     }
 
     case MemberListAction.LOAD_SUCCESS: {
-      // TODO data should be formatted on the server side
+      // // TODO data should be formatted on the server side
       _.forEach(action.payload, (member) => {
         if (!member.email) {
           (member.email = environment.emptyEmailString);
         }
-        member.gender = member.gender === 'M' ? 'Male' : 'Female';
+        // member.gender = member.gender === 'M' ? 'Male' : 'Female';
       });
 
       return {

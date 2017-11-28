@@ -35,10 +35,6 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     return this.member[0] && (+this.member[0].customerRole === 99);
   }
 
-  // get member() {
-  //   return this._member[0] || [<any>{}];
-  // }
-
   constructor(public store: Store<fromRoot.State>, public route: ActivatedRoute, public location: Location) {
   }
 
@@ -92,6 +88,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     _.forEach(this.subscriptions, (subscription: ISubscription) => {
       subscription.unsubscribe();
     });
+
+    this.subscriptions = null;
   }
 
   editMember() {

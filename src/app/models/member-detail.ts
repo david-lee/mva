@@ -6,7 +6,7 @@ import { MemberInfo } from './member-info';
 export interface MemberDetail {
   memberInfo: MemberInfo;
   accounts: Account[];
-  biometricses: Biometrics[];
+  biometrics: Biometrics[];
 }
 
 export { Account } from './accounts';
