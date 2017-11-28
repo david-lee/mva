@@ -1,6 +1,5 @@
 <ng-container>
   <div class="title-container">
-    <!-- <h1 class="title">{{member[0].firstName}}</h1> -->
     <img src="assets/manulife-vitality.svg" style="width: 280px;">
     
     <div class="actions">
@@ -18,7 +17,7 @@
     </p-header>   
     <div class="ui-g">
       <div class="ui-g-6 no-padding-left">
-        <p-dataTable [value]="member">
+        <p-dataTable *ngIf="member[0]" [value]="member">
           <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
           <p-column field="lastName" header="Last Name"></p-column>    
           <p-column field="firstName" header="First Name"></p-column>
@@ -29,7 +28,7 @@
         </p-dataTable>
       </div>
       <div class="ui-g-6 no-padding-right">
-        <p-dataTable [value]="member">
+        <p-dataTable *ngIf="member[0]" [value]="member">
           <p-column field="lastUpdateDate" header="Last Updated On"></p-column>
           <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
           <p-column field="membershipStatus" header="Membership Status"></p-column>
@@ -42,7 +41,7 @@
 
     <div class="ui-g">
       <div class="ui-g-6 no-padding-left">
-        <p-dataTable [value]="member">
+        <p-dataTable *ngIf="member[0]" [value]="member">
           <p-column field="gender" header="Gender" [style]="{'width':'15%'}" ></p-column>
           <p-column field="sin" header="SIN"></p-column>
           <p-column field="language" header="Language"></p-column>
@@ -50,7 +49,7 @@
         </p-dataTable>
       </div>
       <div class="ui-g-6 no-padding-right">
-        <p-dataTable [value]="member">
+        <p-dataTable *ngIf="member[0]" [value]="member">
           <p-column field="employerBranchId" header="Reward Level"></p-column>
           <p-column field="vitalityEffdate" header="Coverage Effective">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
@@ -64,7 +63,7 @@
 
     <div class="ui-g">
       <div class="ui-g-6 address no-padding-left">
-        <p-dataTable [value]="member">
+        <p-dataTable *ngIf="member[0]" [value]="member" [styleClass]="'address'">
           <p-column header="Address">
             <ng-template let-member="rowData" pTemplate="body">{{member.address1}} {{member.address2}}</ng-template>
           </p-column>
@@ -75,7 +74,7 @@
         </p-dataTable> 
       </div>
       <div class="ui-g-6 no-padding-right">
-        <p-dataTable [value]="member" rowGroupMode="rowspan">
+        <p-dataTable *ngIf="member[0]" [value]="member" rowGroupMode="rowspan">
           <p-header>Vitality Settings</p-header>
           <p-column field="employerExternalId" header="Employer External Id"></p-column>
           <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
@@ -92,7 +91,7 @@
         <span class="ui-panel-title">Accounts</span> 
       </div>
     </p-header>  
-    <p-dataTable [value]="accounts$ | async" expandableRows="true">
+    <p-dataTable *ngIf="accounts" [value]="accounts" expandableRows="true">
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
       <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
       <p-column field="product" header="Product">
@@ -106,7 +105,7 @@
         </ng-template>        
       </p-column>
       <p-column field="status" header="Status" [style]="{'width':'6%'}"></p-column>
-      <p-column header="Amount" [style]="{'width':'8%'}" styleClass="number-data">
+      <p-column header="Amount" [style]="{'width':'10%'}" styleClass="number-data">
         <ng-template let-account="rowData" pTemplate="body">${{account.amount | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="effectiveDate" header="Effective" [style]="{'width':'8%'}"></p-column>
@@ -127,7 +126,7 @@
         <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add" (click)="doUpsertBiometrics()"></button>
       </div>
     </p-header>  
-    <p-dataTable [value]="biometrics" expandableRows="true" [rowHover]="true" #bioDT 
+    <p-dataTable *ngIf="biometrics" [value]="biometrics" expandableRows="true" [rowHover]="true" #bioDT 
       (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
     >
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>

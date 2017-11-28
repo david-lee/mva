@@ -37,10 +37,11 @@ body {
     border: none;
   }
 
-  .ui-datatable-thead th {
-    // color: white;
-    // background-color: #08755c;
-  }  
+  &.address {
+    tbody > tr {
+      height: 45px;
+    }
+  }
 
   tbody > tr.ui-widget-content.ui-datatable-odd {
     background-color: #f6fbf3;

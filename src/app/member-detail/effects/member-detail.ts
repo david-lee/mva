@@ -10,6 +10,7 @@ import { MemberDetail } from '../../models/member-detail';
 import { MemberDetailService } from '../member-detail.service';
 import { AuditService } from '../audit/audit.service';
 import * as MemberDetailAction from '../actions/member-detail';
+import * as _ from 'lodash';
 
 @Injectable()
 export class MemberDetailEffects {
@@ -22,8 +23,11 @@ export class MemberDetailEffects {
       this.memberDetailService
         .loadMemberDetail(memberId)
         .map((memberDetail: any) => {
-          memberDetail.data.memberInfo.id = memberId;
-          return new MemberDetailAction.LoadSuccess(memberDetail.data);
+          // TODO should be fixed once API is fixed
+          let newDetail = _.pick(memberDetail, ['accounts', 'biometricses']);
+          newDetail.memberInfo = _.omit(memberDetail, ['accounts', 'biometricses']);
+          
+          return new MemberDetailAction.LoadSuccess(newDetail);
         })
         .catch(error => { throw error; })
     );
@@ -36,7 +40,7 @@ export class MemberDetailEffects {
       this.auditService
         .loadAuditLog()
         .map((auditLog: any) => {
-          return new MemberDetailAction.LoadAuditLogSuccess(auditLog.data);
+          return new MemberDetailAction.LoadAuditLogSuccess(auditLog);
         })
         .catch(error => { throw error; })
     );

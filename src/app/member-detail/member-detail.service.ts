@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
@@ -89,8 +89,9 @@ export class MemberDetailService {
   };
   constructor(public http: HttpClient) { }
 
-  loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
-    return of({data: this.memberDetail});
-    // return this.http.get<Member[]>(this.api.memberList);
+  // loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
+  loadMemberDetail(memberId: string): Observable<MemberDetail> {    
+    // return of({data: this.memberDetail});
+    return this.http.get<MemberDetail>(`${this.api.memberDetail}/${memberId}`);
   }
 }

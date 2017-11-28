@@ -1,4 +1,6 @@
-<p-dialog [(visible)]="!!member" modal="true" width="500" height="470" (onHide)="cancel()" [closable]="false">
+<p-dialog [(visible)]="!!member" modal="true" width="500" height="470" 
+  (onHide)="cancel()" [contentStyle]="{'overflow':'visible'}" [closable]="false" [blockScroll]="true"
+>
   <p-header>
     <h3 *ngIf="!member.id" class="title">Add Member</h3>
     <h3 *ngIf="member.id" class="title">Edit Member {{member.id}}</h3>

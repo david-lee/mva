@@ -36,11 +36,13 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
     case MemberDetailAction.LOAD_SUCCESS: {
       const memberDetail: MemberDetail = action.payload;
 
+      memberDetail.memberInfo.gender = memberDetail.memberInfo.gender === 'M' ? 'Male' : 'Female';
+
       return {
         ...state,
         memberInfo: memberDetail.memberInfo,
         accounts: <any>memberDetail.accounts,
-        biometrics: memberDetail.biometrics,
+        biometrics: memberDetail.biometricses,
         upsertBio: null,
         upsertMember: null,
         auditLogs: null

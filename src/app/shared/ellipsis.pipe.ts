@@ -5,7 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EllipsisPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+  transform(val: any, args?: any): any {
+    let value = val || '';
+
     return !args || value.length <= args ? value : value.substring(0, args) + '...';
   }
 

@@ -12,7 +12,8 @@ export const environment = {
   dateFormat: 'DD/MMM/YYYY',
   endPoints: {
     memberList: `${apiBase}/members`,
-    memberDetail: `${apiBase}/member/:id`
+    memberDetail: `${apiBase}/member`,
+    auditLog: `${apiBase}/audit`
   },
   lookups: {
     genders: [

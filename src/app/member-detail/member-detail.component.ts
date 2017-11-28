@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,6 +12,7 @@ import * as fromRoot from '../core/reducers';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { SelectItem } from 'primeng/primeng';
+import { access } from 'fs';
 
 @Component({
   selector: 'mva-member-detail',
@@ -21,7 +23,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   @ViewChild('bioDT') bioDT;
 
-  accounts$: Observable<any>;
+  accounts: Account[];
   biometrics: Biometrics[];
   member: MemberInfo[]; // dataTable component requires an array of value
   auditLogs: AuditLog[];
@@ -30,8 +32,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   upsertBiometrics: Biometrics;
 
   get isPromoMember() {
-    return this.member[0].customerRole.toLowerCase().indexOf('promo') >= 0;
+    // return this.member[0] && this.member[0].customerRole.toLowerCase().indexOf('promo') >= 0;
+    return this.member[0] && (+this.member[0].customerRole === 99);
   }
+
+  // get member() {
+  //   return this._member[0] || [<any>{}];
+  // }
 
   constructor(public store: Store<fromRoot.State>, public route: ActivatedRoute, public location: Location) {
   }
@@ -46,7 +53,10 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
         })
     );
 
-    this.accounts$ = this.store.select(fromRoot.getAccounts);
+    this.subscriptions.push(
+      this.store.select(fromRoot.getAccounts)
+        .subscribe(accounts => this.accounts = <any>accounts)      
+    );
 
     this.subscriptions.push(
       this.store.select(fromRoot.getBiometrics)
