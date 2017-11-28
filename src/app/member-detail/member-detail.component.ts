@@ -12,7 +12,6 @@ import * as fromRoot from '../core/reducers';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { SelectItem } from 'primeng/primeng';
-import { access } from 'fs';
 
 @Component({
   selector: 'mva-member-detail',
