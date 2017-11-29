@@ -64,6 +64,11 @@ export const getNewMember = createSelector(
   fromMember.getNewMember
 );
 
+export const getMemberError = createSelector(
+  getMemberState,
+  fromMember.getErrorMessage
+);
+
 export const getMemberDetailInfo = createSelector(
   getMemberDetailState,
   fromMemberDetail.getMemberInfo

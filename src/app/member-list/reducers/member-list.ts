@@ -4,17 +4,18 @@ import { MemberInfo } from '../../models/member-info';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { environment } from '../../../environments/environment';
+import {Message} from 'primeng/components/common/api';
 
 export interface State {
   memberList: Member[];
   newMember: MemberInfo;
-  selectedMember: Member | null;
+  errorMessage: Message[];
 }
 
 const initialState: State = {
   memberList: [],
   newMember: null,
-  selectedMember: null,
+  errorMessage: null
 };
 
 export function reducer(state = initialState, action: MemberListAction.Actions): State {
@@ -27,7 +28,6 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
     }
 
     case MemberListAction.LOAD_SUCCESS: {
-      // // TODO data should be formatted on the server side
       _.forEach(action.payload, (member) => {
         if (!member.email) {
           (member.email = environment.emptyEmailString);
@@ -40,10 +40,11 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
       };
     }
 
+    // show a popup dialog
     case MemberListAction.ADD_START: {
       return {
         ...state,
-        newMember: <any>{
+        newMember: <any>{ // set default values
           country: 'CA',
           languge: 'English',
           gender: 'M',
@@ -68,11 +69,21 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
       };
     }
 
+    // clsoe dialog
     case MemberListAction.ADD_CANCEL: {
       return {
         ...state,
         newMember: null
       };
+    }
+
+    case MemberListAction.UPDATE_EMAIL_FAIL: {
+      let errorMessage = [{severity: 'error', summary: 'Email Error', detail: action.payload}];
+
+      return {
+        ...state,
+        errorMessage: errorMessage
+      }
     }
 
     default: {
@@ -83,3 +94,4 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
 
 export const getMemberList = (state: State) => state.memberList;
 export const getNewMember = (state: State) => state.newMember;
+export const getErrorMessage = (state: State) => state.errorMessage;

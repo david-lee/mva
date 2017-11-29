@@ -20,9 +20,7 @@ export class MemberListEffects {
     .switchMap(() =>
       this.memberService
         .loadMembers()
-        .map((members: Member[]) => {
-          return new MemberListAction.LoadSuccess(members);
-        })
+        .map((members: Member[]) => new MemberListAction.LoadSuccess(members))
         .catch(error => { throw error; })
     );
 
@@ -30,9 +28,7 @@ export class MemberListEffects {
   loadDetail$ = this.actions$
     .ofType(MemberListAction.LOAD_DETAIL)
     .map((action: MemberListAction.LoadDetail) => action.payload)
-    .do((memberId) => {
-      this.router.navigate(['/member', memberId]);
-    });
+    .do((memberId) => this.router.navigate(['/member', memberId]));
 
   @Effect()
   saveMember$ = this.actions$
@@ -41,11 +37,20 @@ export class MemberListEffects {
     .switchMap((member: MemberInfo) =>
       this.memberService
         .saveMember(member)
-        .map(savedMember => {
-          return new MemberListAction.AddSuccess(savedMember.data);
-        })
+        .map(savedMember => new MemberListAction.AddSuccess(savedMember.data))
         .catch(error => { throw error; })
     );
+
+  @Effect()
+  updateEmail$ = this.actions$
+    .ofType(MemberListAction.UPDATE_EMAIL)
+    .map((action: MemberListAction.UpdateEmail) => action.payload)
+    .switchMap((member: Member) =>
+      this.memberService
+        .updateEmail(member.email, member.id)
+        .map(response => new MemberListAction.UpdateEmailSuccess())
+        .catch(error => of(new MemberListAction.UpdateEmailFail(`Failed to save. ${error}`)))
+    );    
 
   constructor(
     private actions$: Actions,

@@ -13,14 +13,20 @@ export const environment = {
   endPoints: {
     memberList: `${apiBase}/members`,
     memberDetail: `${apiBase}/member`,
+    updateEmail: `${apiBase}/updateMemberEmail`,
     auditLog: `${apiBase}/audit`
   },
   lookups: {
     genders: [
-      {label: 'All', value: null},
+      {label: 'All', value: null}, // used in the filter in Member List
       {label: 'Male', value: 'M'},
       {label: 'Female', value: 'F'}
     ],
+    customerRoles: [
+      {label: 'All', value: null}, // used in the filter in Member List
+      {label: 'Promo', value: '98'},
+      {label: 'Insured', value: '24'}
+    ],    
     language: [
       {label: 'English', value: 'English'},
       {label: 'French', value: 'French'}
@@ -29,11 +35,6 @@ export const environment = {
       {label: 'Active', value: '1'},
       {label: 'Terminated', value: '2'},
       {label: 'Duplicate', value: '3'}
-    ],
-    customerRoles: [
-      {label: 'All', value: null},
-      {label: 'Promo', value: '98'},
-      {label: 'Insured', value: '24'}
     ],
     provinces: [
       {label: 'Alberta', value: 'AB'},

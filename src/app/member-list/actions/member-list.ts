@@ -6,9 +6,12 @@ export const LOAD = '[Member] Load';
 export const LOAD_SUCCESS = '[Member] Load Success';
 export const LOAD_DETAIL = '[Member] Load Detail';
 export const ADD_START = '[Member] Add Start';
-export const SAVE_MEMBER = '[Member] Save Member';
+export const SAVE_MEMBER = '[Member] Save Member to database';
 export const ADD_SUCCESS = '[Member] Add Success';
 export const ADD_CANCEL = '[Member] Add Cancel';
+export const UPDATE_EMAIL = '[Member] Update email';
+export const UPDATE_EMAIL_SUCCESS = '[Member] Update email success';
+export const UPDATE_EMAIL_FAIL = '[Member] Update email fail';
 export const RELOAD = '[Member] Reload';
 
 export class Load implements Action {
@@ -53,6 +56,20 @@ export class Reload implements Action {
   constructor(public payload?: Member[]) {}
 }
 
+export class UpdateEmail implements Action {
+  readonly type = UPDATE_EMAIL;
+
+  constructor(public payload: Member) {}
+}
+export class UpdateEmailSuccess implements Action {
+  readonly type = UPDATE_EMAIL_SUCCESS
+}
+export class UpdateEmailFail implements Action {
+  readonly type = UPDATE_EMAIL_FAIL;
+
+  constructor(public payload: string) {}
+}
+
 export type Actions =
   | Load
   | LoadDetail
@@ -61,4 +78,8 @@ export type Actions =
   | AddCancel
   | AddStart
   | SaveMember
-  | Reload;
+  | Reload
+  | UpdateEmail
+  | UpdateEmailSuccess
+  | UpdateEmailFail;
+

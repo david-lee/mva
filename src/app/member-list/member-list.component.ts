@@ -25,14 +25,14 @@ export class MemberListComponent implements OnInit, OnDestroy {
   members: Member[];
   emailFilterChecked = true;
   emailClicked = false;
-  emailErrorMessage: Message[] = [];
+  errorMessage: Message[];
   subscriptions: ISubscription[] = [];
   newMember: Member;
 
   get genders() {
     return environment.lookups.genders;
   }
-  
+
   get customerRoles() {
     return environment.lookups.customerRoles;
   }
@@ -56,6 +56,13 @@ export class MemberListComponent implements OnInit, OnDestroy {
           this.newMember = member;
         })
     );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getMemberError)
+        .subscribe((error: Message[]) => {
+          this.errorMessage = error;
+        })
+    );    
 
     this.store.dispatch(new MemberListAction.Load());
   }
@@ -121,13 +128,10 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
     if (!test) {
       member.invalidEmail = true;
-      this.emailErrorMessage = [];
-      this.emailErrorMessage.push({
-        severity: 'error', summary: 'Invalid Email', detail: `${member.id} has an invalid email`
-      });
+      this.store.dispatch(new MemberListAction.UpdateEmailFail(`${member.id} has an invalid email`));
     } else {
-      // TODO dispatch update action
       member.invalidEmail = false;
+      this.store.dispatch(new MemberListAction.UpdateEmail(member));
     }
   }
 

@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<p-growl [(value)]="emailErrorMessage" [life]="3000" [sticky]="false"></p-growl>
+<p-growl [value]="errorMessage" [life]="3000" [sticky]="false"></p-growl>
 
 <div class="data-container">
   <p-dataTable [value]="members" styleClass="'member-list'" #dt

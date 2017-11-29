@@ -24,4 +24,9 @@ export class MemberListService {
   saveMember(member: MemberInfo): Observable<{data: MemberInfo}> {
     return of({ data: { ...member, id: '99999999' } });
   }
+
+  // TODO id should be gone once API is changed
+  updateEmail(email, id): Observable<any> {
+    return this.http.post(this.api.updateEmail, {id: id, email: email});
+  }
 }
