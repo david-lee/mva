@@ -29,15 +29,15 @@
       </div>
       <div class="ui-g-6 no-padding-right">
         <p-dataTable *ngIf="member[0]" [value]="member">
-          <p-column field="lastUpdateDate" header="Last Updated On">
+          <p-column field="lastUpdateDate" header="Last Updated On" styleClass="center-text">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
           <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'15%'}"></p-column>
-          <p-column field="membershipStatus" header="Membership Status">
-            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'memberStatus'}}</ng-template>            
+          <p-column field="membershipStatus" header="Membership Status" styleClass="center-text">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'memberStatus'}}</ng-template>
           </p-column>
-          <p-column field="membershipEffdate" header="As of Date">
-            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template> 
+          <p-column field="membershipEffdate" header="As of Date" styleClass="center-text">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
         </p-dataTable>  
       </div>
@@ -46,27 +46,27 @@
     <div class="ui-g">
       <div class="ui-g-6 no-padding-left">
         <p-dataTable *ngIf="member[0]" [value]="member">
-          <p-column field="gender" header="Gender" [style]="{'width':'15%'}">
+          <p-column field="gender" header="Gender" styleClass="center-text" [style]="{'width':'15%'}">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'genders'}}</ng-template>            
           </p-column>
           <p-column field="sin" header="SIN"></p-column>
-          <p-column field="language" header="Language"></p-column>
+          <p-column field="language" header="Language" styleClass="center-text"></p-column>
           <p-column field="email" header="Email" [style]="{'width':'55%'}"></p-column>            
         </p-dataTable>
       </div>
       <div class="ui-g-6 no-padding-right">
         <p-dataTable *ngIf="member[0]" [value]="member">
           <p-column field="employerBranchId" header="Reward Level"></p-column>
-          <p-column field="vitalityEffdate" header="Coverage Effective">
+          <p-column field="vitalityEffdate" header="Coverage Effective" styleClass="center-text">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
           <p-column field="vitalityTermdate" header="Terminated On">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
           </p-column>
-          <p-column field="customerRole" header="Customer Role" [style]="{'width':'18%'}">
+          <p-column field="customerRole" header="Customer Role" styleClass="center-text" [style]="{'width':'18%'}">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'customerRoles'}}</ng-template>            
           </p-column>
-          <p-column field="establishedOnC360" header="On C360" [style]="{'width':'15%'}"></p-column>
+          <p-column field="establishedOnC360" header="On C360" styleClass="center-text" [style]="{'width':'15%'}"></p-column>
         </p-dataTable>  
       </div>
     </div>  
@@ -78,17 +78,17 @@
             <ng-template let-member="rowData" pTemplate="body">{{member.address1}} {{member.address2}}</ng-template>
           </p-column>
           <p-column field="city" header="City" [style]="{'width':'18%'}"></p-column>
-          <p-column field="province" header="Province" [style]="{'width':'11%'}"></p-column>
-          <p-column field="country" header="Country" [style]="{'width':'11%'}"></p-column>
-          <p-column field="postalCode" header="Postal Code" [style]="{'width':'15%'}"></p-column>
+          <p-column field="province" header="Province" styleClass="center-text" [style]="{'width':'11%'}"></p-column>
+          <p-column field="country" header="Country" styleClass="center-text" [style]="{'width':'11%'}"></p-column>
+          <p-column field="postalCode" header="Postal Code" styleClass="center-text" [style]="{'width':'15%'}"></p-column>
         </p-dataTable> 
       </div>
       <div class="ui-g-6 no-padding-right">
         <p-dataTable *ngIf="member[0]" [value]="member" rowGroupMode="rowspan">
           <p-header>Vitality Settings</p-header>
           <p-column field="employerExternalId" header="Employer External Id"></p-column>
-          <p-column field="relationshipCode" header="Relationship Code" [style]="{'width':'23%'}"></p-column>    
-          <p-column field="vitalityProdcode" header="Product Code" [style]="{'width':'23%'}"></p-column>
+          <p-column field="relationshipCode" header="Relationship Code" styleClass="center-text" [style]="{'width':'23%'}"></p-column>    
+          <p-column field="vitalityProdcode" header="Product Code" styleClass="center-text" [style]="{'width':'23%'}"></p-column>
           <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'18%'}">
               <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
           </p-column>
@@ -154,11 +154,11 @@
       <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}">
         <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>        
       </p-column>
-      <p-column field="sentToTvg" header="Sent To TVG On">
+      <p-column field="sentToTvg" header="Sent To TVG On" styleClass="center-text">
         <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>        
       </p-column>
-      <p-column field="lastUpdateUser" header="Updated By"></p-column>
-      <p-column field="lastUpdateDate" header="Last Update On">
+      <p-column field="lastUpdateUser" header="Updated By" styleClass="center-text"></p-column>
+      <p-column field="lastUpdateDate" header="Last Update On" styleClass="center-text">
         <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
       </p-column>
       <p-column field="tc" header="Total Cholesterol" styleClass="number-data">
