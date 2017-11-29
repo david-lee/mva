@@ -32,7 +32,6 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
         if (!member.email) {
           (member.email = environment.emptyEmailString);
         }
-        // member.gender = member.gender === 'M' ? 'Male' : 'Female';
       });
 
       return {
@@ -47,9 +46,9 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
         newMember: <any>{
           country: 'CA',
           languge: 'English',
-          gender: 'Male',
-          province: 'Alberta',
-          membershipStatus: '1-Active',
+          gender: 'M',
+          province: 'AB',
+          membershipStatus: '1',
           membershipEffdate: moment(new Date()).format(environment.dateFormat),
           vitalityEffdate: moment(new Date()).format(environment.dateFormat)
         }
