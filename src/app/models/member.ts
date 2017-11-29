@@ -5,7 +5,7 @@ export interface Member {
   middleName?: string;
   email: string;
   gender: string;
-  dob: string | Date;
+  birthDate: string | Date;
   customerRole: string;
   invalidEmail?: boolean;
 }

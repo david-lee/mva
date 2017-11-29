@@ -25,8 +25,6 @@ export class MemberDetailEffects {
           // MemberInfo is not grouped in the response
           let newDetail = _.pick(memberDetail, ['accounts', 'biometrics']);
           newDetail.memberInfo = _.omit(memberDetail, ['accounts', 'biometrics']);
-          // TODO should be removed once detail API is changed
-          newDetail.memberInfo.dob = newDetail.memberInfo.birthDate || newDetail.memberInfo.dob;
 
           return new MemberDetailAction.LoadSuccess(newDetail);
         })

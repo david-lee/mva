@@ -35,13 +35,13 @@
       <div class="ui-g">
         <span class="ui-g-5">
           <label>Date of Birth *</label>
-          <p-calendar [(ngModel)]="member.dob" name="dob-cal" [showIcon]="true" dateFormat="dd/M/yy"
+          <p-calendar [(ngModel)]="member.birthDate" name="dob-cal" [showIcon]="true" dateFormat="dd/M/yy"
             [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2020" #dob="ngModel"
             readonlyInput="true" required forbiddenDob>
           </p-calendar>
           <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="validation-error">
             <div *ngIf="dob.errors && dob.errors.required">Date of Birth is required</div>
-            <div *ngIf="dob.errors.forbiddenDob">DOB can't be future</div>
+            <div *ngIf="dob.errors.forbiddenDob">DOB must not be future</div>
             <!-- <div *ngIf="dobError">DOB must not be future</div> -->
           </div>          
         </span> 

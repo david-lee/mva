@@ -38,7 +38,7 @@
         <p-dropdown [options]="genders" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
       </ng-template>        
     </p-column>
-    <p-column field="dob" header="Date of Birth" sortable="true" filterMatchMode="contains" [filter]="true" [style]="{'width':'10%'}">
+    <p-column field="birthDate" header="Date of Birth" sortable="true" filterMatchMode="contains" [filter]="true" [style]="{'width':'10%'}">
       <ng-template let-col let-member="rowData" pTemplate="body">
         <span>{{member[col.field] | date: 'dd/MMM/yyyy'}}</span>
       </ng-template>

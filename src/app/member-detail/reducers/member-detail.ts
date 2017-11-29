@@ -65,7 +65,7 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       const upsertMember: MemberInfo = { ...state.memberInfo };
 
       // calender componenet requires date type for value
-      upsertMember.dob = new Date(<string>upsertMember.dob);
+      upsertMember.birthDate = new Date(<string>upsertMember.birthDate);
       upsertMember.vitalityEffdate = new Date(<string>upsertMember.vitalityEffdate);
       upsertMember.membershipEffdate = new Date(<string>upsertMember.membershipEffdate);
 
