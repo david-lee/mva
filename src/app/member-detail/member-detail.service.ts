@@ -16,19 +16,16 @@ export class MemberDetailService {
 
   constructor(public http: HttpClient) { }
 
-  // loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
   loadMemberDetail(memberId: string): Observable<MemberDetail> {
-    return this.http.get<MemberDetail>(`${this.api.memberDetail}/${memberId}`);
+    return this.http.get<MemberDetail>(`${this.api.member}/${memberId}`);
   }
 
   updateMember(member: MemberInfo): Observable<any> {
-    member.birthDate = moment(member.birthDate).format('YYYY-MM-DD');
-    member.membershipEffdate = moment(member.membershipEffdate).format('YYYY-MM-DD');
-
-    return this.http.post<any>(
-      `${this.api.updateMember}`, 
-      _.pick(member, ['firstNamer','lastName','middleName','birthDate','gender','sin','email',
-        'language','address1','addres2','city','province','country','postalCode','membershipStatus'])
+    return this.http.put<any>(
+      `${this.api.member}/${member.id}`, 
+      _.pick(member, ['firstName','lastName','middleName','birthDate','gender','sin','email', 
+        'language','address1','addres2','city','province','country','postalCode',
+        'vitalityEffdate','membershipStatus'])
       );
   }
 }

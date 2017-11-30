@@ -26,6 +26,7 @@ export class HttpServiceInterceptor implements HttpInterceptor {
       .do(
         (event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
+            console.log('interceptor done...');
             this.store.dispatch(new RemoveBackdrop());
           }          
         },

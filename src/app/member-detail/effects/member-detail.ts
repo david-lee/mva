@@ -29,7 +29,6 @@ export class MemberDetailEffects {
 
           return new MemberDetailAction.LoadSuccess(newDetail);
         })
-        .catch(error => { throw error; })
     );
 
   @Effect()
@@ -42,7 +41,7 @@ export class MemberDetailEffects {
         .map(response => {
           return new MemberDetailAction.UpdateMemberSuccess(member);
         })
-        .catch(error => of(new MemberDetailAction.UpdateMemberFail(member)))
+        // .catch(error => of(new MemberDetailAction.UpdateMemberFail(member)))
     );
 
   @Effect()
@@ -54,7 +53,6 @@ export class MemberDetailEffects {
         .map((auditLog: any) => {
           return new MemberDetailAction.LoadAuditLogSuccess(auditLog);
         })
-        .catch(error => { throw error; })
     );
 
   constructor(

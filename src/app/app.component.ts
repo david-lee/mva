@@ -37,7 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.select(fromRoot.getMessages)
         .subscribe(messages => {
-          console.log('==> ', messages);
           this.messages = messages;
         })
     );

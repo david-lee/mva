@@ -24,6 +24,11 @@ const initialState: State = {
 
 const dateFormat: string = environment.dateFormat;
 
+function formatDate(dt) {
+  // in Date, month starts with 0 so as to calculate properly needs to convert to MMM format
+  return new Date(moment(dt, environment.serverDateFormat).format('YYYY-MMM-DD'));
+}
+
 export function reducer(state = initialState, action: MemberDetailAction.Actions): State {
   switch (action.type) {
     case MemberDetailAction.LOAD:
@@ -65,9 +70,9 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       const upsertMember: MemberInfo = { ...state.memberInfo };
 
       // calender componenet requires date type for value
-      upsertMember.birthDate = new Date(<string>upsertMember.birthDate);
-      upsertMember.vitalityEffdate = new Date(<string>upsertMember.vitalityEffdate);
-      upsertMember.membershipEffdate = new Date(<string>upsertMember.membershipEffdate);
+      upsertMember.birthDate = formatDate(upsertMember.birthDate);
+      upsertMember.vitalityEffdate = formatDate(upsertMember.vitalityEffdate);
+      upsertMember.membershipEffdate = formatDate(upsertMember.membershipEffdate);
 
       return {
         ...state,

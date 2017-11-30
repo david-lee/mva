@@ -50,8 +50,13 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
           gender: 'M',
           province: 'AB',
           membershipStatus: '1',
-          membershipEffdate: moment(new Date()).format(environment.dateFormat),
-          vitalityEffdate: moment(new Date()).format(environment.dateFormat)
+          customerRole: '98',
+          vitalityProdcode: '12',
+          employerExternalId: 'MANULIFE CANADA',
+          relationshipCode: 'PP',
+          sourceSystem: 'TVGAdminUI',
+          membershipEffdate: new Date(),
+          vitalityEffdate: new Date()
         }
       };
     }
@@ -61,7 +66,7 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
       // all other data should be the same as what user entered
       state.newMember.id = action.payload.id;
       // state.newMember.vitalityEffdate = moment(state.newMember.vitalityEffdate, 'MM/DD/YYYY').format('DD/MMM/YYYY');
-
+console.log(action.payload);
       return {
         ...state,
         memberList: [ state.newMember, ...state.memberList ],
