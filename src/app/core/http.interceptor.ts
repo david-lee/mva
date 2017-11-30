@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
 import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/do';
 
-import { ShowBackdrop, RemoveBackdrop } from './actions/backdrop';
+import { ShowBackdrop, RemoveBackdrop, ShowMessage } from './actions/overlay';
 import * as fromRoot from './reducers';
 
 @Injectable()
@@ -30,12 +30,16 @@ export class HttpServiceInterceptor implements HttpInterceptor {
           }          
         },
         (err: HttpErrorResponse) => {
-          console.log(`Request Error for ${req.urlWithParams}`, err);
           if (err.status === 401) {
-            // TODO show a popup or navigate to login page saving req.url
             console.log('Unauthorized.');
-          }          
+          }
+          if (err.status >= 500 && err.status < 600) {
+            console.log('Server Error.', err);
+            this.store.dispatch(new ShowMessage(`Server Error: ${err.message}`));
+          }
+
+          this.store.dispatch(new RemoveBackdrop());
         }
-    );
+      );
   }
 }

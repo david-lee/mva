@@ -61,9 +61,9 @@ export class MemberUpsertComponent implements OnInit {
   save() {
     // TODO use confirm dialog
     if (this.member.id) {
-      this.store.dispatch(new MemberDetailAction.UpdateMemberSuccess(this.member));
+      this.store.dispatch(new MemberDetailAction.UpdateMember(this.member));
     } else {
-      this.store.dispatch(new MemberListAction.SaveMember(this.member));
+      this.store.dispatch(new MemberListAction.AddMember(this.member));
     }
   }
 

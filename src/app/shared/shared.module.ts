@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule, DataTableModule, SharedModule, ButtonModule, EditorModule,
   RadioButtonModule, Message, CalendarModule, CheckboxModule, DropdownModule,
-  GrowlModule, PanelModule, FieldsetModule, DialogModule
+  GrowlModule, PanelModule, FieldsetModule, DialogModule, MessageModule, MessagesModule
 } from 'primeng/primeng';
 import { MemberUpsertComponent } from './member-upsert/member-upsert.component';
 import { ForbiddenDobDirective } from './forbidden-dob.directive';
@@ -24,7 +24,9 @@ export const PRIMENG_MODULES = [
   PanelModule,
   FieldsetModule,
   DropdownModule,
-  DialogModule
+  DialogModule,
+  MessageModule, 
+  MessagesModule
 ];
 @NgModule({
   imports: [

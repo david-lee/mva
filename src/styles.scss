@@ -25,6 +25,13 @@ body {
   font-weight: 400;
 }
 
+.ui-messages {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10000;
+}
+
 .ui-datatable {
   &.member-list {
     height: 100vh;

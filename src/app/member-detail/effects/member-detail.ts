@@ -10,6 +10,7 @@ import { MemberDetailService } from '../member-detail.service';
 import { AuditService } from '../audit/audit.service';
 import * as MemberDetailAction from '../actions/member-detail';
 import * as _ from 'lodash';
+import { MemberInfo } from '../../models/member-info';
 
 @Injectable()
 export class MemberDetailEffects {
@@ -29,6 +30,19 @@ export class MemberDetailEffects {
           return new MemberDetailAction.LoadSuccess(newDetail);
         })
         .catch(error => { throw error; })
+    );
+
+  @Effect()
+  update$ = this.actions$
+    .ofType(MemberDetailAction.UPDATE_MEMBER)
+    .map((action: any) => action.payload)
+    .switchMap((member: MemberInfo) =>
+      this.memberDetailService
+        .updateMember(member)
+        .map(response => {
+          return new MemberDetailAction.UpdateMemberSuccess(member);
+        })
+        .catch(error => of(new MemberDetailAction.UpdateMemberFail(member)))
     );
 
   @Effect()

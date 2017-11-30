@@ -3,7 +3,7 @@ import * as fromRouter from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from '../../../environments/environment';
 import { RouterStateUrl } from '../custom-router-state-serializer';
-import * as fromBackdrop from './backdrop';
+import * as fromOverlay from './overlay';
 import * as fromMember from '../../member-list/reducers/member-list';
 import * as fromMemberDetail from '../../member-detail/reducers/member-detail';
 
@@ -11,15 +11,14 @@ import * as fromMemberDetail from '../../member-detail/reducers/member-detail';
 export interface State {
   members: fromMember.State;
   memberDetail: fromMemberDetail.State;
-  backdrop: fromBackdrop.State;
-  // navbar: fromNavbar.State;
+  overlay: fromOverlay.State;
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<State> = {
   members: fromMember.reducer,
   memberDetail: fromMemberDetail.reducer,
-  backdrop: fromBackdrop.reducer,
+  overlay: fromOverlay.reducer,
   routerReducer: fromRouter.routerReducer
 };
 
@@ -40,18 +39,23 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
 
 // export const getLangState = createFeatureSelector<fromLang.State>('lang');
 // export const getUserState = createFeatureSelector<fromAuth.State>('user');
-export const getBackdropState = createFeatureSelector<fromBackdrop.State>('backdrop');
+export const getOverlayState = createFeatureSelector<fromOverlay.State>('overlay');
 export const getMemberState = createFeatureSelector<fromMember.State>('members');
 export const getMemberDetailState = createFeatureSelector<fromMemberDetail.State>('memberDetail');
 
 export const getShowBackdrop = createSelector(
-  getBackdropState,
-  fromBackdrop.getShowBackdrop
+  getOverlayState,
+  fromOverlay.getShowBackdrop
 );
 
 export const getShowSpinner = createSelector(
-  getBackdropState,
-  fromBackdrop.getShowSpinner
+  getOverlayState,
+  fromOverlay.getShowSpinner
+);
+
+export const getMessages = createSelector(
+  getOverlayState,
+  fromOverlay.getMessages
 );
 
 export const getMemberList = createSelector(

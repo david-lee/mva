@@ -61,7 +61,7 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       };
     }
 
-    case MemberDetailAction.UPDATE_MEMBER: {
+    case MemberDetailAction.UPDATE_MEMBER_START: {
       const upsertMember: MemberInfo = { ...state.memberInfo };
 
       // calender componenet requires date type for value

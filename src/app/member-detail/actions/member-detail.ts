@@ -6,8 +6,10 @@ export const LOAD_SUCCESS = '[MemberDetail] Load Success';
 export const LOAD_AUDIT_LOG = '[MemberDetail] Load Audit Log';
 export const LOAD_AUDIT_LOG_SUCCESS = '[MemberDetail] Load Audit Log Success';
 export const CLOSE_AUDIT_LOG = '[MemberDetail] Close Audit Log';
-export const UPDATE_MEMBER = '[MemberDetail] Update Member';
+export const UPDATE_MEMBER_START = '[MemberDetail] Update Member Start';
+export const UPDATE_MEMBER = '[MemberDetail] Update Member to database';
 export const UPDATE_MEMBER_SUCCESS = '[MemberDetail] Update Member Success';
+export const UPDATE_MEMBER_FAIL = '[MemberDetail] Update Member Fail';
 export const UPDATE_MEMBER_CANCEL = '[MemberDetail] Update Member Cancel';
 export const UPDATE_BIO = '[MemberDetail] Update Bio';
 export const UPDATE_BIO_SUCCESS = '[MemberDetail] Update Bio Success';
@@ -40,14 +42,26 @@ export class CloseAuditLog implements Action {
   readonly type = CLOSE_AUDIT_LOG;
 }
 
+export class UpdateMemberStart implements Action {
+  readonly type = UPDATE_MEMBER_START;
+}
+
 export class UpdateMember implements Action {
   readonly type = UPDATE_MEMBER;
+
+  constructor(public payload?: MemberInfo) {}
 }
 
 export class UpdateMemberSuccess implements Action {
   readonly type = UPDATE_MEMBER_SUCCESS;
 
-  constructor(public payload?: MemberInfo) {}
+  constructor(public payload: MemberInfo) {}
+}
+
+export class UpdateMemberFail implements Action {
+  readonly type = UPDATE_MEMBER_FAIL;
+
+  constructor(public payload: MemberInfo) {}
 }
 
 export class UpdateMemberCancel implements Action {
@@ -82,9 +96,11 @@ export type Actions =
   | LoadAuditLog
   | LoadAuditLogSuccess
   | CloseAuditLog
-  | UpdateMemberSuccess
-  | UpdateMemberCancel
   | UpdateMember
+  | UpdateMemberSuccess
+  | UpdateMemberFail
+  | UpdateMemberCancel
+  | UpdateMemberStart
   | UpdateBioSuccess
   | UpdateBioCancel
   | UpdateBio  

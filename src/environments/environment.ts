@@ -14,6 +14,7 @@ export const environment = {
     memberList: `${apiBase}/members`,
     memberDetail: `${apiBase}/member`,
     updateEmail: `${apiBase}/updateMemberEmail`,
+    updateMember: `${apiBase}/updateMemberInfo`,
     auditLog: `${apiBase}/audit`
   },
   lookups: {

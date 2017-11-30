@@ -6,7 +6,7 @@ export const LOAD = '[Member] Load';
 export const LOAD_SUCCESS = '[Member] Load Success';
 export const LOAD_DETAIL = '[Member] Load Detail';
 export const ADD_START = '[Member] Add Start';
-export const SAVE_MEMBER = '[Member] Save Member to database';
+export const ADD_MEMBER = '[Member] Add Member to database';
 export const ADD_SUCCESS = '[Member] Add Success';
 export const ADD_CANCEL = '[Member] Add Cancel';
 export const UPDATE_EMAIL = '[Member] Update email';
@@ -40,8 +40,8 @@ export class AddSuccess implements Action {
   constructor(public payload?: MemberInfo) {}
 }
 
-export class SaveMember implements Action {
-  readonly type = SAVE_MEMBER;
+export class AddMember implements Action {
+  readonly type = ADD_MEMBER;
 
   constructor(public payload?: MemberInfo) {}
 }
@@ -77,7 +77,7 @@ export type Actions =
   | AddSuccess
   | AddCancel
   | AddStart
-  | SaveMember
+  | AddMember
   | Reload
   | UpdateEmail
   | UpdateEmailSuccess

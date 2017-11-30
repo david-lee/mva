@@ -43,43 +43,33 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.store.select(fromRoot.getMemberDetailInfo)
-        .subscribe(memberInfo => {
-          this.member = [memberInfo];
-        })
-    );
+        .subscribe(memberInfo => this.member = [memberInfo])
+      );
 
     this.subscriptions.push(
       this.store.select(fromRoot.getAccounts)
         .subscribe(accounts => this.accounts = <any>accounts)      
-    );
+      );
 
     this.subscriptions.push(
       this.store.select(fromRoot.getBiometrics)
-        .subscribe(biometrics => {
-          this.biometrics = biometrics;
-        })
-    );
+        .subscribe(biometrics => this.biometrics = biometrics)
+      );
 
     this.subscriptions.push(
       this.store.select(fromRoot.getUpsertMember)
-        .subscribe((member: MemberInfo) => {
-          this.upsertMember = member;
-        })
-    );
+        .subscribe((member: MemberInfo) => this.upsertMember = member)
+      );
 
     this.subscriptions.push(
       this.store.select(fromRoot.getUpsertBiometrics)
-        .subscribe((bio: Biometrics) => {
-          this.upsertBiometrics = bio;
-        })
-    );
+        .subscribe((bio: Biometrics) => this.upsertBiometrics = bio)
+      );
 
     this.subscriptions.push(
       this.store.select(fromRoot.getAuditLogs)
-        .subscribe((auditLogs: AuditLog[]) => {
-          this.auditLogs = auditLogs;
-        })
-    );
+        .subscribe((auditLogs: AuditLog[]) => this.auditLogs = auditLogs)
+      );
 
     this.store.dispatch(new MemberDetailAction.Load(memberId));
   }
@@ -93,7 +83,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   }
 
   editMember() {
-    this.store.dispatch(new MemberDetailAction.UpdateMember());
+    this.store.dispatch(new MemberDetailAction.UpdateMemberStart());
   }
 
   viewAuditLog() {

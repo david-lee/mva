@@ -21,7 +21,7 @@ export class MemberListEffects {
       this.memberService
         .loadMembers()
         .map((members: Member[]) => new MemberListAction.LoadSuccess(members))
-        .catch(error => { throw error; })
+        // .catch(error => { throw error; })
     );
 
   @Effect({dispatch: false})
@@ -32,13 +32,13 @@ export class MemberListEffects {
 
   @Effect()
   saveMember$ = this.actions$
-    .ofType(MemberListAction.SAVE_MEMBER)
-    .map((action: MemberListAction.SaveMember) => action.payload)
+    .ofType(MemberListAction.ADD_MEMBER)
+    .map((action: MemberListAction.AddMember) => action.payload)
     .switchMap((member: MemberInfo) =>
       this.memberService
         .saveMember(member)
         .map(savedMember => new MemberListAction.AddSuccess(savedMember.data))
-        .catch(error => { throw error; })
+        // .catch(error => { throw error; })
     );
 
   @Effect()
@@ -49,7 +49,7 @@ export class MemberListEffects {
       this.memberService
         .updateEmail(member.email, member.id)
         .map(response => new MemberListAction.UpdateEmailSuccess())
-        .catch(error => of(new MemberListAction.UpdateEmailFail(`Failed to save. ${error}`)))
+        // .catch(error => of(new MemberListAction.UpdateEmailFail(`Failed to save. ${error}`)))
     );    
 
   constructor(

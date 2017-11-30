@@ -5,93 +5,30 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { MemberDetail } from '../models/member-detail';
+import { MemberInfo } from '../models/member-info';
 import { of } from 'rxjs/observable/of';
+import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Injectable()
 export class MemberDetailService {
-
   api = environment.endPoints;
 
-  memberDetail = {
-    memberInfo: {
-      id: '10000001',
-      customerRole: '98-Promo',
-      lastName: 'Kunkel',
-      firstName: 'James',
-      middleName: 'Paul',
-      gender: 'Male',
-      birthDate: '3/Dec/1985',
-      email: 'JamesKunkel@gmail.com',
-      lastUpdateDate: '',
-      lastUpdateUser: 'Admin',
-      membershipStatus: '1-Active',
-      membershipEffdate: '10/Dec/2015',
-      address1: '4 Woolenscote Circle',
-      address2: 'PO Box 12345',
-      city: 'Etobicoke',
-      province: 'ON',
-      country: 'CA',
-      postalCode: 'M9V4R7',
-      vitalityProdcode: '12',
-      vitalityProdcodeEffdate: '1/Mar/2016',
-      employerExternalId: 'MANULIFE',
-      employerBranchId: '',
-      relationshipCode: 'PP',
-      sin: '123456789',
-      vitalityEffdate: '11/Dec/2015',
-      vitalityTermdate: '',
-      language: 'English',
-      accountStrategy: '',
-      altMemberId: '1234567001',
-      sourceSystem: 'TestLocal',
-      establishedOnC360: true
-    },
-    accounts: [{
-      id: '111111',
-      accountNumber: '1666100001',
-      product: 'Very very long product name in manulife vitality products Family Term with Vitality Family Term with Vitality',
-      plan: 'Very very long plan name in manulife vitality plans Family Term with Vitality Family Term with Vitality',
-      amount: '555000',
-      effectiveDate: '1/Jan/2016',
-      terminationDate: '15/Jan/2016',
-      status: '00',
-      lastUpdateDate: '',
-      lastUpdateUser: 'Admin'
-    },
-    {
-      id: '222222',
-      accountNumber: '1666100022',
-      product: 'Very very long product name in manulife vitality products Family Term with Vitality Family Term with Vitality',
-      plan: 'Very very long plan name in manulife vitality plans Family Term with Vitality Family Term with Vitality',
-      amount: '333000',
-      effectiveDate: '1/Jan/2016',
-      terminationDate: '15/Jan/2016',
-      status: '00',
-      lastUpdateDate: '',
-      lastUpdateUser: 'Admin'
-    }],
-    biometrics: [{
-      id: '11111',
-      assessmentDate: '15/Dec/2015',
-      sentToTvg: '13/Feb/2016',
-      glu: '123450',
-      ht: '71.500',
-      wght: '90'
-    },
-    {
-      id: '22222',
-      assessmentDate: '1/Jun/2015',
-      sentToTvg: '3/Mar/2016',
-      glu: '333450',
-      ht: '91.500',
-      wght: '50'
-    }]
-  };
   constructor(public http: HttpClient) { }
 
   // loadMemberDetail(memberId: string): Observable<{data: MemberDetail}> {
-  loadMemberDetail(memberId: string): Observable<MemberDetail> {    
-    // return of({data: this.memberDetail});
+  loadMemberDetail(memberId: string): Observable<MemberDetail> {
     return this.http.get<MemberDetail>(`${this.api.memberDetail}/${memberId}`);
+  }
+
+  updateMember(member: MemberInfo): Observable<any> {
+    member.birthDate = moment(member.birthDate).format('YYYY-MM-DD');
+    member.membershipEffdate = moment(member.membershipEffdate).format('YYYY-MM-DD');
+
+    return this.http.post<any>(
+      `${this.api.updateMember}`, 
+      _.pick(member, ['firstNamer','lastName','middleName','birthDate','gender','sin','email',
+        'language','address1','addres2','city','province','country','postalCode','membershipStatus'])
+      );
   }
 }
