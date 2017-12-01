@@ -37,7 +37,7 @@ export class MemberListEffects {
     .switchMap((member: MemberInfo) =>
       this.memberService
         .saveMember(member)
-        .map(savedMember => new MemberListAction.AddSuccess(savedMember))
+        .map(savedMember => new MemberListAction.AddSuccess(savedMember.data))
         // .catch(error => { throw error; })
     );
 

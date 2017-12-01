@@ -25,7 +25,7 @@ export class MemberDetailService {
       `${this.api.member}/${member.id}`, 
       _.pick(member, ['firstName','lastName','middleName','birthDate','gender','sin','email', 
         'language','address1','addres2','city','province','country','postalCode',
-        'vitalityEffdate','membershipStatus'])
+        'vitalityEffdate','membershipEffdate','membershipStatus'])
       );
   }
 }

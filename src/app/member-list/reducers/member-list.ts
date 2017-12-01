@@ -46,7 +46,7 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
         ...state,
         newMember: <any>{ // set default values
           country: 'CA',
-          languge: 'English',
+          language: 'English',
           gender: 'M',
           province: 'AB',
           membershipStatus: '1',
@@ -56,7 +56,8 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
           relationshipCode: 'PP',
           sourceSystem: 'TVGAdminUI',
           membershipEffdate: new Date(),
-          vitalityEffdate: new Date()
+          vitalityEffdate: new Date(),
+          vitalityProdcodeEffdate: new Date()
         }
       };
     }
@@ -66,7 +67,7 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
       // all other data should be the same as what user entered
       state.newMember.id = action.payload.id;
       // state.newMember.vitalityEffdate = moment(state.newMember.vitalityEffdate, 'MM/DD/YYYY').format('DD/MMM/YYYY');
-console.log(action.payload);
+
       return {
         ...state,
         memberList: [ state.newMember, ...state.memberList ],

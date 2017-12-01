@@ -12,7 +12,7 @@ export interface MemberInfo extends Member {
   country: string;
   postalCode: string;
   vitalityProdcode: string;
-  vitalityProdcodeEffdate: string;
+  vitalityProdcodeEffdate: string | Date;
   employerExternalId: string;
   employerBranchId: string;
   relationshipCode: string;
