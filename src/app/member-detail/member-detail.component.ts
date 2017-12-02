@@ -31,8 +31,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   upsertBiometrics: Biometrics;
 
   get isPromoMember() {
-    // return this.member[0] && this.member[0].customerRole.toLowerCase().indexOf('promo') >= 0;
-    return this.member[0] && (+this.member[0].customerRole === 99);
+    return this.member[0] && (+this.member[0].customerRole === 98);
   }
 
   constructor(public store: Store<fromRoot.State>, public route: ActivatedRoute, public location: Location) {

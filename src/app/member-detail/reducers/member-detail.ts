@@ -45,7 +45,7 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
         ...state,
         memberInfo: memberDetail.memberInfo,
         accounts: <any>memberDetail.accounts,
-        biometrics: memberDetail.biometrics,
+        biometrics: memberDetail.biometrics || [], // for new member it may not have it
         upsertBio: null,
         upsertMember: null,
         auditLogs: null
