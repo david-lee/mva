@@ -10,6 +10,7 @@ import { ForbiddenDobDirective } from './forbidden-dob.directive';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { InvalidSinDirective } from './invalid-sin.directive';
 import { CodeNamePipe } from './code-name.pipe';
+import { MvaLogoComponent } from './mva-logo/mva-logo.component';
 
 export const PRIMENG_MODULES = [
   ButtonModule,
@@ -42,14 +43,16 @@ export const PRIMENG_MODULES = [
     ForbiddenDobDirective,
     InvalidSinDirective,
     EllipsisPipe,
-    CodeNamePipe
+    CodeNamePipe,
+    MvaLogoComponent
   ],
   declarations: [
     MemberUpsertComponent,
     ForbiddenDobDirective,
     EllipsisPipe,
     InvalidSinDirective,
-    CodeNamePipe
+    CodeNamePipe,
+    MvaLogoComponent
   ]
 })
 export class MVASharedModule { }

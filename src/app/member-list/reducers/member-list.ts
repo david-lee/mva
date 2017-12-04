@@ -84,7 +84,7 @@ export function reducer(state = initialState, action: MemberListAction.Actions):
     }
 
     case MemberListAction.UPDATE_EMAIL_FAIL: {
-      let errorMessage = [{severity: 'error', summary: 'Email Error', detail: action.payload}];
+      const errorMessage = [{severity: 'error', summary: 'Email Error', detail: action.payload}];
 
       return {
         ...state,

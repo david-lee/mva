@@ -26,7 +26,7 @@ const dateFormat: string = environment.dateFormat;
 
 function formatDate(dt) {
   // in Date, month starts with 0 so as to calculate properly needs to convert to MMM format
-  return new Date(moment(dt, environment.serverDateFormat).format('YYYY-MMM-DD'));
+  return new Date(moment(dt, environment.serverDateFormat).toString());
 }
 
 export function reducer(state = initialState, action: MemberDetailAction.Actions): State {
