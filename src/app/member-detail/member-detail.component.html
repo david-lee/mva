@@ -87,9 +87,15 @@
         <p-dataTable *ngIf="member[0]" [value]="member" rowGroupMode="rowspan">
           <p-header>Vitality Settings</p-header>
           <p-column field="employerExternalId" header="Employer External Id"></p-column>
-          <p-column field="relationshipCode" header="Relationship Code" styleClass="center-text" [style]="{'width':'23%'}"></p-column>    
-          <p-column field="vitalityProdcode" header="Product Code" styleClass="center-text" [style]="{'width':'23%'}"></p-column>
-          <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'18%'}">
+          <p-column field="relationshipCode" header="Relationship Code" styleClass="center-text" [style]="{'width':'14%'}"></p-column>    
+          <p-column field="vitalityProdcode" header="Product Code" styleClass="center-text" [style]="{'width':'12%'}"></p-column>
+          <p-column field="entityNumber" header="Entity Number" styleClass="center-text" [style]="{'width':'15%'}">
+            <ng-template let-member="rowData" pTemplate="body">1414983526</ng-template>
+          </p-column>    
+          <p-column field="polcardNumber" header="Polcard Number" styleClass="center-text" [style]="{'width':'15%'}">
+            <ng-template let-member="rowData" pTemplate="body">VS00563436</ng-template>            
+          </p-column>
+          <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'17%'}">
               <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
           </p-column>
         </p-dataTable>

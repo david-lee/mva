@@ -15,7 +15,7 @@
     (onEditInit)="initEmailUpdate($event.data)" (onEditComplete)="updateEmail($event.data)"
     (onEditCancel)="cancelUpdateEmail($event.data)" (onRowClick)="gotoDetail($event)"
   >
-    <p-column field="id" header="ID" sortable="true" [filter]="true" filterMaxlength="8" [style]="{'width':'8%'}"></p-column>
+    <p-column field="id" header="ID" sortable="true" [filter]="true" filterMaxlength="8" [style]="{'width':'7%'}"></p-column>
     <p-column field="customerRole" header="Role" sortable="true" [filter]="true" [style]="{'width':'10%'}" filterMatchMode="equals">
       <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'customerRoles'}}</ng-template>
       <ng-template pTemplate="filter" let-col>
@@ -43,6 +43,7 @@
         <span>{{member[col.field] | date: 'dd/MMM/yyyy'}}</span>
       </ng-template>
     </p-column>
+    <p-column field="employerBranchId" header="Reward Level" [style]="{'width':'10%'}"></p-column>
     <p-column field="email" header="Email" [filter]="true" [editable]="true" styleClass="email-col">
       <ng-template pTemplate="filter" let-col>
         <div class="email-filter">

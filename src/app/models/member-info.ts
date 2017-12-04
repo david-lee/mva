@@ -14,7 +14,6 @@ export interface MemberInfo extends Member {
   vitalityProdcode: string;
   vitalityProdcodeEffdate: string | Date;
   employerExternalId: string;
-  employerBranchId: string;
   relationshipCode: string;
   sin: string;
   vitalityEffdate: string | Date;

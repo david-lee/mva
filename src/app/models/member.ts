@@ -7,5 +7,6 @@ export interface Member {
   gender: string;
   birthDate: string | Date;
   customerRole: string;
+  employerBranchId: string;
   invalidEmail?: boolean;
 }
