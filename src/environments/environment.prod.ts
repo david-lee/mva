@@ -16,6 +16,14 @@ export const environment = {
     member: `${apiBase}/member`,
     auditLog: `${apiBase}/audit`
   },
+  ssoConfig: {
+    url: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
+    urlToken: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/token',
+    clientId: '4a048376-c719-4f89-99e8-93dbdaa63528',
+    credentials: {
+      secret: '287aba65-65a9-4284-b57b-421041d7d6f1'
+    }
+  },  
   lookups: {
     genders: [
       {label: 'All', value: null}, // used in the filter in Member List

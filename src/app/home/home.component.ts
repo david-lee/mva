@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { LocalStorageService } from '../core/local-storage.service';
 import { environment } from '../../environments/environment';
-import * as Keycloak from '../core/mva-keycloak.js';
+import { keycloak } from '../core/mva-keycloak';
 import * as _ from 'lodash';
 
 @Component({
@@ -16,12 +16,12 @@ export class HomeComponent implements OnInit {
   constructor(public router: Router, public localStorage: LocalStorageService) { }
 
   ngOnInit() {
-    let keycloak = Keycloak(environment.ssoConfig);
+    let _keycloak = keycloak(environment.ssoConfig);
     
-    keycloak.init({onLoad: 'login-required', flow: 'standard', responseMode: 'query'})
+    (<any>_keycloak).init({onLoad: 'login-required', flow: 'standard', responseMode: 'query'})
       .success(authed => {
         if (authed) {
-          this.localStorage.set('auth', _.pick(keycloak.tokenParsed, ['user_id','user_name','email','auth_time','exp']));
+          this.localStorage.set('auth', _.pick((<any>_keycloak).tokenParsed, ['user_id','user_name','email','auth_time','exp']));
           this.router.navigate(['/members']);
         } else {
           console.log('401 error');

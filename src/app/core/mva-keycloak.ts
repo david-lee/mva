@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 /* eslint-disable no-console */
-(function (window, undefined) {
+// (function (window, undefined) {
     
-        const Keycloak = function (config) {
+        const Keycloak = function (config): void {
             if (!(this instanceof Keycloak)) {
                 return new Keycloak(config);
             }
@@ -43,7 +43,7 @@
                 } else if (initOptions && initOptions.adapter === 'default') {
                     adapter = loadAdapter();
                 } else {
-                    if (window.Cordova) {
+                    if (window['Cordova']) {
                         adapter = loadAdapter('cordova');
                     } else {
                         adapter = loadAdapter();
@@ -116,7 +116,7 @@
                 function onLoad() {
                     let doLogin = function (prompt) {
                         if (!prompt) {
-                            options.prompt = 'none';
+                            options['prompt'] = 'none';
                         }
                         kc.login(options).success(function () {
                             initPromise.setSuccess();
@@ -218,7 +218,7 @@
                 };
     
                 if (options && options.prompt) {
-                    callbackState.prompt = options.prompt;
+                    callbackState['prompt'] = options.prompt;
                 }
     
                 callbackStorage.add(callbackState);
@@ -641,7 +641,7 @@
                 return promise.promise;
             }
     
-            function setToken(token, refreshToken, idToken, timeLocal) {
+            function setToken(token, refreshToken, idToken, timeLocal?) {
                 if (kc.tokenTimeoutHandle) {
                     clearTimeout(kc.tokenTimeoutHandle);
                     kc.tokenTimeoutHandle = null;
@@ -721,7 +721,7 @@
                 str = (str + '===').slice(0, str.length + (str.length % 4));
                 str = str.replace(/-/g, '+').replace(/_/g, '/');
     
-                str = decodeURIComponent(escape(atob(str)));
+                str = decodeURIComponent(window['escape'](atob(str)));
     
                 str = JSON.parse(str);
                 return str;
@@ -767,36 +767,36 @@
     
             function createPromise() {
                 let p = {
-                    setSuccess: function (result) {
-                        p.success = true;
-                        p.result = result;
-                        if (p.successCallback) {
-                            p.successCallback(result);
+                    setSuccess: function (result?) {
+                        p['success'] = true;
+                        p['result'] = result;
+                        if (p['successCallback']) {
+                            p['successCallback'](result);
                         }
                     },
     
-                    setError: function (result) {
-                        p.error = true;
-                        p.result = result;
-                        if (p.errorCallback) {
-                            p.errorCallback(result);
+                    setError: function (result?) {
+                        p['error'] = true;
+                        p['result'] = result;
+                        if (p['errorCallback']) {
+                            p['errorCallback'](result);
                         }
                     },
     
                     promise: {
-                        success: function (callback) {
-                            if (p.success) {
-                                callback(p.result);
-                            } else if (!p.error) {
-                                p.successCallback = callback;
+                        success: function (callback?) {
+                            if (p['success']) {
+                                callback(p['result']);
+                            } else if (!p['error']) {
+                                p['successCallback'] = callback;
                             }
                             return p.promise;
                         },
-                        error: function (callback) {
-                            if (p.error) {
-                                callback(p.result);
-                            } else if (!p.success) {
-                                p.errorCallback = callback;
+                        error: function (callback?) {
+                            if (p['error']) {
+                                callback(p['result']);
+                            } else if (!p['success']) {
+                                p['errorCallback'] = callback;
                             }
                             return p.promise;
                         }
@@ -813,20 +813,20 @@
                     return promise.promise;
                 }
     
-                if (loginIframe.iframe) {
+                if (loginIframe['iframe']) {
                     promise.setSuccess();
                     return promise.promise;
                 }
     
                 let iframe = document.createElement('iframe');
-                loginIframe.iframe = iframe;
+                loginIframe['iframe'] = iframe;
     
                 iframe.onload = function () {
                     let realmUrl = getRealmUrl();
                     if (realmUrl.charAt(0) === '/') {
-                        loginIframe.iframeOrigin = getOrigin();
+                        loginIframe['iframeOrigin'] = getOrigin();
                     } else {
-                        loginIframe.iframeOrigin = realmUrl.substring(0, realmUrl.indexOf('/', 8));
+                        loginIframe['iframeOrigin'] = realmUrl.substring(0, realmUrl.indexOf('/', 8));
                     }
                     promise.setSuccess();
     
@@ -840,7 +840,7 @@
                 document.body.appendChild(iframe);
     
                 let messageCallback = function (event) {
-                    if ((event.origin !== loginIframe.iframeOrigin) || (loginIframe.iframe.contentWindow !== event.source)) {
+                    if ((event.origin !== loginIframe['iframeOrigin']) || (loginIframe['iframe'].contentWindow !== event.source)) {
                         return;
                     }
     
@@ -880,12 +880,12 @@
             function checkLoginIframe() {
                 let promise = createPromise();
     
-                if (loginIframe.iframe && loginIframe.iframeOrigin) {
+                if (loginIframe['iframe'] && loginIframe['iframeOrigin']) {
                     let msg = kc.clientId + ' ' + kc.sessionId;
                     loginIframe.callbackList.push(promise);
-                    let origin = loginIframe.iframeOrigin;
+                    let origin = loginIframe['iframeOrigin'];
                     if (loginIframe.callbackList.length == 1) {
-                        loginIframe.iframe.contentWindow.postMessage(msg, origin);
+                        loginIframe['iframe'].contentWindow.postMessage(msg, origin);
                     }
                 } else {
                     promise.setSuccess();
@@ -894,7 +894,7 @@
                 return promise.promise;
             }
     
-            function loadAdapter(type) {
+            function loadAdapter(type?) {
                 if (!type || type == 'default') {
                     return {
                         login: function (options) {
@@ -955,7 +955,7 @@
     
                             let completed = false;
     
-                            ref.addEventListener('loadstart', function (event) {
+                            ref.addEventListener('loadstart', function (event: any) {
                                 if (event.url.indexOf('http://localhost') == 0) {
                                     let callback = parseCallback(event.url);
                                     processCallback(callback, promise);
@@ -964,7 +964,7 @@
                                 }
                             });
     
-                            ref.addEventListener('loaderror', function (event) {
+                            ref.addEventListener('loaderror', function (event: any) {
                                 if (!completed) {
                                     if (event.url.indexOf('http://localhost') == 0) {
                                         let callback = parseCallback(event.url);
@@ -989,13 +989,13 @@
     
                             let error;
     
-                            ref.addEventListener('loadstart', function (event) {
+                            ref.addEventListener('loadstart', function (event: any) {
                                 if (event.url.indexOf('http://localhost') == 0) {
                                     ref.close();
                                 }
                             });
     
-                            ref.addEventListener('loaderror', function (event) {
+                            ref.addEventListener('loaderror', function (event: any) {
                                 if (event.url.indexOf('http://localhost') == 0) {
                                     ref.close();
                                 } else {
@@ -1019,7 +1019,7 @@
                         register: function () {
                             let registerUrl = kc.createRegisterUrl();
                             let ref = window.open(registerUrl, '_blank', 'location=no');
-                            ref.addEventListener('loadstart', function (event) {
+                            ref.addEventListener('loadstart', function (event: any) {
                                 if (event.url.indexOf('http://localhost') == 0) {
                                     ref.close();
                                 }
@@ -1029,7 +1029,7 @@
                         accountManagement: function () {
                             let accountUrl = kc.createAccountUrl();
                             let ref = window.open(accountUrl, '_blank', 'location=no');
-                            ref.addEventListener('loadstart', function (event) {
+                            ref.addEventListener('loadstart', function (event: any) {
                                 if (event.url.indexOf('http://localhost') == 0) {
                                     ref.close();
                                 }
@@ -1045,7 +1045,7 @@
                 throw 'invalid adapter type: ' + type;
             }
     
-            let LocalStorage = function () {
+            let LocalStorage = function (): void {
                 if (!(this instanceof LocalStorage)) {
                     return new LocalStorage();
                 }
@@ -1100,7 +1100,7 @@
                 };
             };
     
-            let CookieStorage = function () {
+            let CookieStorage = function (): void {
                 if (!(this instanceof CookieStorage)) {
                     return new CookieStorage();
                 }
@@ -1167,7 +1167,8 @@
     
             let CallbackParser = function (uriToParse, responseMode) {
                 if (!(this instanceof CallbackParser)) {
-                    return new CallbackParser(uriToParse, responseMode);
+                    new CallbackParser(uriToParse, responseMode);
+                    return;
                 }
                 let parser = this;
     
@@ -1233,7 +1234,7 @@
                     for (let param in queryParams) {
                         switch (param) {
                             case 'redirect_fragment':
-                                oauth.fragment = queryParams[param];
+                                oauth['fragment'] = queryParams[param];
                                 break;
                             default:
                                 if (responseMode != 'query' || !handleQueryParam(param, queryParams[param], oauth)) {
@@ -1264,11 +1265,13 @@
     
     
     
-        if (typeof module === "object" && module && typeof module.exports === "object") {
-            module.exports = Keycloak;
-        } else {
-            window.Keycloak = Keycloak;
-            //return Keycloak;
-        }
-    })(window);
+        // if (typeof module === "object" && module && typeof module.exports === "object") {
+        //     module.export = Keycloak;
+        // } else {
+        //     window['Keycloak'] = Keycloak;
+        //     //return Keycloak;
+        // }
+    // })(window);
+
+    export const keycloak = Keycloak;
     
