@@ -3,8 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'members', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+  // { path: 'home', component: HomeComponent },
   { path: 'members', loadChildren: 'app/member-list/member-list.module#MemberListModule'},
   { path: 'member/:memberId', loadChildren: 'app/member-detail/member-detail.module#MemberDetailModule'}
 ];

@@ -5,12 +5,14 @@ export interface State {
   showBackdrop: boolean;
   showSpinner: boolean;
   messages: Message[];
+  isAuthed: boolean;
 }
 
 const initialState: State = {
   showBackdrop: false,
   showSpinner: true,
-  messages: null
+  messages: null,
+  isAuthed: false
 };
 
 export function reducer(state = initialState, action: Overlay.Actions): State {
@@ -24,6 +26,7 @@ export function reducer(state = initialState, action: Overlay.Actions): State {
 
     case Overlay.REMOVE_BACKDROP:
       return {
+        ...state,
         showBackdrop: false,
         showSpinner: true,
         messages: state.messages
@@ -36,7 +39,14 @@ export function reducer(state = initialState, action: Overlay.Actions): State {
           ...state,
           messages: errorMessage
         }
-      }      
+      }
+    
+    case Overlay.LOGIN_SUCCESS: {
+      return {
+        ...state,
+        isAuthed: true
+      }
+    }
 
     default:
       return state;
@@ -46,3 +56,4 @@ export function reducer(state = initialState, action: Overlay.Actions): State {
 export const getShowBackdrop = (state: State) => state.showBackdrop;
 export const getShowSpinner = (state: State) => state.showSpinner;
 export const getMessages = (state: State) => state.messages;
+export const getIsAuthed = (state: State) => state.isAuthed;

@@ -58,6 +58,11 @@ export const getMessages = createSelector(
   fromOverlay.getMessages
 );
 
+export const getIsAuthed = createSelector(
+  getOverlayState,
+  fromOverlay.getIsAuthed
+);
+
 export const getMemberList = createSelector(
   getMemberState,
   fromMember.getMemberList
