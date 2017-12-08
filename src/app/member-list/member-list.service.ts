@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 import { Member } from '../models/member';
 import { MemberInfo } from '../models/member-info';
 import { of } from 'rxjs/observable/of';
-import * as moment from 'moment';
+import * as moment from '../../../node_modules/moment/moment.js';
 import * as _ from 'lodash';
 
 @Injectable()
