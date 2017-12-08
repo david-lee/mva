@@ -50,7 +50,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
           if (isLoginUrl) {
             // when a authed user enters a login url, just navigates to home(default)
-            this.store.dispatch(new AuthActiion.LoginRedirectToHome());
+            // this.store.dispatch(new OverlayActiion.LoginRedirectToHome());
             return false;
           } 
           else {
@@ -61,9 +61,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
           return true;
         }
 
-        this.store.dispatch(new AuthActiion.LoginRedirect());
+        // this.store.dispatch(new OverlayActiion.LoginRedirect());
         return false;        
-      })
-      .take(1);
+      });
   }
 }
