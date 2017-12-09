@@ -4,6 +4,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from '../../../environments/environment';
 import { RouterStateUrl } from '../custom-router-state-serializer';
 import * as fromOverlay from './overlay';
+import * as fromAuth from './auth';
 import * as fromMember from '../../member-list/reducers/member-list';
 import * as fromMemberDetail from '../../member-detail/reducers/member-detail';
 
@@ -12,6 +13,7 @@ export interface State {
   members: fromMember.State;
   memberDetail: fromMemberDetail.State;
   overlay: fromOverlay.State;
+  auth: fromAuth.State;
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
@@ -19,6 +21,7 @@ export const reducers: ActionReducerMap<State> = {
   members: fromMember.reducer,
   memberDetail: fromMemberDetail.reducer,
   overlay: fromOverlay.reducer,
+  auth: fromAuth.reducer,
   routerReducer: fromRouter.routerReducer
 };
 
@@ -40,6 +43,7 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
 // export const getLangState = createFeatureSelector<fromLang.State>('lang');
 // export const getUserState = createFeatureSelector<fromAuth.State>('user');
 export const getOverlayState = createFeatureSelector<fromOverlay.State>('overlay');
+export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getMemberState = createFeatureSelector<fromMember.State>('members');
 export const getMemberDetailState = createFeatureSelector<fromMemberDetail.State>('memberDetail');
 
@@ -59,8 +63,8 @@ export const getMessages = createSelector(
 );
 
 export const getIsAuthed = createSelector(
-  getOverlayState,
-  fromOverlay.getIsAuthed
+  getAuthState,
+  fromAuth.getIsAuthed
 );
 
 export const getMemberList = createSelector(

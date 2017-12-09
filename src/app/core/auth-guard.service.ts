@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { 
-  Router, Route,
-  CanActivate, CanActivateChild, CanLoad,
-  ActivatedRouteSnapshot, RouterStateSnapshot, NavigationExtras } from '@angular/router';
+import { Router, Route, CanActivate, CanActivateChild, CanLoad,
+  ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/take';
 
-import * as OverlayActiion from './actions/overlay';
+import * as AuthActiion from './actions/auth';
 import * as fromRoot from './reducers';
 
 @Injectable()
@@ -34,35 +33,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): Observable<boolean> {
-    let isLoginUrl = url.toLocaleLowerCase().indexOf('/login') >= 0;
-
     return this.store
       .select(fromRoot.getIsAuthed)
       .map(authed => {
         if (authed) {
-          // TODO need to define how to logout after token expiry
-          // 1. automatically logout as soon as it is expiried by checking with setInterval
-          // 2. check it when every api call
-
-          // if (checkTokenExpiry) {
-          //   return false;
-          // }
-
-          if (isLoginUrl) {
-            // when a authed user enters a login url, just navigates to home(default)
-            // this.store.dispatch(new OverlayActiion.LoginRedirectToHome());
-            return false;
-          } 
-          else {
-            return true;
-          }
-        } 
-        else if (isLoginUrl) {
           return true;
         }
 
-        // this.store.dispatch(new OverlayActiion.LoginRedirect());
+        this.store.dispatch(new AuthActiion.RedirectToHome());
         return false;        
-      });
+      })
+      .take(1); // DO NOT REMOVE
   }
 }
