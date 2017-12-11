@@ -34,10 +34,11 @@ export class AuthenticationService {
           console.log('User ID: ', auth.user_id);
           console.log('User Name: ', auth.user_name);
 
-          // TODO save into state, 
+          // TODO call api to get lan id, if user id doesn't work
+          // https://ldap-svc.apps.cac.preview.pcf.manulife.com/api/entitlements/{user_name}
+          
           // TODO if need, save request url and redirect after login
           this.store.dispatch(new AuthActiion.LoginSuccess(auth.user_name));// should be land_id
-          // this.router.navigate(['/members']);
         }
     });  
   }
