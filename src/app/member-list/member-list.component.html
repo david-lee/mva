@@ -43,7 +43,7 @@
         <span>{{member[col.field] | date: 'dd/MMM/yyyy'}}</span>
       </ng-template>
     </p-column>
-    <p-column field="employerBranchId" header="Branch" [style]="{'width':'10%'}"></p-column>
+    <p-column field="memberBranchId" header="Branch" [style]="{'width':'10%'}"></p-column>
     <p-column field="email" header="Email" [filter]="true" [editable]="true" styleClass="email-col">
       <ng-template pTemplate="filter" let-col>
         <div class="email-filter">

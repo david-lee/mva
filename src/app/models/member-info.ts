@@ -18,6 +18,8 @@ export interface MemberInfo extends Member {
   sin: string;
   vitalityEffdate: string | Date;
   vitalityTermdate: string;
+  vitalityEntityNo: string;
+  vitalityPolcardNo: string;
   language: string;
   accountStrategy: string;
   altMemberId: string;
