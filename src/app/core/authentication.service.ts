@@ -31,10 +31,10 @@ export class AuthenticationService {
         if (authed) {
           let auth = _.pick((<any>_keycloak).tokenParsed, ['user_id','user_name','email','auth_time','exp']);
           this.localStorage.set('auth', auth);
-          console.log('User ID: ', auth.user_id);
-          console.log('User Name: ', auth.user_name);
 
-          // TODO call api to get lan id, if user id doesn't work
+          // TODO make a ACL call to get acl
+          //      if it returns no acl then redirect to error page: No Permission....
+          //      if there is acl then download lookups call
           // https://ldap-svc.apps.cac.preview.pcf.manulife.com/api/entitlements/{user_name}
           
           // TODO if need, save request url and redirect after login

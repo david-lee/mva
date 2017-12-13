@@ -1,8 +1,10 @@
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
 
 import { MemberDetail } from '../../models/member-detail';
@@ -11,15 +13,16 @@ import { AuditService } from '../audit/audit.service';
 import * as MemberDetailAction from '../actions/member-detail';
 import * as _ from 'lodash';
 import { MemberInfo } from '../../models/member-info';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MemberDetailEffects {
 
   @Effect()
-  load$ = this.actions$
+  load$: Observable<Action> = this.actions$
     .ofType(MemberDetailAction.LOAD)
     .map((action: any) => action.payload)
-    .switchMap((memberId) =>
+    .mergeMap(memberId =>
       this.memberDetailService
         .loadMemberDetail(memberId)
         .map((memberDetail: any) => {
@@ -35,7 +38,7 @@ export class MemberDetailEffects {
   update$ = this.actions$
     .ofType(MemberDetailAction.UPDATE_MEMBER)
     .map((action: any) => action.payload)
-    .switchMap((member: MemberInfo) =>
+    .mergeMap((member: MemberInfo) =>
       this.memberDetailService
         .updateMember(member)
         .map(response => {
@@ -47,7 +50,7 @@ export class MemberDetailEffects {
   @Effect()
   loadAudit$ = this.actions$
     .ofType(MemberDetailAction.LOAD_AUDIT_LOG)
-    .switchMap(() =>
+    .mergeMap(() =>
       this.auditService
         .loadAuditLog()
         .map((auditLog: any) => {
