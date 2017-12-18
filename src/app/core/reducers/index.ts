@@ -67,6 +67,11 @@ export const getIsAuthed = createSelector(
   fromAuth.getIsAuthed
 );
 
+export const getRoles = createSelector(
+  getAuthState,
+  fromAuth.getRole
+);
+
 export const getMemberList = createSelector(
   getMemberState,
   fromMember.getMemberList

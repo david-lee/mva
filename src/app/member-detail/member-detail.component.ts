@@ -22,6 +22,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   @ViewChild('bioDT') bioDT;
 
+  role: string;
   accounts: Account[];
   biometrics: Biometrics[];
   member: MemberInfo[]; // dataTable component requires an array of value
@@ -29,6 +30,10 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   subscriptions: ISubscription[] = [];
   upsertMember: MemberInfo;
   upsertBiometrics: Biometrics;
+
+  get isEditable() {
+    return this.role == 'promo' || (this.role == 'data' && this.member[0].customerRole.toLowerCase() == 'insured');
+  }
 
   get isPromoMember() {
     return this.member[0] && (+this.member[0].customerRole === 98);
@@ -69,6 +74,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       this.store.select(fromRoot.getAuditLogs)
         .subscribe((auditLogs: AuditLog[]) => this.auditLogs = auditLogs)
       );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getRoles)
+        .subscribe((role: string) => {
+          this.role = role;
+        })
+    );
 
     this.store.dispatch(new MemberDetailAction.Load(memberId));
   }

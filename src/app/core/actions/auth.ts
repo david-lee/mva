@@ -12,7 +12,7 @@ export class Login implements Action {
 export class LoginSuccess implements Action {
     readonly type = LOGIN_SUCCESS;
 
-    constructor(public payload: string) {}
+    constructor(public payload: string[]) {}
 }
 
 export class RedirectToHome implements Action {

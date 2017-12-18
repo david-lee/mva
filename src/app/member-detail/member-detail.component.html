@@ -3,7 +3,7 @@
     <mva-logo></mva-logo>
     
     <div class="actions">
-      <button pButton class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
+      <button pButton *ngIf="isEditable" class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
       <button pButton class="action-item" type="button" icon="fa-history" label="View Audit Log" (click)="viewAuditLog()"></button>
       <button pButton class="action-item" type="button" icon="fa-arrow-circle-o-left" label="Back to Member List" (click)="gotoMemberList()"></button>
     </div>

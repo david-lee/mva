@@ -23,6 +23,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
   @ViewChild('dt') dataTable;
 
   members: Member[];
+  role: string;
   emailFilterChecked = true;
   emailClicked = false;
   errorMessage: Message[];
@@ -67,6 +68,13 @@ export class MemberListComponent implements OnInit, OnDestroy {
           this.errorMessage = error;
         })
     );    
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getRoles)
+        .subscribe((role: string) => {
+          this.role = role;
+        })
+    );     
 
     this.store.dispatch(new MemberListAction.Load());
   }

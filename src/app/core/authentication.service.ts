@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 import { LocalStorageService } from '../core/local-storage.service';
@@ -16,9 +17,10 @@ export class AuthenticationService {
   redirectUrl: string = '';
 
   constructor(
-    private store: Store<fromRoot.State>,
-    private router: Router, 
-    private localStorage: LocalStorageService
+    public store: Store<fromRoot.State>,
+    public router: Router, 
+    public http: HttpClient,
+    public localStorage: LocalStorageService
   ) {
   }
   
@@ -32,13 +34,8 @@ export class AuthenticationService {
           let auth = _.pick((<any>_keycloak).tokenParsed, ['user_id','user_name','email','auth_time','exp']);
           this.localStorage.set('auth', auth);
 
-          // TODO make a ACL call to get acl
-          //      if it returns no acl then redirect to error page: No Permission....
-          //      if there is acl then download lookups call
-          // https://ldap-svc.apps.cac.preview.pcf.manulife.com/api/entitlements/{user_name}
-          
-          // TODO if need, save request url and redirect after login
-          this.store.dispatch(new AuthActiion.LoginSuccess(auth.user_name));// should be land_id
+          this.http.get(`${environment.roleUrl}/${auth.user_name}`)
+            .subscribe((roles: any) => this.store.dispatch(new AuthActiion.LoginSuccess(roles.permission)));
         }
     });  
   }

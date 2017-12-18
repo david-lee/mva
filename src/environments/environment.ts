@@ -11,6 +11,7 @@ export const environment = {
   emptyEmailString: '** required **',
   dateFormat: 'DD/MMM/YYYY',
   serverDateFormat: 'YYYY-MM-DD',
+  roleUrl: 'https://vitalitymemberservice-dev.apps.cac.preview.pcf.manulife.com/v1/roles',
   endPoints: {
     memberList: `${apiBase}/members`,
     member: `${apiBase}/member`,
