@@ -33,6 +33,10 @@ export class MemberListComponent implements OnInit, OnDestroy {
     return environment.lookups.genders;
   }
 
+  get branches() {
+    return environment.lookups.branches;
+  }
+
   get customerRoles() {
     return environment.lookups.customerRoles;
   }

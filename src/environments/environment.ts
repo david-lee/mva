@@ -62,6 +62,12 @@ export const environment = {
     cotinines: [
       {label: 'Somker', value: '1'},
       {label: 'Non-Somker', value: '2'}
+    ],
+    branches: [
+      {label: 'MEDREWTERM', value: 'MEDREWTERM'},
+      {label: 'QCMEDREWTM', value: 'QCMEDREWTM'},
+      {label: 'PROMOMEDTM', value: 'PROMOMEDTM'},
+      {label: 'QCPROMEDTM', value: 'QCPROMEDTM'}
     ]
   }
 };
