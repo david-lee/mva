@@ -34,9 +34,9 @@ export class MemberListEffects {
   saveMember$ = this.actions$
     .ofType(MemberListAction.ADD_MEMBER)
     .map((action: MemberListAction.AddMember) => action.payload)
-    .switchMap((member: MemberInfo) =>
+    .switchMap((addMember: any) =>
       this.memberService
-        .saveMember(member)
+        .saveMember(addMember)
         .map(savedMember => new MemberListAction.AddSuccess(savedMember.data))
     );
 

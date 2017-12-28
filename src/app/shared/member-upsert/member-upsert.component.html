@@ -2,8 +2,8 @@
   (onHide)="cancel()" [contentStyle]="{'overflow':'visible'}" [closable]="false" [blockScroll]="true"
 >
   <p-header>
-    <h3 *ngIf="!member.id" class="title">Add Member</h3>
-    <h3 *ngIf="member.id" class="title">Edit Member {{member.id}}</h3>
+    <h3 *ngIf="!member.id; else editTitle" class="title">Add Member</h3>
+    <ng-template #editTitle>Edit Member {{member.id}}</ng-template>
     <div class="title-container">
       <div class="actions">
         <button pButton class="action-item" type="button" icon="fa-check" label="Save" (click)="save()" [disabled]="dobError || memberForm.invalid"></button>

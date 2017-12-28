@@ -21,11 +21,12 @@ export class MemberListService {
     return this.http.get<Member[]>(this.api.memberList);
   }
 
-  saveMember(member: MemberInfo): Observable<any> {
-    return this.http.post<any>(`${this.api.member}`, _.omit(member, [
-      'id', 'lastUpdateDate', 'establishedOnC360','employerBranchId',
+  saveMember(addMember: any): Observable<any> {
+    let data = _.omit(addMember.member, ['id', 'lastUpdateDate', 'establishedOnC360','employerBranchId',
       'vitalityTermdate','accountStrategy','altMemberId'
-    ]));
+    ]);
+
+    return this.http.post<any>(`${this.api.member}`, {...data, lanId: addMember.lanId});
   }
 
   updateEmail(email, id, lanId): Observable<any> {
