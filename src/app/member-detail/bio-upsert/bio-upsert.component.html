@@ -23,7 +23,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label>Total Cholesterol</label>
-        <input [(ngModel)]="bio.tc" name="tc" type="text" pInputText> 
+        <input [(ngModel)]="bio.tc" name="tc" type="text" formatNumber pInputText>
       </div>
       <div class="ui-g-6">
         <label>Cotinine Result</label>
@@ -33,41 +33,41 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label>Systolic BP</label>
-        <input [(ngModel)]="bio.bps" name="bps" type="text" pInputText> 
+        <input [(ngModel)]="bio.bps" name="bps" type="text" formatNumber pInputText> 
       </div>          
       <div class="ui-g-6">
         <label>Diastolic BP</label>
-        <input [(ngModel)]="bio.bpd" name="bpd" type="text" pInputText>      
+        <input [(ngModel)]="bio.bpd" name="bpd" type="text" formatNumber pInputText>      
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label>HDL Cholesterol</label>
-        <input [(ngModel)]="bio.hdl" name="hdl" type="text" pInputText>
+        <input [(ngModel)]="bio.hdl" name="hdl" type="text" formatNumber pInputText>
       </div>          
       <div class="ui-g-6">
         <label>LDL Cholesterol</label>
-        <input [(ngModel)]="bio.ldl" name="ldl" type="text" pInputText>      
+        <input [(ngModel)]="bio.ldl" name="ldl" type="text" formatNumber pInputText>      
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label>Height (Inches)</label>
-        <input [(ngModel)]="bio.ht" name="ht" type="text" pInputText>      
+        <input [(ngModel)]="bio.ht" name="ht" type="text" formatNumber pInputText>      
       </div>      
       <div class="ui-g-6">
         <label>Weight (lbs)</label>
-        <input [(ngModel)]="bio.wght" name="wght" type="text" pInputText>      
+        <input [(ngModel)]="bio.wght" name="wght" type="text" formatNumber pInputText>      
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label>TC / HDL Ratio</label>
-        <input [(ngModel)]="bio.tcHdlRatio" name="ratio" type="text" pInputText>
+        <input [(ngModel)]="bio.tcHdlRatio" name="ratio" type="text" formatNumber pInputText>
       </div>          
       <div class="ui-g-6">
         <label>Glucose</label>
-        <input [(ngModel)]="bio.glu" name="glu" type="text" pInputText>      
+        <input [(ngModel)]="bio.glu" name="glu" type="text" formatNumber pInputText>      
       </div>
     </div>
   </form>

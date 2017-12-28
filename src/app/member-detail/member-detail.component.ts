@@ -23,6 +23,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   @ViewChild('bioDT') bioDT;
 
   role: string;
+  lanId: string;
   accounts: Account[];
   biometrics: Biometrics[];
   member: MemberInfo[]; // dataTable component requires an array of value
@@ -82,6 +83,13 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
         })
     );
 
+    this.subscriptions.push(
+      this.store.select(fromRoot.getLanId)
+        .subscribe((id: string) => {
+          this.lanId = id;
+        })
+    );
+
     this.store.dispatch(new MemberDetailAction.Load(memberId));
   }
 
@@ -106,6 +114,6 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   }
 
   doUpsertBiometrics(bio: Biometrics = <any>{}) {
-    this.store.dispatch(new MemberDetailAction.UpdateBio(bio));
+    this.store.dispatch(new MemberDetailAction.UpsertBioStart(bio));
   }
 }

@@ -27,10 +27,10 @@ export class MemberDetailEffects {
         .loadMemberDetail(memberId)
         .map((memberDetail: any) => {
           // MemberInfo is not grouped in the response
-          let newDetail = _.pick(memberDetail, ['accounts', 'biometrics']);
-          newDetail.memberInfo = _.omit(memberDetail, ['accounts', 'biometrics']);
+          // let newDetail = _.pick(memberDetail, ['accounts', 'biometrics']);
+          // newDetail.memberInfo = _.omit(memberDetail, ['accounts', 'biometrics']);
 
-          return new MemberDetailAction.LoadSuccess(newDetail);
+          return new MemberDetailAction.LoadSuccess(memberDetail);
         })
     );
 
@@ -38,14 +38,37 @@ export class MemberDetailEffects {
   update$ = this.actions$
     .ofType(MemberDetailAction.UPDATE_MEMBER)
     .map((action: any) => action.payload)
-    .mergeMap((member: MemberInfo) =>
+    .mergeMap((member: any) =>
       this.memberDetailService
-        .updateMember(member)
+        .updateMember(member.member, member.lanId)
         .map(response => {
-          return new MemberDetailAction.UpdateMemberSuccess(member);
+          return new MemberDetailAction.UpdateMemberSuccess(member.member);
         })
-        // .catch(error => of(new MemberDetailAction.UpdateMemberFail(member)))
     );
+
+  @Effect()
+  updateBio$ = this.actions$
+    .ofType(MemberDetailAction.UPDATE_BIO)
+    .map((action: any) => action.payload)
+    .mergeMap((bio: any) =>
+      this.memberDetailService
+        .updateBiometrics(bio.bio, bio.memberId, bio.lanId)
+        .map(response => {
+          return new MemberDetailAction.UpdateBioSuccess(bio.bio);
+        })
+    )
+
+  @Effect()
+  addBio$ = this.actions$
+    .ofType(MemberDetailAction.ADD_BIO)
+    .map((action: any) => action.payload)
+    .mergeMap((bio: any) =>
+      this.memberDetailService
+        .addBiometrics(bio.bio, bio.memberId, bio.lanId)
+        .map(response => {
+          return new MemberDetailAction.AddBioSuccess(response.data);
+        })
+    )
 
   @Effect()
   loadAudit$ = this.actions$

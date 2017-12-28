@@ -39,7 +39,10 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
     }
 
     case MemberDetailAction.LOAD_SUCCESS: {
-      const memberDetail: MemberDetail = action.payload;
+      let memberDetail: MemberDetail;
+
+      memberDetail = _.pick(action.payload, ['accounts', 'biometrics']);
+      memberDetail.memberInfo = _.omit(action.payload, ['accounts', 'biometrics']);      
 
       return {
         ...state,
@@ -97,23 +100,23 @@ export function reducer(state = initialState, action: MemberDetailAction.Actions
       };
     }
 
-    case MemberDetailAction.ADD_BIO_SUCCESS: {
-      action.payload.id = '999999';
-      action.payload.assessmentDate = moment(action.payload.assessmentDate).format(environment.dateFormat);
+    case MemberDetailAction.UPSERT_BIO_START: { // for both add and update bio start
+      const upsertBio: Biometrics = { ...action.payload };
 
+      upsertBio.assessmentDate = upsertBio.assessmentDate ? formatDate(upsertBio.assessmentDate) : new Date();
+      upsertBio.cotinineResult = upsertBio.cotinineResult || '1';
+
+      return {
+        ...state,
+        upsertBio: upsertBio
+      };
+    }
+
+    case MemberDetailAction.ADD_BIO_SUCCESS: {
       return {
         ...state,
         biometrics: [ ...state.biometrics, action.payload ],
         upsertBio: null
-      };
-    }
-
-    case MemberDetailAction.UPDATE_BIO: {
-      const upsertBio: Biometrics = action.payload;
-
-      return {
-        ...state,
-        upsertBio: { ...upsertBio }
       };
     }
 

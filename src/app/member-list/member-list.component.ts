@@ -23,6 +23,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
   @ViewChild('dt') dataTable;
 
   members: Member[];
+  lanId: string;
   role: string;
   emailFilterChecked = true;
   emailClicked = false;
@@ -74,7 +75,14 @@ export class MemberListComponent implements OnInit, OnDestroy {
         .subscribe((role: string) => {
           this.role = role;
         })
-    );     
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getLanId)
+        .subscribe((id: string) => {
+          this.lanId = id;
+        })
+    );    
 
     this.store.dispatch(new MemberListAction.Load());
   }
@@ -143,7 +151,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
       this.store.dispatch(new MemberListAction.UpdateEmailFail(`${member.id} has an invalid email`));
     } else {
       member.invalidEmail = false;
-      this.store.dispatch(new MemberListAction.UpdateEmail(member));
+      this.store.dispatch(new MemberListAction.UpdateEmail({member: member, lanId: this.lanId}));
     }
   }
 

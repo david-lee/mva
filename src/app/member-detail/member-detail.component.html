@@ -108,20 +108,18 @@
     <p-dataTable *ngIf="accounts" [value]="accounts" expandableRows="true">
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
       <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
-      <p-column field="productCode" header="Product">
+      <p-column field="productCodeDescription" header="Product">
         <ng-template pTemplate="body" let-col let-account="rowData">
-          <!-- {{account[col.field] | ellipsis:'55'}} -->
-          {{account[col.field]}}
+          {{account[col.field] | ellipsis:'55'}}
         </ng-template>
       </p-column>
-      <p-column field="planCode" header="Plan">
+      <p-column field="planCodeDescription" header="Plan">
         <ng-template pTemplate="body" let-col let-account="rowData">
-          <!-- {{account[col.field] | ellipsis:'55'}} -->
-          {{account[col.field]}}
+          {{account[col.field] | ellipsis:'55'}}
         </ng-template>        
       </p-column>
-      <p-column field="status" header="Status" [style]="{'width':'6%'}"></p-column>
-      <p-column header="Amount" [style]="{'width':'10%'}" styleClass="number-data">
+      <p-column field="statusDescription" header="Status" [style]="{'width':'10%'}"></p-column>
+      <p-column header="Amount" [style]="{'width':'8%'}" styleClass="number-data">
         <ng-template let-account="rowData" pTemplate="body">${{account.amount | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="effectiveDate" header="Effective" [style]="{'width':'8%'}">
@@ -201,8 +199,8 @@
   </p-panel>
 </ng-container>
 
-<member-upsert *ngIf="upsertMember" [member]="upsertMember" [isPromoMember]="isPromoMember"></member-upsert>
+<member-upsert *ngIf="upsertMember" [member]="upsertMember" [isPromoMember]="isPromoMember" [lanId]="lanId"></member-upsert>
 
-<bio-upsert *ngIf="upsertBiometrics" [bio]="upsertBiometrics"></bio-upsert>
+<bio-upsert *ngIf="upsertBiometrics" [bio]="upsertBiometrics" [memberId]="member[0].id" [lanId]="lanId"></bio-upsert>
 
 <audit-log *ngIf="auditLogs" [memberId]="member[0].id" [auditLogs]="auditLogs"></audit-log>

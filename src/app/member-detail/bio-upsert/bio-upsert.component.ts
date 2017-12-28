@@ -23,6 +23,9 @@ export class BioUpsertComponent implements OnInit {
     this._bio = bio;
   }
 
+  @Input() memberId: string;
+  @Input() lanId: string;
+
   get bio() {
     return this._bio;
   }
@@ -37,11 +40,11 @@ export class BioUpsertComponent implements OnInit {
   }
 
   add() {
-    this.store.dispatch(new MemberDetailAction.AddBioSuccess(this.bio));
+    this.store.dispatch(new MemberDetailAction.AddBio({bio: this.bio, memberId: this.memberId, lanId: this.lanId}));
   }
 
   save() {
-    this.store.dispatch(new MemberDetailAction.UpdateBioSuccess(this.bio));
+    this.store.dispatch(new MemberDetailAction.UpdateBio({bio: this.bio, memberId: this.memberId, lanId: this.lanId}));
   }
 
   cancel() {

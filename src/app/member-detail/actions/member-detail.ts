@@ -11,9 +11,11 @@ export const UPDATE_MEMBER = '[MemberDetail] Update Member to database';
 export const UPDATE_MEMBER_SUCCESS = '[MemberDetail] Update Member Success';
 export const UPDATE_MEMBER_FAIL = '[MemberDetail] Update Member Fail';
 export const UPDATE_MEMBER_CANCEL = '[MemberDetail] Update Member Cancel';
-export const UPDATE_BIO = '[MemberDetail] Update Bio';
+export const UPSERT_BIO_START = '[MemberDetail] Upsert Bio Start';
+export const UPDATE_BIO = '[MemberDetail] Update Bio to database';
 export const UPDATE_BIO_SUCCESS = '[MemberDetail] Update Bio Success';
 export const UPDATE_BIO_CANCEL = '[MemberDetail] Update Bio Cancel';
+export const ADD_BIO = '[MemberDetail] Add Bio to database';
 export const ADD_BIO_SUCCESS = '[MemberDetail] Add Bio Success';
 
 export class Load implements Action {
@@ -49,7 +51,7 @@ export class UpdateMemberStart implements Action {
 export class UpdateMember implements Action {
   readonly type = UPDATE_MEMBER;
 
-  constructor(public payload?: MemberInfo) {}
+  constructor(public payload?: any) {}
 }
 
 export class UpdateMemberSuccess implements Action {
@@ -71,6 +73,12 @@ export class UpdateMemberCancel implements Action {
 export class UpdateBio implements Action {
   readonly type = UPDATE_BIO;
 
+  constructor(public payload: any) {}
+}
+
+export class UpsertBioStart implements Action {
+  readonly type = UPSERT_BIO_START;
+
   constructor(public payload: Biometrics) {}
 }
 
@@ -84,10 +92,16 @@ export class UpdateBioCancel implements Action {
   readonly type = UPDATE_BIO_CANCEL;
 }
 
+export class AddBio implements Action {
+  readonly type = ADD_BIO;
+
+  constructor(public payload: any) {}
+}
+
 export class AddBioSuccess implements Action {
   readonly type = ADD_BIO_SUCCESS;
 
-  constructor(public payload?: Biometrics) {}
+  constructor(public payload: any) {}
 }
 
 export type Actions =
@@ -103,6 +117,8 @@ export type Actions =
   | UpdateMemberStart
   | UpdateBioSuccess
   | UpdateBioCancel
-  | UpdateBio  
+  | UpsertBioStart
+  | UpdateBio
+  | AddBio
   | AddBioSuccess
  

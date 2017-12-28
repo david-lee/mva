@@ -38,18 +38,20 @@ export class MemberListEffects {
       this.memberService
         .saveMember(member)
         .map(savedMember => new MemberListAction.AddSuccess(savedMember.data))
-        // .catch(error => { throw error; })
     );
 
   @Effect()
   updateEmail$ = this.actions$
     .ofType(MemberListAction.UPDATE_EMAIL)
     .map((action: MemberListAction.UpdateEmail) => action.payload)
-    .switchMap((member: Member) =>
-      this.memberService
-        .updateEmail(member.email, member.id)
-        .map(response => new MemberListAction.UpdateEmailSuccess())
-        // .catch(error => of(new MemberListAction.UpdateEmailFail(`Failed to save. ${error}`)))
+    .switchMap((updateInfo: any) => {
+      const member = updateInfo.member;
+      const lanId = updateInfo.lanId;
+
+      return this.memberService
+        .updateEmail(member.email, member.id, lanId)
+        .map(response => new MemberListAction.UpdateEmailSuccess());
+      }
     );    
 
   constructor(

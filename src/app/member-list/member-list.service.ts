@@ -28,7 +28,7 @@ export class MemberListService {
     ]));
   }
 
-  updateEmail(email, id): Observable<any> {
-    return this.http.put(`${this.api.member}/${id}`, {email: email});
+  updateEmail(email, id, lanId): Observable<any> {
+    return this.http.put(`${this.api.member}/${id}`, {email: email, lastUpdateUser: lanId});
   }
 }

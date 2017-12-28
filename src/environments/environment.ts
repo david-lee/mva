@@ -11,11 +11,12 @@ export const environment = {
   emptyEmailString: '** required **',
   dateFormat: 'DD/MMM/YYYY',
   serverDateFormat: 'YYYY-MM-DD',
-  roleUrl: 'https://vitalitymemberservice-dev.apps.cac.preview.pcf.manulife.com/v1/roles',
   endPoints: {
     memberList: `${apiBase}/members`,
     member: `${apiBase}/member`,
-    auditLog: `${apiBase}/audit`
+    auditLog: `${apiBase}/audit`,
+    lookups: `${apiBase}/lookups`,
+    roles: `${apiBase}/roles`
   },
   ssoConfig: {
     url: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
@@ -26,49 +27,12 @@ export const environment = {
     }
   },  
   lookups: {
-    genders: [
-      {label: 'All', value: null}, // used in the filter in Member List
-      {label: 'Male', value: 'M'},
-      {label: 'Female', value: 'F'}
-    ],
-    customerRoles: [
-      {label: 'All', value: null}, // used in the filter in Member List
-      {label: 'Promo', value: '98'},
-      {label: 'Insured', value: '24'}
-    ],    
-    language: [
-      {label: 'English', value: 'English'},
-      {label: 'French', value: 'French'}
-    ],
-    memberStatus: [
-      {label: 'Active', value: '1'},
-      {label: 'Terminated', value: '2'},
-      {label: 'Duplicate', value: '3'}
-    ],
-    provinces: [
-      {label: 'Alberta', value: 'AB'},
-      {label: 'Britsh columbia', value: 'BC'},
-      {label: 'Manitoba', value: 'MB'},
-      {label: 'New Brunswick', value: 'NB'},
-      {label: 'Newfoundland & Labrador', value: 'NL'},
-      {label: 'Northwest Territories', value: 'NT'},
-      {label: 'Nova Scotia', value: 'NS'},
-      {label: 'Nunavut', value: 'NN'},
-      {label: 'Ontario', value: 'ON'},
-      {label: 'Prince Edward Island', value: 'PE'},
-      {label: 'Quebec', value: 'QC'},
-      {label: 'Saskatchewan', value: 'SK'},
-      {label: 'Yukon', value: 'Yukon', code: 'YT'},
-    ],
-    cotinines: [
-      {label: 'Somker', value: '1'},
-      {label: 'Non-Somker', value: '2'}
-    ],
-    branches: [
-      {label: 'MEDREWTERM', value: 'MEDREWTERM'},
-      {label: 'QCMEDREWTM', value: 'QCMEDREWTM'},
-      {label: 'PROMOMEDTM', value: 'PROMOMEDTM'},
-      {label: 'QCPROMEDTM', value: 'QCPROMEDTM'}
-    ]
+    genders: [],
+    customerRoles: [],
+    language: [],
+    memberStatus: [],
+    provinces: [],
+    cotinines: [],
+    branches: []
   }
 };

@@ -43,7 +43,7 @@ export class AddSuccess implements Action {
 export class AddMember implements Action {
   readonly type = ADD_MEMBER;
 
-  constructor(public payload?: MemberInfo) {}
+  constructor(public payload?: any) {}
 }
 
 export class AddCancel implements Action {
@@ -59,7 +59,7 @@ export class Reload implements Action {
 export class UpdateEmail implements Action {
   readonly type = UPDATE_EMAIL;
 
-  constructor(public payload: Member) {}
+  constructor(public payload: any) {}
 }
 export class UpdateEmailSuccess implements Action {
   readonly type = UPDATE_EMAIL_SUCCESS

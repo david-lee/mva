@@ -130,7 +130,6 @@
         <span class="ui-g-4">
           <label>Coverage Effective</label>
           <p-calendar *ngIf="isPromo" readonlyInput="true" [(ngModel)]="member.vitalityEffdate" name="cov-effective" 
-            (onSelect)="selectEffDate($event)"
             [showIcon]="true" dateFormat="dd/M/yy" [style]="{'width':'100%'}">
           </p-calendar>
           <p-calendar *ngIf="!isPromo" disabled [(ngModel)]="member.vitalityEffdate" name="cov-effective" dateFormat="dd/M/yy" [style]="{'width':'100%'}"></p-calendar>

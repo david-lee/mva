@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import * as Rx from 'rxjs/Rx';
 
 import { LocalStorageService } from '../core/local-storage.service';
 import { environment } from '../../environments/environment';
@@ -23,6 +24,10 @@ export class AuthenticationService {
     public localStorage: LocalStorageService
   ) {
   }
+
+  addDefaultToLookup(lookups) {
+    return [{label: 'All', value: null}, ...lookups];
+  }
   
   login() {
     let _keycloak = keycloak(environment.ssoConfig);
@@ -34,8 +39,19 @@ export class AuthenticationService {
           let auth = _.pick((<any>_keycloak).tokenParsed, ['user_id','user_name','email','auth_time','exp']);
           this.localStorage.set('auth', auth);
 
-          this.http.get(`${environment.roleUrl}/${auth.user_name}`)
-            .subscribe((roles: any) => this.store.dispatch(new AuthActiion.LoginSuccess(roles.permission)));
+          const roles$ = this.http.get(`${environment.endPoints.roles}/${auth.user_name}`);
+          const lookups$ = this.http.get(`${environment.endPoints.lookups}`);
+
+          Rx.Observable.forkJoin(roles$, lookups$)
+            .subscribe((roles: any) => {
+              environment.lookups = roles[1];
+
+              environment.lookups.genders = this.addDefaultToLookup(environment.lookups.genders);
+              environment.lookups.customerRoles = this.addDefaultToLookup(environment.lookups.customerRoles);
+              environment.lookups.branches = this.addDefaultToLookup(environment.lookups.branches);
+
+              this.store.dispatch(new AuthActiion.LoginSuccess({permission: roles[0].permission, lanId: auth.user_name}))
+            });
         }
     });  
   }

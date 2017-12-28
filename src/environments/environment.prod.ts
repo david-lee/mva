@@ -65,6 +65,7 @@ export const environment = {
       {label: 'Non-Somker', value: '2'}
     ],
     branches: [
+      {label: 'All', value: null},
       {label: 'MEDREWTERM', value: 'MEDREWTERM'},
       {label: 'QCMEDREWTM', value: 'QCMEDREWTM'},
       {label: 'PROMOMEDTM', value: 'PROMOMEDTM'},

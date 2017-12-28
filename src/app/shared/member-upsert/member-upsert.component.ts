@@ -28,6 +28,7 @@ export class MemberUpsertComponent implements OnInit {
   @Input() set isPromoMember(promo) {
     this._isPromo = promo;
   }
+  @Input() lanId: string;
 
   get member() {
     return this._member;
@@ -61,9 +62,9 @@ export class MemberUpsertComponent implements OnInit {
   save() {
     // TODO use confirm dialog
     if (this.member.id) {
-      this.store.dispatch(new MemberDetailAction.UpdateMember(this.member));
+      this.store.dispatch(new MemberDetailAction.UpdateMember({member: this.member, lanId: this.lanId}));
     } else {
-      this.store.dispatch(new MemberListAction.AddMember(this.member));
+      this.store.dispatch(new MemberListAction.AddMember({member: this.member, lanId: this.lanId}));
     }
   }
 
@@ -77,8 +78,8 @@ export class MemberUpsertComponent implements OnInit {
   }
 
   // convert to mva date format from primeng date format
-  selectEffDate(eff) {
-    const fmt = environment.dateFormat;
-    this._member.vitalityEffdate = moment(eff, fmt).format(environment.dateFormat);
-  }
+  // selectEffDate(eff) {
+  //   const fmt = environment.dateFormat;
+  //   this._member.vitalityEffdate = moment(eff, fmt).format(environment.dateFormat);
+  // }
 }
