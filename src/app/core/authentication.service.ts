@@ -15,45 +15,44 @@ import * as fromRoot from './reducers';
 
 @Injectable()
 export class AuthenticationService {
-  redirectUrl: string = '';
-
   constructor(
     public store: Store<fromRoot.State>,
-    public router: Router, 
+    public router: Router,
     public http: HttpClient,
     public localStorage: LocalStorageService
-  ) {
-  }
+  ) {}
 
   addDefaultToLookup(lookups) {
-    return [{label: 'All', value: null}, ...lookups];
+    return [{ label: 'All', value: null }, ...lookups];
   }
-  
+
   login() {
-    let _keycloak = keycloak(environment.ssoConfig);
-    
-    (<any>_keycloak)
-      .init({onLoad: 'login-required', flow: 'standard', responseMode: 'query'})
-      .success(authed => {
-        if (authed) {
-          let auth = _.pick((<any>_keycloak).tokenParsed, ['user_id','user_name','email','auth_time','exp']);
-          this.localStorage.set('auth', auth);
+    const _keycloak = keycloak(environment.ssoConfig);
 
-          const roles$ = this.http.get(`${environment.endPoints.roles}/${auth.user_name}`);
-          const lookups$ = this.http.get(`${environment.endPoints.lookups}`);
+    (<any>_keycloak).init({ onLoad: 'login-required', flow: 'standard', responseMode: 'query' }).success(authed => {
+      if (authed) {
+        const auth = _.pick((<any>_keycloak).tokenParsed, ['user_id', 'user_name', 'email', 'auth_time', 'exp']);
+        this.localStorage.set('auth', auth);
 
-          Rx.Observable.forkJoin(roles$, lookups$)
-            .subscribe((roles: any) => {
-              environment.lookups = roles[1];
+        const roles$ = this.http.get(`${environment.endPoints.roles}/${auth.user_name}`);
+        const lookups$ = this.http.get(`${environment.endPoints.lookups}`);
 
-              environment.lookups.genders = this.addDefaultToLookup(environment.lookups.genders);
-              environment.lookups.customerRoles = this.addDefaultToLookup(environment.lookups.customerRoles);
-              environment.lookups.branches = this.addDefaultToLookup(environment.lookups.branches);
+        Rx.Observable.forkJoin(roles$, lookups$).subscribe((data: any) => {
+          environment.lookups = data[1];
 
-              this.store.dispatch(new AuthActiion.LoginSuccess({permission: roles[0].permission, lanId: auth.user_name}))
-            });
-        }
-    });  
+          if (data[0].permission.length === 0) {
+            this.store.dispatch(new AuthActiion.RedirectToNoPermission());
+          } else {
+            environment.lookups.genders = this.addDefaultToLookup(environment.lookups.genders);
+            environment.lookups.customerRoles = this.addDefaultToLookup(environment.lookups.customerRoles);
+            environment.lookups.branches = this.addDefaultToLookup(environment.lookups.branches);
+
+            this.store.dispatch(
+              new AuthActiion.LoginSuccess({ permission: data[0].permission, lanId: auth.user_name })
+            );
+          }
+        });
+      }
+    });
   }
-
 }

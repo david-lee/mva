@@ -6,25 +6,21 @@ export const REDIRECT_TO_HOHE = '[MVAGlobal] Redirect to Home';
 export const REDIRECT_TO_NO_PERMISSION = '[MVAGlobal] Redirect to No permission';
 
 export class Login implements Action {
-    readonly type = LOGIN;
+  readonly type = LOGIN;
 }
 
 export class LoginSuccess implements Action {
-    readonly type = LOGIN_SUCCESS;
+  readonly type = LOGIN_SUCCESS;
 
-    constructor(public payload: {permission: string[], lanId: string}) {}
+  constructor(public payload: { permission: string[]; lanId: string }) {}
 }
 
 export class RedirectToHome implements Action {
-    readonly type = REDIRECT_TO_HOHE;
+  readonly type = REDIRECT_TO_HOHE;
 }
 
 export class RedirectToNoPermission implements Action {
-    readonly type = REDIRECT_TO_NO_PERMISSION;
+  readonly type = REDIRECT_TO_NO_PERMISSION;
 }
 
-export type Actions = 
-    Login | 
-    LoginSuccess |
-    RedirectToHome |
-    RedirectToNoPermission;
+export type Actions = Login | LoginSuccess | RedirectToHome | RedirectToNoPermission;

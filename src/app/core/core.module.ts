@@ -12,25 +12,24 @@ import { AuthenticationService } from './authentication.service';
 import { AuthEffects } from './effects/auth';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    EffectsModule.forFeature([AuthEffects]),     
-  ],
+  imports: [CommonModule, EffectsModule.forFeature([AuthEffects])],
   providers: [
     AuthenticationService,
-    AuthGuard,    
+    AuthGuard,
     LocalStorageService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true },
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
   ],
-  declarations: [
-  ]
+  declarations: []
 })
 export class CoreModule {
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor(
+    @Optional()
+    @SkipSelf()
+    parentModule: CoreModule
+  ) {
     if (parentModule) {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only.');
     }
   }
 }
-

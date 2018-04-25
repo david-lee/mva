@@ -16,11 +16,11 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { reducers, metaReducers } from './core/reducers';
+import { HomeModule } from './home/home.module';
+import { UnAuthorizedModule } from './unauthorized/unauthorized.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -34,9 +34,11 @@ import { reducers, metaReducers } from './core/reducers';
 
     AppRoutingModule,
     CoreModule,
-    MVASharedModule
+    MVASharedModule,
+    HomeModule,
+    UnAuthorizedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

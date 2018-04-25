@@ -1,0 +1,14 @@
+.error-container {
+  position: relative;
+  margin: 100px 100px;
+  padding: 50px;
+  text-align: center;
+  border: 1px solid lightgray;
+  .fa {
+    margin-right: 5px;
+    color: red;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+}

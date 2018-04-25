@@ -15,7 +15,8 @@ export const environment = {
     member: `${apiBase}/member`,
     auditLog: `${apiBase}/audit`,
     lookups: `${apiBase}/lookups`,
-    roles: `${apiBase}/roles`
+    roles: `${apiBase}/roles`,
+    newApi: `daafdfafadfs`
   },
   ssoConfig: {
     url: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
