@@ -17,7 +17,7 @@ npm install -g n
 n 6.10.0
 node -v
 
-npm install -g @angular/cli@latest
+npm install -g @angular/cli@1.6.3
 npm install
 ng build --aot --prod
 
