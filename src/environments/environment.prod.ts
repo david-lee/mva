@@ -25,7 +25,7 @@ export const environment = {
     credentials: {
       secret: '287aba65-65a9-4284-b57b-421041d7d6f1'
     }
-  },  
+  },
   lookups: {
     genders: [],
     customerRoles: [],
