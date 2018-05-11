@@ -1,7 +1,7 @@
 <ng-container>
   <div class="title-container">
     <mva-logo></mva-logo>
-    
+
     <div class="actions">
       <button pButton *ngIf="isEditable" class="action-item" type="button" icon="fa-pencil" label="Edit Member" (click)="editMember()"></button>
       <button pButton class="action-item" type="button" icon="fa-history" label="View Audit Log" (click)="viewAuditLog()"></button>
@@ -12,14 +12,14 @@
   <p-panel [toggleable]="true">
     <p-header>
       <div class="ui-helper-clearfix section-header">
-        <span class="ui-panel-title">Member Details</span> 
+        <span class="ui-panel-title">Member Details </span>
       </div>
-    </p-header>   
+    </p-header>
     <div class="ui-g">
       <div class="ui-g-6 no-padding-left">
         <p-dataTable *ngIf="member[0]" [value]="member">
           <p-column field="id" header="MemberId" [style]="{'width':'14%'}"></p-column>
-          <p-column field="lastName" header="Last Name"></p-column>    
+          <p-column field="lastName" header="Last Name"></p-column>
           <p-column field="firstName" header="First Name"></p-column>
           <p-column field="middleName" header="Middle Name" [style]="{'width':'18%'}"></p-column>
           <p-column field="birthDate" header="Date of Birth" [style]="{'width':'18%'}">
@@ -39,19 +39,20 @@
           <p-column field="membershipEffdate" header="As of Date" styleClass="center-text">
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
-        </p-dataTable>  
+        </p-dataTable>
       </div>
     </div>
 
     <div class="ui-g">
       <div class="ui-g-6 no-padding-left">
         <p-dataTable *ngIf="member[0]" [value]="member">
-          <p-column field="gender" header="Gender" styleClass="center-text" [style]="{'width':'15%'}">
-            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'genders'}}</ng-template>            
+          <p-column field="gender" header="Gender" styleClass="center-text" [style]="{'width':'13%'}">
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'genders'}}</ng-template>
           </p-column>
           <p-column field="sin" header="SIN"></p-column>
+          <p-column field="altMemberId" header="Alt Member ID"></p-column>
           <p-column field="language" header="Language" styleClass="center-text"></p-column>
-          <p-column field="email" header="Email" [style]="{'width':'55%'}"></p-column>            
+          <p-column field="email" header="Email" [style]="{'width':'40%'}"></p-column>
         </p-dataTable>
       </div>
       <div class="ui-g-6 no-padding-right">
@@ -61,15 +62,15 @@
             <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
           <p-column field="vitalityTermdate" header="Terminated On">
-            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
           <p-column field="customerRole" header="Customer Role" styleClass="center-text" [style]="{'width':'18%'}">
-            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'customerRoles'}}</ng-template>            
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | codeName: 'customerRoles'}}</ng-template>
           </p-column>
           <p-column field="establishedOnC360" header="On C360" styleClass="center-text" [style]="{'width':'15%'}"></p-column>
-        </p-dataTable>  
+        </p-dataTable>
       </div>
-    </div>  
+    </div>
 
     <div class="ui-g">
       <div class="ui-g-6 address no-padding-left">
@@ -77,22 +78,22 @@
           <p-column header="Address">
             <ng-template let-member="rowData" pTemplate="body">{{member.address1}} {{member.address2}}</ng-template>
           </p-column>
-          <p-column field="city" header="City" [style]="{'width':'18%'}"></p-column>
+          <p-column field="city" header="City" [style]="{'width':'19%'}"></p-column>
           <p-column field="province" header="Province" styleClass="center-text" [style]="{'width':'11%'}"></p-column>
           <p-column field="country" header="Country" styleClass="center-text" [style]="{'width':'11%'}"></p-column>
           <p-column field="postalCode" header="Postal Code" styleClass="center-text" [style]="{'width':'15%'}"></p-column>
-        </p-dataTable> 
+        </p-dataTable>
       </div>
       <div class="ui-g-6 no-padding-right">
         <p-dataTable *ngIf="member[0]" [value]="member" rowGroupMode="rowspan">
           <p-header>Vitality Settings</p-header>
           <p-column field="employerExternalId" header="Employer External Id"></p-column>
-          <p-column field="relationshipCode" header="Relationship Code" styleClass="center-text" [style]="{'width':'14%'}"></p-column>    
+          <p-column field="relationshipCode" header="Relationship Code" styleClass="center-text" [style]="{'width':'14%'}"></p-column>
           <p-column field="vitalityProdcode" header="Product Code" styleClass="center-text" [style]="{'width':'12%'}"></p-column>
-          <p-column field="vitalityEntityNo" header="Entity Number" styleClass="center-text" [style]="{'width':'15%'}"></p-column>    
+          <p-column field="vitalityEntityNo" header="Entity Number" styleClass="center-text" [style]="{'width':'15%'}"></p-column>
           <p-column field="vitalityPolcardNo" header="Polcard Number" styleClass="center-text" [style]="{'width':'15%'}"></p-column>
           <p-column field="vitalityProdcodeEffdate" header="Effective Date" [style]="{'width':'17%'}">
-              <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
+            <ng-template let-col let-member="rowData" pTemplate="body">{{member[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
         </p-dataTable>
       </div>
@@ -102,11 +103,11 @@
   <p-panel [toggleable]="true">
     <p-header>
       <div class="ui-helper-clearfix section-header">
-        <span class="ui-panel-title">Accounts</span> 
+        <span class="ui-panel-title">Accounts</span>
       </div>
-    </p-header>  
+    </p-header>
     <p-dataTable *ngIf="accounts" [value]="accounts" expandableRows="true">
-      <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>    
+      <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>
       <p-column field="accountNumber" header="Account #" [style]="{'width':'7.5%'}"></p-column>
       <p-column field="productCodeDescription" header="Product">
         <ng-template pTemplate="body" let-col let-account="rowData">
@@ -116,22 +117,22 @@
       <p-column field="planCodeDescription" header="Plan">
         <ng-template pTemplate="body" let-col let-account="rowData">
           {{account[col.field] | ellipsis:'55'}}
-        </ng-template>        
+        </ng-template>
       </p-column>
       <p-column field="statusDescription" header="Status" [style]="{'width':'10%'}"></p-column>
       <p-column header="Amount" [style]="{'width':'8%'}" styleClass="number-data">
         <ng-template let-account="rowData" pTemplate="body">${{account.amount | number:'1.0-2'}}</ng-template>
       </p-column>
       <p-column field="effectiveDate" header="Effective" [style]="{'width':'8%'}">
-          <ng-template let-col let-account="rowData" pTemplate="body">{{account[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>        
+        <ng-template let-col let-account="rowData" pTemplate="body">{{account[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
       </p-column>
       <p-column field="terminationDate" header="Terminated" [style]="{'width':'8%'}">
-          <ng-template let-col let-account="rowData" pTemplate="body">{{account[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>        
+        <ng-template let-col let-account="rowData" pTemplate="body">{{account[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
       </p-column>
       <ng-template let-account pTemplate="rowexpansion">
         <p-dataTable [value]="[account]" class="expand-table">
           <p-column field="lastUpdateDate" header="Last Updated On" [style]="{'width':'20%'}">
-            <ng-template let-col let-account="rowData" pTemplate="body">{{account[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>            
+            <ng-template let-col let-account="rowData" pTemplate="body">{{account[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
           </p-column>
           <p-column field="lastUpdateUser" header="Updated By" [style]="{'width':'20%'}"></p-column>
         </p-dataTable>
@@ -142,20 +143,18 @@
   <p-panel [toggleable]="true">
     <p-header>
       <div class="ui-helper-clearfix section-header">
-        <span class="ui-panel-title">Biometrics</span>        
+        <span class="ui-panel-title">Biometrics</span>
         <button *ngIf="isPromoMember" pButton type="button" icon="fa-plus" label="Add" (click)="doUpsertBiometrics()"></button>
       </div>
-    </p-header>  
-    <p-dataTable *ngIf="biometrics" [value]="biometrics" expandableRows="true" [rowHover]="true" #bioDT 
-      (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)"
-    >
+    </p-header>
+    <p-dataTable *ngIf="biometrics" [value]="biometrics" expandableRows="true" [rowHover]="true" #bioDT (onRowClick)="isPromoMember && doUpsertBiometrics($event.data)">
       <p-column expander="true" styleClass="col-icon" [style]="{'width':'2.5%'}"></p-column>
       <p-column field="id" header="ID" [style]="{'width':'7%'}"></p-column>
       <p-column field="assessmentDate" header="Assessment Date" [style]="{'width':'10%'}">
-        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>        
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
       </p-column>
       <p-column field="sentToTvg" header="Sent To TVG On" styleClass="center-text">
-        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>        
+        <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | date: 'dd/MMM/yyyy'}}</ng-template>
       </p-column>
       <p-column field="lastUpdateUser" header="Updated By" styleClass="center-text"></p-column>
       <p-column field="lastUpdateDate" header="Last Update On" styleClass="center-text">
@@ -187,10 +186,10 @@
             <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
           </p-column>
           <p-column field="bps" header="Systolic BP" styleClass="number-data">
-            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>            
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
           </p-column>
           <p-column field="bpd" header="Diastolic BP" styleClass="number-data">
-            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>            
+            <ng-template let-col let-bio="rowData" pTemplate="body">{{bio[col.field] | number:'1.0-2'}}</ng-template>
           </p-column>
           <p-column field="cotinineResult" header="Cotinine Result"></p-column>
         </p-dataTable>
