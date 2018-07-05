@@ -1,10 +1,10 @@
 ---
 applications:
 - name: mva-webui
-  host: vitality-dev
+  host: vitality-test
   instances: 1
   memory: 128M
   buildpack: staticfile_buildpack
 
   env:
-    profiles.active: dev
+    profiles.active: test
