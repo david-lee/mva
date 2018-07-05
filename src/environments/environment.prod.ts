@@ -20,9 +20,9 @@ export const environment = {
   ssoConfig: {
     url: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
     urlToken: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/token',
-    clientId: '4a048376-c719-4f89-99e8-93dbdaa63528',
+    clientId: '24b4dbbf-1696-457b-b3b6-328103d89f7f',
     credentials: {
-      secret: '287aba65-65a9-4284-b57b-421041d7d6f1'
+      secret: 'd70d7d38-2da3-4f90-9d9d-2c4fe004ef6e'
     }
   },
   lookups: {
