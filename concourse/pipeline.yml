@@ -181,7 +181,6 @@ jobs:
     params:
       TERM: xterm
       MANIFEST: manifest-dev.yml
-      GIT_CONFIG: {{git_config_uri}}
       TERM: xterm
       NPM_REGISTRY: {{npm_registry}}
       NPM_AUTH: {{npm_auth}}
@@ -213,7 +212,6 @@ jobs:
     params:
       TERM: xterm
       MANIFEST: manifest-test.yml
-      GIT_CONFIG: {{git_config_uri}}
       NPM_REGISTRY: {{npm_registry}}
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
@@ -244,7 +242,6 @@ jobs:
     params:
       TERM: xterm
       MANIFEST: manifest-uat.yml
-      GIT_CONFIG: {{git_config_uri}}
       NPM_REGISTRY: {{npm_registry}}
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
@@ -275,7 +272,6 @@ jobs:
     params:
       TERM: xterm
       MANIFEST: manifest-prod.yml
-      GIT_CONFIG: {{git_config_uri}}
       NPM_REGISTRY: {{npm_registry}}
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
