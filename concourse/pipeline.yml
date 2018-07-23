@@ -1,0 +1,320 @@
+---
+groups:
+- name: {{app_name}}
+  jobs:
+  - prepare-cf-dev
+  - code-scan-dev
+  - prepare-cf-test
+  - prepare-cf-uat
+  - prepare-cf-prod
+  - publish
+
+resource_types:
+- name: enterprise-pipeline-api
+  type: docker-image
+  source:
+    repository: 10.234.24.211:443/concourse-enterprise-pipeline-http-api-resource
+    insecure_registries: ["10.234.24.211:443"]
+    tag: latest
+
+resources:
+- name: git-develop
+  type: git
+  source:
+    branch: develop
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+- name: git-test
+  type: git
+  source:
+    branch: test
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+- name: git-uat
+  type: git
+  source:
+    branch: uat
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+- name: git-master
+  type: git
+  source:
+    branch: master
+    uri: {{git_uri}}
+    private_key: {{git_private_key}}
+    skip_ssl_verification: true
+
+- name: cf-push-dev
+  type: enterprise-pipeline-api
+  source:
+      api: fly
+      method: POST
+      debug: true
+      ssl_verify: false
+      json:
+        buildTeamName: "{BUILD_TEAM_NAME}"         #populated automatically
+        buildId: "{BUILD_ID}"                      #populated automatically
+        buildName: "{BUILD_NAME}"                  #populated automatically
+        buildJobName: "{BUILD_JOB_NAME}"           #populated automatically
+        buildPipelineName: "{BUILD_PIPELINE_NAME}" #populated automatically
+        org: {{CF_DEV_ORG}}
+
+        #Full path to script which will execute 'cf push' and optionally 'cf create-service' commands
+        #the 'source' folder name here should match with the name specified in the 'get' in the src-dev git resource below
+        deploy_script: "gitfolder/concourse/scripts/push.sh"
+
+        #Specifies the PCF environment
+        division: "CAC"
+
+        #This should just be the same as the name of this resource
+        buildTaskName: "assemble"
+
+- name: cf-push-test
+  type: enterprise-pipeline-api
+  source:
+      api: fly
+      method: POST
+      debug: true
+      ssl_verify: false
+      json:
+        buildTeamName: "{BUILD_TEAM_NAME}"         #populated automatically
+        buildId: "{BUILD_ID}"                      #populated automatically
+        buildName: "{BUILD_NAME}"                  #populated automatically
+        buildJobName: "{BUILD_JOB_NAME}"           #populated automatically
+        buildPipelineName: "{BUILD_PIPELINE_NAME}" #populated automatically
+        org: {{CF_TST_ORG}}
+
+        #Full path to script which will execute 'cf push' and optionally 'cf create-service' commands
+        #the 'source' folder name here should match with the name specified in the 'get' in the src-dev git resource below
+        deploy_script: "gitfolder/concourse/scripts/push-tst.sh"
+
+        #Specifies the PCF environment
+        division: "CAC"
+
+        #This should just be the same as the name of this resource
+        buildTaskName: "assemble"
+
+- name: cf-push-uat
+  type: enterprise-pipeline-api
+  source:
+      api: fly
+      method: POST
+      debug: true
+      ssl_verify: false
+      json:
+        buildTeamName: "{BUILD_TEAM_NAME}"         #populated automatically
+        buildId: "{BUILD_ID}"                      #populated automatically
+        buildName: "{BUILD_NAME}"                  #populated automatically
+        buildJobName: "{BUILD_JOB_NAME}"           #populated automatically
+        buildPipelineName: "{BUILD_PIPELINE_NAME}" #populated automatically
+        org: {{CF_UAT_ORG}}
+
+        #Full path to script which will execute 'cf push' and optionally 'cf create-service' commands
+        #the 'source' folder name here should match with the name specified in the 'get' in the src-dev git resource below
+        deploy_script: "gitfolder/concourse/scripts/push-uat.sh"
+
+        #Specifies the PCF environment
+        division: "CAC"
+
+        #This should just be the same as the name of this resource
+        buildTaskName: "assemble"
+
+- name: cf-push-prod
+  type: enterprise-pipeline-api
+  source:
+      api: fly
+      method: POST
+      debug: true
+      ssl_verify: false
+      json:
+        buildTeamName: "{BUILD_TEAM_NAME}"         #populated automatically
+        buildId: "{BUILD_ID}"                      #populated automatically
+        buildName: "{BUILD_NAME}"                  #populated automatically
+        buildJobName: "{BUILD_JOB_NAME}"           #populated automatically
+        buildPipelineName: "{BUILD_PIPELINE_NAME}" #populated automatically
+        org: {{CF_PROD_ORG}}
+
+        #Full path to script which will execute 'cf push' and optionally 'cf create-service' commands
+        #the 'source' folder name here should match with the name specified in the 'get' in the src-dev git resource below
+        deploy_script: "gitfolder/concourse/scripts/push-prod.sh"
+
+        #Specifies the PCF environment
+        division: "CAC"
+
+        #This should just be the same as the name of this resource
+        buildTaskName: "assemble"
+
+      #Team or project lead email for sending deployment instructions to
+      teamEmail: "anne_lee@manulife.com"
+
+- name: version
+  type: semver
+  source:
+    driver: git
+    uri: {{git_uri}}
+    branch: version
+    file: version
+    private_key: {{git_private_key}}
+
+jobs:
+- name: prepare-cf-dev
+  serial: true
+  serial_groups: [version]
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-develop
+      trigger: true
+  - task: unit-test
+    file: gitfolder/concourse/unit-test.yml
+    params:
+        TERM: xterm
+  - task: assemble
+    file: gitfolder/concourse/assemble.yml
+    params:
+      TERM: xterm
+      MANIFEST: manifest-dev.yml
+      GIT_CONFIG: {{git_config_uri}}
+      TERM: xterm
+      NPM_REGISTRY: {{npm_registry}}
+      NPM_AUTH: {{npm_auth}}
+      NPM_EMAIL: {{npm_email}}
+      NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+  - put: cf-push-dev
+  - get: version
+    params: {bump: patch}
+  - put: version
+    params: {file: version/version}
+  - put: git-test
+    params: {repository: gitfolder}
+
+
+- name: prepare-cf-test
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-test
+      trigger: false
+  - task: unit-test
+    file: gitfolder/concourse/unit-test.yml
+    params:
+        TERM: xterm
+  - task: assemble
+    file: gitfolder/concourse/assemble.yml
+    params:
+      TERM: xterm
+      MANIFEST: manifest-test.yml
+      GIT_CONFIG: {{git_config_uri}}
+      NPM_REGISTRY: {{npm_registry}}
+      NPM_AUTH: {{npm_auth}}
+      NPM_EMAIL: {{npm_email}}
+      NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+  - put: cf-push-test
+    params:
+  - get: version
+    params: {bump: minor}
+  - put: version
+    params: {file: version/version}
+  - put: git-uat
+    params: {repository: gitfolder}
+
+- name: prepare-cf-uat
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-uat
+      trigger: false
+  - task: unit-test
+    file: gitfolder/concourse/unit-test.yml
+    params:
+        TERM: xterm
+  - task: assemble
+    file: gitfolder/concourse/assemble.yml
+    params:
+      TERM: xterm
+      MANIFEST: manifest-uat.yml
+      GIT_CONFIG: {{git_config_uri}}
+      NPM_REGISTRY: {{npm_registry}}
+      NPM_AUTH: {{npm_auth}}
+      NPM_EMAIL: {{npm_email}}
+      NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+  - put: cf-push-uat
+    params:
+  - get: version
+    params: {pre: alpha}
+  - put: version
+    params: {file: version/version}
+  - put: git-master
+    params: {repository: gitfolder}
+
+- name: prepare-cf-prod
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-master
+      trigger: false
+  - task: unit-test
+    file: gitfolder/concourse/unit-test.yml
+    params:
+        TERM: xterm
+  - task: assemble
+    file: gitfolder/concourse/assemble.yml
+    params:
+      TERM: xterm
+      MANIFEST: manifest-prod.yml
+      GIT_CONFIG: {{git_config_uri}}
+      NPM_REGISTRY: {{npm_registry}}
+      NPM_AUTH: {{npm_auth}}
+      NPM_EMAIL: {{npm_email}}
+      NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+  - put: cf-push-prod
+    params:
+  - get: version
+    params: {bump: final}
+  - put: version
+    params: {file: version/version}
+
+- name: code-scan-dev
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      trigger: true
+      resource: git-develop
+      passed: [prepare-cf-dev]
+  - task: code-scan
+    file: gitfolder/concourse/code-scan.yml
+    params:
+        TERM: xterm
+  - put: git-test
+    params: {repository: gitfolder}
+
+- name: publish
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: gitfolder
+      resource: git-develop
+      passed: [prepare-cf-dev]
+      trigger: true
+  - get: version
+  - task: publish
+    file: gitfolder/concourse/publish.yml
+    params:
+      TERM: xterm
+

@@ -1,0 +1,18 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: 10.234.24.211:443/java-ci
+    insecure_registries: ["10.234.24.211:443"]
+
+inputs:
+- name: gitfolder
+- name: version
+
+outputs:
+- name: target
+
+run:
+  path: gitfolder/concourse/scripts/publish.sh
