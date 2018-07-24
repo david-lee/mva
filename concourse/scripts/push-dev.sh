@@ -4,7 +4,8 @@ set -o xtrace
 
 #any other cf commands such as 'cf create-service' can go here
 
-echo $DB_NAME
+
+echo "Hello world"
 echo $MANIFEST
 
 pwd
