@@ -177,7 +177,7 @@ jobs:
     params:
         TERM: xterm
   - task: assemble
-    file: gitfolder/concourse/assemble.yml
+    file: gitfolder/concourse/assemble-dev.yml
     params:
       TERM: xterm
       MANIFEST: manifest-dev.yml
@@ -208,7 +208,7 @@ jobs:
     params:
         TERM: xterm
   - task: assemble
-    file: gitfolder/concourse/assemble.yml
+    file: gitfolder/concourse/assemble-tst.yml
     params:
       TERM: xterm
       MANIFEST: manifest-test.yml
@@ -238,7 +238,7 @@ jobs:
     params:
         TERM: xterm
   - task: assemble
-    file: gitfolder/concourse/assemble.yml
+    file: gitfolder/concourse/assemble-uat.yml
     params:
       TERM: xterm
       MANIFEST: manifest-uat.yml
@@ -268,7 +268,7 @@ jobs:
     params:
         TERM: xterm
   - task: assemble
-    file: gitfolder/concourse/assemble.yml
+    file: gitfolder/concourse/assemble-prod.yml
     params:
       TERM: xterm
       MANIFEST: manifest-prod.yml
