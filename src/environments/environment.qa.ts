@@ -3,7 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const apiBase = 'https://vitalitymemberservice-dev.apps.cac.preview.pcf.manulife.com/v1';
+const apiBase = 'https://vitalitymemberservice-tst.apps.cac.preview.pcf.manulife.com/v1';
 
 export const environment = {
   production: false,
@@ -18,11 +18,11 @@ export const environment = {
     roles: `${apiBase}/roles`
   },
   ssoConfig: {
-    url: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
-    urlToken: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/token',
-    clientId: '24b4dbbf-1696-457b-b3b6-328103d89f7f',
+    url: 'https://manulife-tst.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
+    urlToken: 'https://manulife-tst.login.sys.cac.preview.pcf.manulife.com/oauth/token',
+    clientId: '8052cca9-8d8e-4c36-b80f-521273c730e0',
     credentials: {
-      secret: 'd70d7d38-2da3-4f90-9d9d-2c4fe004ef6e'
+      secret: '099b0f2a-e861-426e-bba1-fb88213fa464'
     }
   },
   lookups: {
