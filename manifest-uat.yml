@@ -1,7 +1,7 @@
 ---
 applications:
 - name: mva-webui
-  route: vitality-uat.apps.cac.pcf.manulife.com
+  host: vitality-uat.apps.cac.pcf.manulife.com
   instances: 1
   memory: 128M
   buildpack: staticfile_buildpack
