@@ -7,4 +7,4 @@ applications:
   env:
     profiles.active: dev
 routes:
-  - route: vitality-dev.apps.cac.preview.pcf.manulife.com
+- route: vitality-dev.apps.cac.preview.pcf.manulife.com
