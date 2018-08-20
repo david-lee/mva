@@ -6,5 +6,5 @@ applications:
   buildpack: staticfile_buildpack
   env:
     profiles.active: dev
-routes:
-- route: vitality-dev.apps.cac.preview.pcf.manulife.com
+  routes:
+    route: vitality-dev.apps.cac.preview.pcf.manulife.com
