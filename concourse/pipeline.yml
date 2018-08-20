@@ -181,11 +181,11 @@ jobs:
     params:
       TERM: xterm
       MANIFEST: manifest-dev.yml
-      TERM: xterm
       NPM_REGISTRY: {{npm_registry}}
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
       NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+      NG_REGION: qa
   - put: cf-push-dev
   - get: version
     params: {bump: patch}
@@ -216,6 +216,7 @@ jobs:
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
       NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+      NG_REGION: qa
   - put: cf-push-test
     params:
   - get: version
@@ -246,6 +247,7 @@ jobs:
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
       NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+      NG_REGION: uat
   - put: cf-push-uat
     params:
   - get: version
@@ -276,6 +278,7 @@ jobs:
       NPM_AUTH: {{npm_auth}}
       NPM_EMAIL: {{npm_email}}
       NPM_SASS_BINARY_SITE: {{npm_sass_binary_site}}
+      NG_REGION: prod
   - put: cf-push-prod
     params:
   - get: version
