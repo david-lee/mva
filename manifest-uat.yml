@@ -1,7 +1,7 @@
 ---
 applications:
 - name: mva-webui
-  host: vitality-uat
+  host: vitality-uat
   instances: 1
   memory: 128M
   buildpack: staticfile_buildpack
