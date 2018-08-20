@@ -20,7 +20,7 @@ node -v
 
 npm install -g @angular/cli@1.6.3
 npm install
-ng build --aot --uat
+ng build --aot -e uat
 
 
 #APP_ENV=CI gradle assemble
