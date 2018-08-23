@@ -18,11 +18,11 @@ export const environment = {
     roles: `${apiBase}/roles`
   },
   ssoConfig: {
-    url: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/authorize',
-    urlToken: 'https://manulife-dev.login.sys.cac.preview.pcf.manulife.com/oauth/token',
-    clientId: '24b4dbbf-1696-457b-b3b6-328103d89f7f',
+    url: 'https://manulife-prod.login.sys.cac.pcf.manulife.com/oauth/authorize',
+    urlToken: 'https://manulife-prod.login.sys.cac.pcf.manulife.com/oauth/token',
+    clientId: '7b424e41-ca35-47da-a3b0-5e63b2d14063',
     credentials: {
-      secret: 'd70d7d38-2da3-4f90-9d9d-2c4fe004ef6e'
+      secret: 'ef7f07ae-3726-4f64-b817-8410fcdd97dd'
     }
   },
   lookups: {
