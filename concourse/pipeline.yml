@@ -150,8 +150,8 @@ resources:
         #This should just be the same as the name of this resource
         buildTaskName: "assemble"
 
-      #Team or project lead email for sending deployment instructions to
-      teamEmail: "anne_lee@manulife.com"
+        #Team or project lead email for sending deployment instructions to
+        teamEmail: "sandi_ng@manulife.com"
 
 - name: version
   type: semver
