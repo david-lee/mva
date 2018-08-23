@@ -5,5 +5,7 @@ applications:
   instances: 1
   memory: 128M
   buildpack: staticfile_buildpack
+  routes:
+  - route: vitality.apps.cac.pcf.manulife.com
   env:
     profiles.active: prod
