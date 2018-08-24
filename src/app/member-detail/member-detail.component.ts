@@ -1,4 +1,3 @@
-
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,8 +18,8 @@ import { SelectItem } from 'primeng/primeng';
   styleUrls: ['./member-detail.component.scss']
 })
 export class MemberDetailComponent implements OnInit, OnDestroy {
-
-  @ViewChild('bioDT') bioDT;
+  @ViewChild('bioDT')
+  bioDT;
 
   role: string;
   lanId: string;
@@ -33,61 +32,48 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   upsertBiometrics: Biometrics;
 
   get isEditable() {
-    return this.role == 'promo' || (this.role == 'data' && this.member[0].customerRole.toLowerCase() == 'insured');
+    return this.role == 'promo' || (this.role == 'data' && this.member[0] && this.member[0].customerRole === 24);
   }
 
   get isPromoMember() {
-    return this.member[0] && (+this.member[0].customerRole === 98);
+    return this.member[0] && +this.member[0].customerRole === 98;
   }
 
-  constructor(public store: Store<fromRoot.State>, public route: ActivatedRoute, public location: Location) {
-  }
+  constructor(public store: Store<fromRoot.State>, public route: ActivatedRoute, public location: Location) {}
 
   ngOnInit() {
     const memberId = this.route.snapshot.paramMap.get('memberId');
 
     this.subscriptions.push(
-      this.store.select(fromRoot.getMemberDetailInfo)
-        .subscribe(memberInfo => this.member = [memberInfo])
-      );
+      this.store.select(fromRoot.getMemberDetailInfo).subscribe(memberInfo => (this.member = [memberInfo]))
+    );
+
+    this.subscriptions.push(this.store.select(fromRoot.getAccounts).subscribe(accounts => (this.accounts = <any>accounts)));
+
+    this.subscriptions.push(this.store.select(fromRoot.getBiometrics).subscribe(biometrics => (this.biometrics = biometrics)));
 
     this.subscriptions.push(
-      this.store.select(fromRoot.getAccounts)
-        .subscribe(accounts => this.accounts = <any>accounts)      
-      );
-
-    this.subscriptions.push(
-      this.store.select(fromRoot.getBiometrics)
-        .subscribe(biometrics => this.biometrics = biometrics)
-      );
-
-    this.subscriptions.push(
-      this.store.select(fromRoot.getUpsertMember)
-        .subscribe((member: MemberInfo) => this.upsertMember = member)
-      );
-
-    this.subscriptions.push(
-      this.store.select(fromRoot.getUpsertBiometrics)
-        .subscribe((bio: Biometrics) => this.upsertBiometrics = bio)
-      );
-
-    this.subscriptions.push(
-      this.store.select(fromRoot.getAuditLogs)
-        .subscribe((auditLogs: AuditLog[]) => this.auditLogs = auditLogs)
-      );
-
-    this.subscriptions.push(
-      this.store.select(fromRoot.getRoles)
-        .subscribe((role: string) => {
-          this.role = role;
-        })
+      this.store.select(fromRoot.getUpsertMember).subscribe((member: MemberInfo) => (this.upsertMember = member))
     );
 
     this.subscriptions.push(
-      this.store.select(fromRoot.getLanId)
-        .subscribe((id: string) => {
-          this.lanId = id;
-        })
+      this.store.select(fromRoot.getUpsertBiometrics).subscribe((bio: Biometrics) => (this.upsertBiometrics = bio))
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getAuditLogs).subscribe((auditLogs: AuditLog[]) => (this.auditLogs = auditLogs))
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getRoles).subscribe((role: string) => {
+        this.role = role;
+      })
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getLanId).subscribe((id: string) => {
+        this.lanId = id;
+      })
     );
 
     this.store.dispatch(new MemberDetailAction.Load(memberId));

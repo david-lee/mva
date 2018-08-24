@@ -6,7 +6,7 @@ export interface Member {
   email: string;
   gender: string;
   birthDate: string | Date;
-  customerRole: string;
+  customerRole: string | number;
   memberBranchId: string;
   invalidEmail?: boolean;
 }
