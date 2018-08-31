@@ -10,7 +10,7 @@ import * as MemberListAction from './actions/member-list';
 import * as fromRoot from '../core/reducers';
 import { DataTable } from 'primeng/primeng';
 import { environment } from '../../environments/environment';
-import {Message} from 'primeng/components/common/api';
+import { Message } from 'primeng/components/common/api';
 import * as _ from 'lodash';
 
 @Component({
@@ -19,8 +19,8 @@ import * as _ from 'lodash';
   styleUrls: ['./member-list.component.scss']
 })
 export class MemberListComponent implements OnInit, OnDestroy {
-
-  @ViewChild('dt') dataTable;
+  @ViewChild('dt')
+  dataTable;
 
   members: Member[];
   lanId: string;
@@ -43,46 +43,41 @@ export class MemberListComponent implements OnInit, OnDestroy {
     return environment.lookups.customerRoles;
   }
 
-  constructor(public store: Store<fromRoot.State>, public router: Router) { }
+  constructor(public store: Store<fromRoot.State>, public router: Router) {}
 
   ngOnInit() {
     this.subscriptions.push(
-      this.store.select(fromRoot.getMemberList)
-        .subscribe((members) => {
-          this.members = members;
-          // by default filter members who have an empty email
-          this.emailFilterChecked = true;
-          setTimeout(() => this.filterEmail(), 0);
-        })
+      this.store.select(fromRoot.getMemberList).subscribe(members => {
+        this.members = members;
+        // by default filter members who have an empty email
+        this.emailFilterChecked = true;
+        setTimeout(() => this.filterEmail(), 0);
+      })
     );
 
     this.subscriptions.push(
-      this.store.select(fromRoot.getNewMember)
-        .subscribe((member: MemberInfo) => {
-          this.newMember = member;
-        })
+      this.store.select(fromRoot.getNewMember).subscribe((member: MemberInfo) => {
+        this.newMember = member;
+      })
     );
 
     this.subscriptions.push(
-      this.store.select(fromRoot.getMemberError)
-        .subscribe((error: Message[]) => {
-          this.errorMessage = error;
-        })
-    );    
-
-    this.subscriptions.push(
-      this.store.select(fromRoot.getRoles)
-        .subscribe((role: string) => {
-          this.role = role;
-        })
+      this.store.select(fromRoot.getMemberError).subscribe((error: Message[]) => {
+        this.errorMessage = error;
+      })
     );
 
     this.subscriptions.push(
-      this.store.select(fromRoot.getLanId)
-        .subscribe((id: string) => {
-          this.lanId = id;
-        })
-    );    
+      this.store.select(fromRoot.getRoles).subscribe((role: string) => {
+        this.role = role;
+      })
+    );
+
+    this.subscriptions.push(
+      this.store.select(fromRoot.getLanId).subscribe((id: string) => {
+        this.lanId = id;
+      })
+    );
 
     this.store.dispatch(new MemberListAction.Load());
   }
@@ -138,12 +133,16 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
   validateEmail(email) {
     // tslint:disable-next-line:max-line-length
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     return re.test(email);
   }
 
   updateEmail(member: Member) {
+    if (this.role === 'inquiry') {
+      return;
+    }
+
     const test = this.validateEmail(member.email);
 
     if (!test) {
@@ -151,7 +150,7 @@ export class MemberListComponent implements OnInit, OnDestroy {
       this.store.dispatch(new MemberListAction.UpdateEmailFail(`${member.id} has an invalid email`));
     } else {
       member.invalidEmail = false;
-      this.store.dispatch(new MemberListAction.UpdateEmail({member: member, lanId: this.lanId}));
+      this.store.dispatch(new MemberListAction.UpdateEmail({ member: member, lanId: this.lanId }));
     }
   }
 

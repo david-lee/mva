@@ -1,6 +1,6 @@
-import {Message} from 'primeng/components/common/api';
+import { Message } from 'primeng/components/common/api';
 import * as AuthAction from '../actions/auth';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 export interface State {
   lanId: string;
@@ -23,10 +23,14 @@ export function reducer(state = initialState, action: AuthAction.Actions): State
       if (!permission.length) {
         role = '';
       } else {
-        role = _.findIndex(permission, (role: string) => {
-          let r = role.toLowerCase(); 
-          return (r == 'caneditpromo' || r == 'admin');
-        }) >= 0 ? 'promo' : 'data'
+        role =
+          _.findIndex(permission, (r: string) => {
+            return r === 'CanEditPromo' || r === 'Administrator';
+          }) >= 0
+            ? 'promo'
+            : _.find(permission, (r: string) => r === 'CanEditInq')
+              ? 'inquiry'
+              : 'data';
       }
 
       return {
@@ -34,7 +38,7 @@ export function reducer(state = initialState, action: AuthAction.Actions): State
         isAuthed: true,
         role: role,
         lanId: action.payload.lanId
-      }
+      };
     }
 
     default:

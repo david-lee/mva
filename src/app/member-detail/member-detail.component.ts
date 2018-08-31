@@ -32,7 +32,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   upsertBiometrics: Biometrics;
 
   get isEditable() {
-    return this.role == 'promo' || (this.role == 'data' && this.member[0] && this.member[0].customerRole === 24);
+    return this.role === 'promo' || (this.role === 'data' && this.member[0] && this.member[0].customerRole === 24);
   }
 
   get isPromoMember() {

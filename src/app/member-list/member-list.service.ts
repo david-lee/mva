@@ -12,24 +12,29 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class MemberListService {
-
   api = environment.endPoints;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {}
 
-  loadMembers(): Observable<Member[]> {    
+  loadMembers(): Observable<Member[]> {
     return this.http.get<Member[]>(this.api.memberList);
   }
 
   saveMember(addMember: any): Observable<any> {
-    let data = _.omit(addMember.member, ['id', 'lastUpdateDate', 'establishedOnC360','employerBranchId',
-      'vitalityTermdate','accountStrategy','altMemberId'
+    const data = _.omit(addMember.member, [
+      'id',
+      'lastUpdateDate',
+      'establishedOnC360',
+      'employerBranchId',
+      'vitalityTermdate',
+      'accountStrategy',
+      'altMemberId'
     ]);
 
-    return this.http.post<any>(`${this.api.member}`, {...data, lanId: addMember.lanId});
+    return this.http.post<any>(`${this.api.member}`, { ...data, lanId: addMember.lanId });
   }
 
   updateEmail(email, id, lanId): Observable<any> {
-    return this.http.put(`${this.api.member}/${id}`, {email: email, lastUpdateUser: lanId});
+    return this.http.put(`${this.api.member}/${id}`, { email: email, lastUpdateUser: lanId });
   }
 }
